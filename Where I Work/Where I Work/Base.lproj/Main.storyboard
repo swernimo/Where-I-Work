@@ -60,6 +60,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="mapView" destination="ekv-CH-1Id" id="6Ik-Vc-Lmk"/>
                         <segue destination="9Zw-Nd-Fo7" kind="presentation" identifier="newLocationSegue" id="ci5-iN-9Qg"/>
                     </connections>
                 </viewController>
