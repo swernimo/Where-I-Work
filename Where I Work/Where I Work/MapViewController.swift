@@ -14,15 +14,18 @@ import CoreLocation
 class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapViewDelegate{
     
     var locationManager: CLLocationManager!
+    let locationHelper = LocationHelper()
+    
     @IBOutlet weak var mapView: MKMapView!
     
     override func viewDidLoad() {
        setupLocationManager()
         setupMapView()
+        getLocations()
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let segueName = segue.identifier;
+//        let segueName = segue.identifier;
     }
     
     func setupLocationManager()->Void{
@@ -62,5 +65,27 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
     
     @IBAction func locationRefresh_Clicked(sender: UIBarButtonItem) {
         updateMapViewToUserCurrentLocation(getUserCurrentLocation())
+    }
+    
+    func getLocations() -> Void{
+        let location = getUserCurrentLocation()
+        let lat = location.latitude
+        let long = location.longitude
+        
+        locationHelper.getLocations(lat, longitude: long){
+            (locations, error) in
+            
+            guard let _ = error where error != nil else{
+                print(error)
+                return
+            }
+            
+            /*
+                TODO: 
+                    loop over each location
+                    create an MKPointAnnotiation
+                    add point annotation to mapview
+            */
+        }
     }
 }
