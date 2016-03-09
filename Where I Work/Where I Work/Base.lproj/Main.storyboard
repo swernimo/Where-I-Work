@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Bm9-T7-ziO">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Map View Controller-->
@@ -16,11 +17,55 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ekv-CH-1Id">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                            </mapView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ekv-CH-1Id" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="DJu-WT-Th2"/>
+                            <constraint firstItem="ekv-CH-1Id" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="FtC-xD-dwA"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ekv-CH-1Id" secondAttribute="trailing" constant="-20" id="c0o-kx-fUi"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ekv-CH-1Id" secondAttribute="bottom" id="uMx-rX-QsE"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="ekv-CH-1Id"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="DJu-WT-Th2"/>
+                                <exclude reference="FtC-xD-dwA"/>
+                                <exclude reference="c0o-kx-fUi"/>
+                                <exclude reference="uMx-rX-QsE"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="ekv-CH-1Id"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="DJu-WT-Th2"/>
+                                <include reference="FtC-xD-dwA"/>
+                                <include reference="c0o-kx-fUi"/>
+                                <include reference="uMx-rX-QsE"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <navigationItem key="navigationItem" id="xjr-C6-Gxd">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="3zJ-5T-o3U">
+                            <connections>
+                                <segue destination="lm6-y1-2Hm" kind="presentation" identifier="newLocationSegue" id="e0V-v1-vCS"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <segue destination="9Zw-Nd-Fo7" kind="presentation" identifier="newLocationSegue" id="ci5-iN-9Qg"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="1329" y="618"/>
         </scene>
         <!--Rate Location View Controller-->
         <scene sceneID="dZ7-p4-dyE">
@@ -32,12 +77,42 @@
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Oox-4F-nbp">
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rate Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AYi-Wf-g1L">
+                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="AYi-Wf-g1L" firstAttribute="centerX" secondItem="Oox-4F-nbp" secondAttribute="centerX" id="5PW-ai-jTf"/>
+                            <constraint firstItem="AYi-Wf-g1L" firstAttribute="centerY" secondItem="Oox-4F-nbp" secondAttribute="centerY" id="deU-Nm-JTh"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="AYi-Wf-g1L"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="5PW-ai-jTf"/>
+                                <exclude reference="deU-Nm-JTh"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="AYi-Wf-g1L"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="5PW-ai-jTf"/>
+                                <include reference="deU-Nm-JTh"/>
+                            </mask>
+                        </variation>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="urE-R9-Ez1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1398" y="952.5"/>
+            <point key="canvasLocation" x="2316" y="952.5"/>
         </scene>
         <!--New Location View Controller-->
         <scene sceneID="sKI-T4-6Y5">
@@ -49,12 +124,60 @@
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="VNS-An-1ns">
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9xI-1b-JEu">
+                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="9xI-1b-JEu" firstAttribute="centerY" secondItem="VNS-An-1ns" secondAttribute="centerY" id="8Pm-tp-Bve"/>
+                            <constraint firstItem="9xI-1b-JEu" firstAttribute="centerX" secondItem="VNS-An-1ns" secondAttribute="centerX" id="lYk-nC-W6A"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="9xI-1b-JEu"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="8Pm-tp-Bve"/>
+                                <exclude reference="lYk-nC-W6A"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="9xI-1b-JEu"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="8Pm-tp-Bve"/>
+                                <include reference="lYk-nC-W6A"/>
+                            </mask>
+                        </variation>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rxY-5Q-7c5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1396.5" y="282.75"/>
+            <point key="canvasLocation" x="2314.5" y="282.75"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="0TU-JJ-bZx">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Bm9-T7-ziO" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="6nO-E8-rZw">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="8cb-g9-ILU"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4Wd-Ev-2Oq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="355.5" y="618"/>
         </scene>
     </scenes>
 </document>
