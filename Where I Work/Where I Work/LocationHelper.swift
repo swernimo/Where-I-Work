@@ -12,6 +12,7 @@ import CoreData
 
 class LocationHelper {
     func getLocations(latitude: Double, longitude: Double, completionHandler: (locations: [AnyObject], error: NSError?) -> Void) -> Void{
+        
         /*
             TODO:
                 Load data from YELP

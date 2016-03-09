@@ -71,7 +71,7 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
         let location = getUserCurrentLocation()
         let lat = location.latitude
         let long = location.longitude
-        
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true;
         locationHelper.getLocations(lat, longitude: long){
             (locations, error) in
             
