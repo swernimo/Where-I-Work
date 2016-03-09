@@ -11,13 +11,14 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class MapViewController : UIViewController, CLLocationManagerDelegate{
+class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapViewDelegate{
     
     var locationManager: CLLocationManager!
     @IBOutlet weak var mapView: MKMapView!
     
     override func viewDidLoad() {
        setupLocationManager()
+        setupMapView()
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -34,13 +35,32 @@ class MapViewController : UIViewController, CLLocationManagerDelegate{
         }
     }
     
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        //code taken from http://stackoverflow.com/questions/25449469/swift-show-current-location-and-update-location-in-a-mkmapview
-        let location = locations.last! as CLLocation
-        
-        let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+//    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//        //code taken from http://stackoverflow.com/questions/25449469/swift-show-current-location-and-update-location-in-a-mkmapview
+//        let location = locations.last! as CLLocation
+//        
+//        let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+//        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+//        
+//        mapView.setRegion(region, animated: true)
+//    }
+    
+    func setupMapView(){
+        mapView.delegate = self
+        updateMapViewToUserCurrentLocation(getUserCurrentLocation())
+    }
+    
+    func getUserCurrentLocation() -> CLLocationCoordinate2D{
+        return (locationManager.location?.coordinate)!
+    }
+    
+    func updateMapViewToUserCurrentLocation(userLocation: CLLocationCoordinate2D) -> Void{
+        let region = MKCoordinateRegion(center: userLocation, span: MKCoordinateSpanMake(0.01, 0.01))
         
         mapView.setRegion(region, animated: true)
+    }
+    
+    @IBAction func locationRefresh_Clicked(sender: UIBarButtonItem) {
+        updateMapViewToUserCurrentLocation(getUserCurrentLocation())
     }
 }

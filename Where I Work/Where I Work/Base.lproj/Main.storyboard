@@ -53,6 +53,11 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="xjr-C6-Gxd">
+                        <barButtonItem key="leftBarButtonItem" systemItem="refresh" id="Ugx-cN-NzB">
+                            <connections>
+                                <action selector="locationRefresh_Clicked:" destination="BYZ-38-t0r" id="2CH-6k-1ZI"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="3zJ-5T-o3U">
                             <connections>
                                 <segue destination="lm6-y1-2Hm" kind="presentation" identifier="newLocationSegue" id="e0V-v1-vCS"/>
