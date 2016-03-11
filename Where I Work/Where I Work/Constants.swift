@@ -9,8 +9,15 @@
 import Foundation
 
 struct Constants {
+    
+    struct YelpKeys {
+        static let ConsumerKey = "HhY_1qs77I0KH1bQiKVqMA"
+        static let ConsumerSecret = "a539ZREfBzF6CxNJTkodH7sj938"
+        static let Token = "pKuQYrMQwOxkfhZEzKIGPdvWx1UEpP4v"
+        static let TokenSecret = "gDIKRCWkMvpgRP4TVparX"
+    }
+    
     struct APIKeys {
         static let CoworkingMap = ""
-        static let Yelp = ""
     }
 }

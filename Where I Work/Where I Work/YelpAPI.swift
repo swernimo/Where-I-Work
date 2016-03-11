@@ -9,6 +9,7 @@
 import Foundation
 
 class YELPApi {
+    
     func getLocations(latitude: Double, longitude: Double, completionHandler: (results: [Location], error: NSError?) -> Void){
 //        Constants.APIKeys.Yelp
     }
