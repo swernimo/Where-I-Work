@@ -11,7 +11,7 @@ import CoreData
 
 
 class LocationHelper {
-    func getLocations(latitude: Double, longitude: Double, completionHandler: (locations: [AnyObject], error: NSError?) -> Void) -> Void{
+    func getLocations(latitude: Double, longitude: Double, completionHandler: (locations: [Location], error: NSError?) -> Void) -> Void{
         
         /*
             TODO:
@@ -19,5 +19,15 @@ class LocationHelper {
                 Load data from CoWorkingMap
                 Load data from CoreData
         */
+        
+        var locations: [Location] = []
+        
+        locations.appendContentsOf(loadFromCoreData())
+    }
+    
+    func loadFromCoreData() -> [Location]{
+        let locCoreData = LocationCoreData()
+        
+        return locCoreData.loadSavedLocations()
     }
 }
