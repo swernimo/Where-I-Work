@@ -9,7 +9,9 @@
 import Foundation
 import UIKit
 
-class NewLocationViewController: UIViewController{
+class NewLocationViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
+    
+    let categories: [String] = ["Select A Category", "Coffee", "Library"]
     
     @IBOutlet weak var businessName: UITextField!
     @IBOutlet weak var streetAddress: UITextField!
@@ -21,13 +23,37 @@ class NewLocationViewController: UIViewController{
     @IBOutlet weak var pinColor: UISegmentedControl!
     
     override func viewDidLoad() {
+        setupCategoryPickerView()
         loadDefaults()
     }
     
     func loadDefaults() -> Void{
-        
+        businessName.text = nil
+        streetAddress.text = nil
+        city.text = nil
+        state.text = nil
+        zipCode.text = nil
+        website.text = nil
+        pinColor.selectedSegmentIndex = 3
+        categoryPicker.selectRow(0, inComponent: 0, animated: false)
     }
     
+    func setupCategoryPickerView(){
+        categoryPicker.delegate = self
+        categoryPicker.dataSource = self
+        categoryPicker.showsSelectionIndicator = true    }
+    
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return categories[row]
+    }
+    
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return categories.count
+    }
     
     @IBAction func cancelButton_Clicked(sender: UIBarButtonItem) {
         print("cancel add new location")
