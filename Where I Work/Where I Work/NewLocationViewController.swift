@@ -56,13 +56,11 @@ class NewLocationViewController: UIViewController, UIPickerViewDelegate, UIPicke
     }
     
     @IBAction func cancelButton_Clicked(sender: UIBarButtonItem) {
-        print("cancel add new location")
         loadDefaults()
         performSegueWithIdentifier("cancelAddSegue", sender: nil)
     }
     
     @IBAction func saveButton_Clicked(sender: UIBarButtonItem) {
-        print("save new location")
         //create new location
         //save it to core data
         //navigate to the rating page
