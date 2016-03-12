@@ -5,6 +5,7 @@
 //  Created by Timothy Lee on 9/19/14.
 //  Copyright (c) 2014 Timothy Lee. All rights reserved.
 // https://github.com/codepath/ios_yelp_swift/blob/master/Yelp/YelpClient.swift
+// modified by Sean Wernimont
 
 import UIKit
 
@@ -21,6 +22,8 @@ enum YelpSortMode: Int {
 }
 
 class YelpClient : BDBOAuth1RequestOperationManager {
+    let sharedContext = CoreDataStackManager.sharedInstance().managedObjectContext
+    
     var accessToken: String!
         var accessSecret: String!
     
@@ -57,23 +60,101 @@ class YelpClient : BDBOAuth1RequestOperationManager {
         params["filter_category"] = "coffee,libraries"
         params["limit"] = 20
         params["radius_filter"] = 5000
-//        params["term"] = "coffee"
         params["sort"] = YelpSortMode.Distance.rawValue
-        
-        print(params)
         
         self.GET("search", parameters: params, success: {
             (operation, response) in
             
+            var locationArray: [Location] = []
+            
             guard let businesses = response["businesses"] as? [NSDictionary] else{
-                completionHandler(locations: [], error: NSError(domain: "YelpClient", code: -1, userInfo: ["Description": ""]))
+                completionHandler(locations: [], error: self.createNSError("could not find businesses key in return"))
                 return
             }
             
-            
+            for(_, bus) in businesses.enumerate(){
+                guard let name = bus["name"] as? String else{
+                    completionHandler(locations: [], error: self.createNSError("could not business name"))
+                    return
+                }
+                
+                guard let location = bus["location"] as? NSDictionary else{
+                    completionHandler(locations: [], error: self.createNSError("could not find location"))
+                    return
+                }
+                
+                guard let coordinate = location["coordinate"] as? NSDictionary else{
+                    completionHandler(locations: [], error: self.createNSError("could not find coordinate within location"))
+                    return
+                }
+                
+                guard let lat = coordinate["latitude"] as? Double else{
+                    completionHandler(locations: [], error: self.createNSError("could not find latitude within coordinate"))
+                    return
+                }
+                
+                guard let long = coordinate["longitude"] as? Double else{
+                    completionHandler(locations: [], error: self.createNSError("could not find longitude within coordinate"))
+                    return
+                }
+                
+                guard let categoryArray = bus["categories"] as? [[String]] else{
+                    completionHandler(locations: [], error: self.createNSError("could not find category array within business"))
+                    return
+                }
+                
+                var categoryName: String = ""
+                
+                for(_, category) in categoryArray.enumerate(){
+                    if(category.contains("coffee")){
+                        categoryName = "coffee"
+                        break
+                    }else if (category.contains("libraries")){
+                        categoryName = "libraries"
+                        break
+                    }
+                }
+                
+                let address = self.parseAddressFromLocationDictionary(location)
+                
+                let loc = Location(lat: lat, long: long, name: name, adr: address, url: nil, category: categoryName, context: self.sharedContext)
+                
+                locationArray.append(loc)
+            }
+            completionHandler(locations: locationArray, error: nil)
             },
             failure: { (operation, error) in
                 completionHandler(locations: [], error: error)
         })
+    }
+    
+    func createNSError(errorDescription: String) -> NSError{
+        return NSError(domain: "YelpClient", code: -1, userInfo: ["Description" : errorDescription])
+    }
+    
+    func parseAddressFromLocationDictionary(dictionary: NSDictionary) -> Address?{
+        guard let streetAddress = dictionary["address"] as? [String] else{
+            return nil
+        }
+        
+        if(streetAddress.isEmpty){
+            return nil
+        }
+        
+        let line1 = streetAddress[0]
+        
+        guard let postalCode = dictionary["postal_code"] as? String else{
+            return nil
+        }
+        
+        guard let state = dictionary["state_code"] as? String else{
+            return nil
+        }
+        
+        guard let city = dictionary["city"] as? String else{
+            return nil
+        }
+        
+        return Address(street: line1, city: city, zip: postalCode, state: state, context: sharedContext)
     }
 }

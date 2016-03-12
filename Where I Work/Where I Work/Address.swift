@@ -14,6 +14,7 @@ class Address: NSManagedObject{
     
     @NSManaged var street: String
     @NSManaged var city: String
+    @NSManaged var state: String
     @NSManaged var zipCode: String
     @NSManaged var id: String
     
@@ -22,7 +23,7 @@ class Address: NSManagedObject{
         super.init(entity: entity, insertIntoManagedObjectContext: context)
     }
     
-    init(street: String, city: String, zip: String, context: NSManagedObjectContext){
+    init(street: String, city: String, zip: String, state: String, context: NSManagedObjectContext){
         let entity =  NSEntityDescription.entityForName("Address", inManagedObjectContext: context)!
         super.init(entity: entity, insertIntoManagedObjectContext: context)
         
@@ -30,5 +31,6 @@ class Address: NSManagedObject{
         self.street = street
         self.city = city
         zipCode = zip
+        self.state = state
     }
 }

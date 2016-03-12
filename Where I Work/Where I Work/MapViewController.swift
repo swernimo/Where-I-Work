@@ -75,17 +75,22 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
         locationHelper.getLocations(lat, longitude: long){
             (locations, error) in
             
-            guard let _ = error where error != nil else{
+            if(error != nil){
                 print(error)
-                return
             }
             
-            /*
-                TODO: 
-                    loop over each location
-                    create an MKPointAnnotiation
-                    add point annotation to mapview
-            */
+            for(_, location) in locations.enumerate(){
+                let annotation = self.createMKPointAnnotationFromLocation(location)
+                self.mapView.addAnnotation(annotation)
+            }
+            UIApplication.sharedApplication().networkActivityIndicatorVisible = false;
         }
+    }
+    
+    func createMKPointAnnotationFromLocation(location: Location) -> MKPointAnnotation{
+        let location = CLLocationCoordinate2DMake(location.latitude, location.longitude)
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = location
+        return annotation
     }
 }

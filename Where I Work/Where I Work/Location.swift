@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 @objc(Location)
 class Location: NSManagedObject {
@@ -17,8 +18,9 @@ class Location: NSManagedObject {
     @NSManaged var id: String
     @NSManaged var businessName: String
     @NSManaged var address: Address?
-    @NSManaged var website: String
-    
+    @NSManaged var website: String?
+    @NSManaged var category: String
+    var pinColor: UIColor = UIColor.clearColor()
     
     //includ fields for ratings
     
@@ -27,7 +29,7 @@ class Location: NSManagedObject {
         super.init(entity: entity, insertIntoManagedObjectContext: context)
     }
     
-    init(lat: Double, long: Double, name: String, adr: Address?, url: String, context: NSManagedObjectContext){
+    init(lat: Double, long: Double, name: String, adr: Address?, url: String?, category: String, context: NSManagedObjectContext){
         let entity =  NSEntityDescription.entityForName("Location", inManagedObjectContext: context)!
         super.init(entity: entity, insertIntoManagedObjectContext: context)
         
@@ -37,5 +39,15 @@ class Location: NSManagedObject {
         businessName = name
         address = adr
         website = url
+        self.category = category
+        setPinColor()
+    }
+    
+    func setPinColor(){
+        if(category == "coffee"){
+            pinColor = UIColor.redColor()
+        }else if(category == "libraries"){
+            pinColor = UIColor.purpleColor()
+        }
     }
 }

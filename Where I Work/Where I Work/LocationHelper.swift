@@ -12,17 +12,18 @@ import CoreData
 
 class LocationHelper {
     func getLocations(latitude: Double, longitude: Double, completionHandler: (locations: [Location], error: NSError?) -> Void) -> Void{
-        
-        /*
-            TODO:
-                Load data from YELP
-                Load data from CoWorkingMap
-        */
-        
         var locations: [Location] = []
         
         locations.appendContentsOf(loadFromCoreData())
-        loadFromYelp(latitude, long: longitude)
+        loadFromYelp(latitude, long: longitude) {
+            (results, error) in
+            
+            if(error == nil && results.count > 0){
+                locations.appendContentsOf(results)
+            }
+            
+            completionHandler(locations: locations, error: error)
+        }
     }
     
     func loadFromCoreData() -> [Location]{
@@ -31,11 +32,12 @@ class LocationHelper {
         return locCoreData.loadSavedLocations()
     }
     
-    func loadFromYelp(lat: Double, long: Double) {
+    func loadFromYelp(lat: Double, long: Double, completionHandler: (locations: [Location], error: NSError?) -> Void) {
         
         YelpClient.sharedInstance.getLocations(lat, longitude: long) {
             (locations, error) in
-            print("I'm really tired and need to go to bed.")
+            
+            completionHandler(locations: locations, error: error)
         }
     }
 }
