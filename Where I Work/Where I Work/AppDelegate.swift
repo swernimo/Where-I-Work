@@ -8,7 +8,6 @@
 
 import UIKit
 import CoreData
-import OAuthSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -45,11 +44,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         CoreDataStackManager.sharedInstance().saveContext()
     }
     
-    func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
-        if (url.host == "oauth-callback") {
-            OAuthSwift.handleOpenURL(url)
-        }
-        return true
-    }
+//    func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
+//        if (url.host == "oauth-callback") {
+//            OAuthSwift.handleOpenURL(url)
+//        }
+//        return true
+//    }
 }
 

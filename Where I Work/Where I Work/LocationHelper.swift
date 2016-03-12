@@ -17,17 +17,25 @@ class LocationHelper {
             TODO:
                 Load data from YELP
                 Load data from CoWorkingMap
-                Load data from CoreData
         */
         
         var locations: [Location] = []
         
         locations.appendContentsOf(loadFromCoreData())
+        loadFromYelp(latitude, long: longitude)
     }
     
     func loadFromCoreData() -> [Location]{
         let locCoreData = LocationCoreData()
         
         return locCoreData.loadSavedLocations()
+    }
+    
+    func loadFromYelp(lat: Double, long: Double) {
+        
+        YelpClient.sharedInstance.getLocations(lat, longitude: long) {
+            (locations, error) in
+            print("I'm really tired and need to go to bed.")
+        }
     }
 }
