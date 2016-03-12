@@ -8,8 +8,9 @@
 
 import Foundation
 import UIKit
+import MapKit
 
-class NewLocationViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
+class NewLocationViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, CLLocationManagerDelegate{
     
     let categories: [String] = ["Select A Category", "Coffee", "Library"]
     
@@ -53,6 +54,17 @@ class NewLocationViewController: UIViewController, UIPickerViewDelegate, UIPicke
     
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return categories.count
+    }
+    
+    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        switch(status){
+        case .NotDetermined, .Restricted, .Denied:
+            performSegueWithIdentifier("locationNotAuthorizedSegue", sender: nil)
+            break
+        default:
+            break
+        }
+
     }
     
     @IBAction func cancelButton_Clicked(sender: UIBarButtonItem) {

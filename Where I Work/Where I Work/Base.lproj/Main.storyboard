@@ -10,7 +10,7 @@
         <!--Map View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="MapViewController" customModule="Where_I_Work" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MapViewController" id="BYZ-38-t0r" customClass="MapViewController" customModule="Where_I_Work" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -251,6 +251,9 @@
                             </mask>
                         </variation>
                     </view>
+                    <connections>
+                        <segue destination="iZh-85-XFu" kind="show" identifier="locationNotAuthorizedSegue" id="a6s-nK-g5c"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="urE-R9-Ez1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -557,6 +560,7 @@
                         <outlet property="website" destination="TWQ-xY-OSP" id="Nj4-KE-JcP"/>
                         <outlet property="zipCode" destination="VUO-fX-c7W" id="KEL-RM-il9"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="cancelAddSegue" id="pKd-es-0UZ"/>
+                        <segue destination="iZh-85-XFu" kind="show" identifier="locationNotAuthorizedSegue" id="rKJ-w2-hbh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rxY-5Q-7c5" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -565,6 +569,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="yJM-EO-sgf"/>
+        <segue reference="pKd-es-0UZ"/>
+        <segue reference="rKJ-w2-hbh"/>
     </inferredMetricsTieBreakers>
 </document>

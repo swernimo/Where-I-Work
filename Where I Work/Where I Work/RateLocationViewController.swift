@@ -8,8 +8,19 @@
 
 import Foundation
 import UIKit
+import MapKit
 
-
-class RateLocationViewController : UIViewController{
+class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
     
+    
+    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        switch(status){
+        case .NotDetermined, .Restricted, .Denied:
+            performSegueWithIdentifier("locationNotAuthorizedSegue", sender: nil)
+            break
+        default:
+            break
+        }
+        
+    }
 }

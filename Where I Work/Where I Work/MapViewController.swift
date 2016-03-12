@@ -49,17 +49,9 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
         if((status == .AuthorizedAlways) || (status == .AuthorizedWhenInUse)){
             getLocations()
         }
-    }
-    
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-//        //code taken from http://stackoverflow.com/questions/25449469/swift-show-current-location-and-update-location-in-a-mkmapview
-//        let location = locations.last! as CLLocation
-//        
-//        let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-//        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-//
-//        mapView.setRegion(region, animated: true)
-//            region.span.latitudeDelta.
+        else{
+            performSegueWithIdentifier("locationNotAuthorizedSegue", sender: nil)
+        }
     }
 
     func setupMapView(){
