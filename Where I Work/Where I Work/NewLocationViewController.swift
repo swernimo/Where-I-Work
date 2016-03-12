@@ -11,6 +11,15 @@ import UIKit
 
 class NewLocationViewController: UIViewController{
     
+    @IBOutlet weak var businessName: UITextField!
+    @IBOutlet weak var streetAddress: UITextField!
+    @IBOutlet weak var city: UITextField!
+    @IBOutlet weak var state: UITextField!
+    @IBOutlet weak var zipCode: UITextField!
+    @IBOutlet weak var website: UITextField!
+    @IBOutlet weak var categoryPicker: UIPickerView!
+    @IBOutlet weak var pinColor: UISegmentedControl!
+    
     override func viewDidLoad() {
         loadDefaults()
     }
