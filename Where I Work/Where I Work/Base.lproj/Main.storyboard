@@ -108,10 +108,10 @@
             </objects>
             <point key="canvasLocation" x="1329" y="618"/>
         </scene>
-        <!--View Controller-->
+        <!--Location Disabled View Controller-->
         <scene sceneID="Pyr-d1-TDn">
             <objects>
-                <viewController id="iZh-85-XFu" sceneMemberID="viewController">
+                <viewController id="iZh-85-XFu" customClass="LocationDisabledViewController" customModule="Where_I_Work" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="V1h-BE-4UI"/>
                         <viewControllerLayoutGuide type="bottom" id="uxl-hp-g8O"/>
@@ -200,6 +200,9 @@
                             </mask>
                         </variation>
                     </view>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="mapViewSegue" id="yJM-EO-sgf"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Syt-aQ-9PI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -561,4 +564,7 @@
             <point key="canvasLocation" x="2314.5" y="282.75"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="yJM-EO-sgf"/>
+    </inferredMetricsTieBreakers>
 </document>
