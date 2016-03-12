@@ -46,9 +46,7 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
     }
     
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-        print("location authorization status changed")
         if((status == .AuthorizedAlways) || (status == .AuthorizedWhenInUse)){
-            print("location services are now authorized.")
             getLocations()
         }
     }
@@ -81,6 +79,10 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
     
     @IBAction func locationRefresh_Clicked(sender: UIBarButtonItem) {
         updateMapViewToUserCurrentLocation(getUserCurrentLocation())
+    }
+    
+    @IBAction func addLocation_Clicked(sender: UIBarButtonItem) {
+        performSegueWithIdentifier("newLocationSegue", sender: nil)
     }
     
     func getLocations() -> Void{

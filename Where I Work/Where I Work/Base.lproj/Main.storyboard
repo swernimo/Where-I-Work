@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Bm9-T7-ziO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
@@ -22,34 +22,67 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ekv-CH-1Id">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                             </mapView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fax-eh-Zae">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <items>
+                                    <navigationItem title="Where I Work" id="ijQ-lT-1qE">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="refresh" id="I4n-wI-LUa">
+                                            <connections>
+                                                <action selector="locationRefresh_Clicked:" destination="BYZ-38-t0r" id="GYI-rU-F9U"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="AFF-VA-UYR">
+                                            <connections>
+                                                <action selector="addLocation_Clicked:" destination="BYZ-38-t0r" id="89H-4H-byi"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="ekv-CH-1Id" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="DJu-WT-Th2"/>
+                            <constraint firstItem="ekv-CH-1Id" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="DJu-WT-Th2">
+                                <variation key="heightClass=regular-widthClass=compact" constant="44"/>
+                            </constraint>
                             <constraint firstItem="ekv-CH-1Id" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="FtC-xD-dwA"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ekv-CH-1Id" secondAttribute="trailing" constant="-20" id="c0o-kx-fUi"/>
+                            <constraint firstItem="Fax-eh-Zae" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="dfa-ti-amX"/>
+                            <constraint firstItem="Fax-eh-Zae" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="lR2-Za-fjd"/>
+                            <constraint firstItem="ekv-CH-1Id" firstAttribute="top" secondItem="Fax-eh-Zae" secondAttribute="bottom" id="pOL-3f-y3M"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ekv-CH-1Id" secondAttribute="bottom" id="uMx-rX-QsE"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Fax-eh-Zae" secondAttribute="trailing" constant="-20" id="v2S-40-nRI"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="ekv-CH-1Id"/>
+                                <exclude reference="Fax-eh-Zae"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="uMx-rX-QsE"/>
+                                <exclude reference="dfa-ti-amX"/>
+                                <exclude reference="lR2-Za-fjd"/>
+                                <exclude reference="v2S-40-nRI"/>
                                 <exclude reference="DJu-WT-Th2"/>
                                 <exclude reference="FtC-xD-dwA"/>
                                 <exclude reference="c0o-kx-fUi"/>
+                                <exclude reference="pOL-3f-y3M"/>
+                                <exclude reference="uMx-rX-QsE"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
                                 <include reference="ekv-CH-1Id"/>
+                                <include reference="Fax-eh-Zae"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="uMx-rX-QsE"/>
+                                <include reference="dfa-ti-amX"/>
+                                <include reference="lR2-Za-fjd"/>
+                                <include reference="v2S-40-nRI"/>
                                 <include reference="DJu-WT-Th2"/>
                                 <include reference="FtC-xD-dwA"/>
                                 <include reference="c0o-kx-fUi"/>
+                                <include reference="pOL-3f-y3M"/>
+                                <include reference="uMx-rX-QsE"/>
                             </mask>
                         </variation>
                     </view>
@@ -61,13 +94,13 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="3zJ-5T-o3U">
                             <connections>
-                                <segue destination="lm6-y1-2Hm" kind="presentation" identifier="newLocationSegue" id="e0V-v1-vCS"/>
+                                <segue destination="lm6-y1-2Hm" kind="show" identifier="newLocationSegue" id="e0V-v1-vCS"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="ekv-CH-1Id" id="6Ik-Vc-Lmk"/>
-                        <segue destination="9Zw-Nd-Fo7" kind="presentation" identifier="newLocationSegue" id="ci5-iN-9Qg"/>
+                        <segue destination="9Zw-Nd-Fo7" kind="presentation" identifier="rateLocationSegue" id="ci5-iN-9Qg"/>
                         <segue destination="iZh-85-XFu" kind="presentation" identifier="locationNotAuthorizedSegue" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="WXD-Gr-um0"/>
                     </connections>
                 </viewController>
@@ -231,59 +264,58 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9xI-1b-JEu">
-                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fQH-KQ-lfy">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <items>
+                                    <navigationItem title="Add New Location" id="5ng-NR-5qE">
+                                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="phJ-ek-D9p">
+                                            <connections>
+                                                <action selector="cancelButton_Clicked:" destination="lm6-y1-2Hm" id="nVC-iZ-RXi"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" title="Save" id="QCn-Ps-pli">
+                                            <connections>
+                                                <action selector="saveButton_Clicked:" destination="lm6-y1-2Hm" id="NRH-Ca-Nr0"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="9xI-1b-JEu" firstAttribute="centerY" secondItem="VNS-An-1ns" secondAttribute="centerY" id="8Pm-tp-Bve"/>
-                            <constraint firstItem="9xI-1b-JEu" firstAttribute="centerX" secondItem="VNS-An-1ns" secondAttribute="centerX" id="lYk-nC-W6A"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="fQH-KQ-lfy" secondAttribute="trailing" constant="-20" id="4dz-vk-Qbu"/>
+                            <constraint firstItem="fQH-KQ-lfy" firstAttribute="leading" secondItem="VNS-An-1ns" secondAttribute="leadingMargin" constant="-20" id="BcF-7r-0b3"/>
+                            <constraint firstItem="fQH-KQ-lfy" firstAttribute="top" secondItem="7ri-CT-jie" secondAttribute="bottom" id="fDS-aV-MQM"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
-                                <exclude reference="9xI-1b-JEu"/>
+                                <exclude reference="fQH-KQ-lfy"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="8Pm-tp-Bve"/>
-                                <exclude reference="lYk-nC-W6A"/>
+                                <exclude reference="4dz-vk-Qbu"/>
+                                <exclude reference="BcF-7r-0b3"/>
+                                <exclude reference="fDS-aV-MQM"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
-                                <include reference="9xI-1b-JEu"/>
+                                <include reference="fQH-KQ-lfy"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="8Pm-tp-Bve"/>
-                                <include reference="lYk-nC-W6A"/>
+                                <include reference="4dz-vk-Qbu"/>
+                                <include reference="BcF-7r-0b3"/>
+                                <include reference="fDS-aV-MQM"/>
                             </mask>
                         </variation>
                     </view>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="cancelAddSegue" id="pKd-es-0UZ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rxY-5Q-7c5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2314.5" y="282.75"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="0TU-JJ-bZx">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Bm9-T7-ziO" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="6nO-E8-rZw">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="8cb-g9-ILU"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4Wd-Ev-2Oq" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="355.5" y="618"/>
         </scene>
     </scenes>
 </document>
