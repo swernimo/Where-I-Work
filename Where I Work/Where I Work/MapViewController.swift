@@ -22,8 +22,7 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
        setupLocationManager()
         switch(CLLocationManager.authorizationStatus()){
         case .NotDetermined, .Restricted, .Denied:
-            //navigate to page that tells user to authorize location services
-            print("location not authorized.")
+         performSegueWithIdentifier("locationNotAuthorizedSegue", sender: nil)
             break
         case .AuthorizedWhenInUse, .AuthorizedAlways:
             setupMapView()
@@ -47,7 +46,9 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
     }
     
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        print("location authorization status changed")
         if((status == .AuthorizedAlways) || (status == .AuthorizedWhenInUse)){
+            print("location services are now authorized.")
             getLocations()
         }
     }
@@ -58,8 +59,9 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
 //        
 //        let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
 //        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-//        
+//
 //        mapView.setRegion(region, animated: true)
+//            region.span.latitudeDelta.
     }
 
     func setupMapView(){

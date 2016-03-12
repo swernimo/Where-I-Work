@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -34,10 +35,10 @@
                                 <exclude reference="ekv-CH-1Id"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="uMx-rX-QsE"/>
                                 <exclude reference="DJu-WT-Th2"/>
                                 <exclude reference="FtC-xD-dwA"/>
                                 <exclude reference="c0o-kx-fUi"/>
-                                <exclude reference="uMx-rX-QsE"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -45,10 +46,10 @@
                                 <include reference="ekv-CH-1Id"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="uMx-rX-QsE"/>
                                 <include reference="DJu-WT-Th2"/>
                                 <include reference="FtC-xD-dwA"/>
                                 <include reference="c0o-kx-fUi"/>
-                                <include reference="uMx-rX-QsE"/>
                             </mask>
                         </variation>
                     </view>
@@ -67,11 +68,108 @@
                     <connections>
                         <outlet property="mapView" destination="ekv-CH-1Id" id="6Ik-Vc-Lmk"/>
                         <segue destination="9Zw-Nd-Fo7" kind="presentation" identifier="newLocationSegue" id="ci5-iN-9Qg"/>
+                        <segue destination="iZh-85-XFu" kind="presentation" identifier="locationNotAuthorizedSegue" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="WXD-Gr-um0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1329" y="618"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Pyr-d1-TDn">
+            <objects>
+                <viewController id="iZh-85-XFu" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="V1h-BE-4UI"/>
+                        <viewControllerLayoutGuide type="bottom" id="uxl-hp-g8O"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="iWp-oQ-GgU">
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please close this app, enable Location Services and relaunch this app." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="12" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IHd-SQ-VFM">
+                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location Services Disabled" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4AZ-UZ-cL2">
+                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="250" id="Dxq-1a-5yu"/>
+                                    <constraint firstAttribute="width" constant="250" id="qhf-ug-QRh"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Dxq-1a-5yu"/>
+                                        <exclude reference="qhf-ug-QRh"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <exclude reference="Dxq-1a-5yu"/>
+                                        <include reference="qhf-ug-QRh"/>
+                                    </mask>
+                                </variation>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="4AZ-UZ-cL2" firstAttribute="leading" secondItem="iWp-oQ-GgU" secondAttribute="leadingMargin" constant="67" id="3Wx-q4-hWp"/>
+                            <constraint firstItem="4AZ-UZ-cL2" firstAttribute="top" secondItem="V1h-BE-4UI" secondAttribute="bottom" constant="60" id="JN2-LA-wzt"/>
+                            <constraint firstItem="4AZ-UZ-cL2" firstAttribute="leading" secondItem="iWp-oQ-GgU" secondAttribute="leadingMargin" constant="86" id="VcZ-fg-B1z">
+                                <variation key="heightClass=regular-widthClass=compact" constant="67"/>
+                            </constraint>
+                            <constraint firstItem="4AZ-UZ-cL2" firstAttribute="centerX" secondItem="iWp-oQ-GgU" secondAttribute="centerX" id="ZYv-px-KIq">
+                                <variation key="heightClass=regular-widthClass=compact" constant="-11"/>
+                            </constraint>
+                            <constraint firstItem="IHd-SQ-VFM" firstAttribute="leading" secondItem="iWp-oQ-GgU" secondAttribute="leadingMargin" constant="25" id="ga3-3n-Lvg"/>
+                            <constraint firstItem="uxl-hp-g8O" firstAttribute="top" secondItem="IHd-SQ-VFM" secondAttribute="bottom" constant="332" id="hBQ-Nc-Jsw"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="4AZ-UZ-cL2" secondAttribute="trailing" constant="43" id="hg9-n8-jX4"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="4AZ-UZ-cL2" secondAttribute="trailing" constant="89" id="mOZ-7u-QbI"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="IHd-SQ-VFM" secondAttribute="trailing" constant="24" id="wFn-yu-zmb"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="IHd-SQ-VFM"/>
+                                <exclude reference="4AZ-UZ-cL2"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="3Wx-q4-hWp"/>
+                                <exclude reference="JN2-LA-wzt"/>
+                                <exclude reference="VcZ-fg-B1z"/>
+                                <exclude reference="ZYv-px-KIq"/>
+                                <exclude reference="hg9-n8-jX4"/>
+                                <exclude reference="mOZ-7u-QbI"/>
+                                <exclude reference="ga3-3n-Lvg"/>
+                                <exclude reference="wFn-yu-zmb"/>
+                                <exclude reference="hBQ-Nc-Jsw"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="IHd-SQ-VFM"/>
+                                <include reference="4AZ-UZ-cL2"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="3Wx-q4-hWp"/>
+                                <include reference="JN2-LA-wzt"/>
+                                <exclude reference="VcZ-fg-B1z"/>
+                                <exclude reference="ZYv-px-KIq"/>
+                                <include reference="hg9-n8-jX4"/>
+                                <exclude reference="mOZ-7u-QbI"/>
+                                <include reference="ga3-3n-Lvg"/>
+                                <include reference="wFn-yu-zmb"/>
+                                <include reference="hBQ-Nc-Jsw"/>
+                            </mask>
+                        </variation>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Syt-aQ-9PI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1324.5" y="1374"/>
         </scene>
         <!--Rate Location View Controller-->
         <scene sceneID="dZ7-p4-dyE">
@@ -82,6 +180,7 @@
                         <viewControllerLayoutGuide type="bottom" id="za6-Js-S5S"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Oox-4F-nbp">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rate Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AYi-Wf-g1L">
@@ -129,6 +228,7 @@
                         <viewControllerLayoutGuide type="bottom" id="P0I-pL-ogY"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="VNS-An-1ns">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9xI-1b-JEu">
