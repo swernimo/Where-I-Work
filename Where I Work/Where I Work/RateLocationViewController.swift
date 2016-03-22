@@ -11,7 +11,11 @@ import UIKit
 import MapKit
 
 class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
+    var location: Location? = nil
     
+    override func viewDidLoad() {
+        
+    }
     
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         switch(status){

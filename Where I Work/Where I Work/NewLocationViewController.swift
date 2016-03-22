@@ -88,4 +88,14 @@ class NewLocationViewController: UIViewController, UIPickerViewDelegate, UIPicke
         let category = categories[row]
         return category
     }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if(segue.identifier == "rateLocationSegue"){
+            let viewController = segue.destinationViewController as! RateLocationViewController
+            
+            viewController.location = sender as? Location
+            
+        }
+    }
 }

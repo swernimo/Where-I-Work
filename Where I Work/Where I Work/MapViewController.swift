@@ -33,12 +33,19 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        guard let viewController = segue.destinationViewController as? NewLocationViewController else{
-            return
+        
+        if(segue.identifier == "rateLocationSegue"){
+          let viewController = segue.destinationViewController as! RateLocationViewController
+            
+            viewController.location = sender as? Location
+            
+        }else if (segue.identifier == "newLocationSegue"){
+            let viewController = segue.destinationViewController as! NewLocationViewController
+            
+            viewController.longitude = (locationManager.location?.coordinate)!.longitude
+            viewController.latitude = (locationManager.location?.coordinate)!.latitude
         }
         
-        viewController.longitude = (locationManager.location?.coordinate)!.longitude
-        viewController.latitude = (locationManager.location?.coordinate)!.latitude
     }
     
     func setupLocationManager()->Void{
