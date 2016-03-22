@@ -32,7 +32,12 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        let segueName = segue.identifier;
+        guard let viewController = segue.destinationViewController as? NewLocationViewController else{
+            return
+        }
+        
+        viewController.longitude = (locationManager.location?.coordinate)!.longitude
+        viewController.latitude = (locationManager.location?.coordinate)!.latitude
     }
     
     func setupLocationManager()->Void{
@@ -91,6 +96,7 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
             
             for(_, location) in locations.enumerate(){
                 let annotation = self.createMKPointAnnotationFromLocation(location)
+                
                 self.mapView.addAnnotation(annotation)
             }
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false;
@@ -98,9 +104,9 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
     }
     
     func createMKPointAnnotationFromLocation(location: Location) -> MKPointAnnotation{
-        let location = CLLocationCoordinate2DMake(location.latitude, location.longitude)
+        let coordinate = CLLocationCoordinate2DMake(location.latitude, location.longitude)
         let annotation = MKPointAnnotation()
-        annotation.coordinate = location
+        annotation.coordinate = coordinate
         return annotation
     }
 }

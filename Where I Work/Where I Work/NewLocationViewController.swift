@@ -21,7 +21,9 @@ class NewLocationViewController: UIViewController, UIPickerViewDelegate, UIPicke
     @IBOutlet weak var zipCode: UITextField!
     @IBOutlet weak var website: UITextField!
     @IBOutlet weak var categoryPicker: UIPickerView!
-    @IBOutlet weak var pinColor: UISegmentedControl!
+    
+    var latitude: Double? = nil
+    var longitude: Double? = nil
     
     override func viewDidLoad() {
         setupCategoryPickerView()
@@ -35,7 +37,6 @@ class NewLocationViewController: UIViewController, UIPickerViewDelegate, UIPicke
         state.text = nil
         zipCode.text = nil
         website.text = nil
-        pinColor.selectedSegmentIndex = 3
         categoryPicker.selectRow(0, inComponent: 0, animated: false)
     }
     
@@ -73,8 +74,18 @@ class NewLocationViewController: UIViewController, UIPickerViewDelegate, UIPicke
     }
     
     @IBAction func saveButton_Clicked(sender: UIBarButtonItem) {
-        //create new location
-        //save it to core data
-        //navigate to the rating page
+        let context = CoreDataStackManager.sharedInstance().managedObjectContext
+       
+        let address = Address(street: streetAddress.text!, city: city.text!, zip: zipCode.text!, state: state.text!, context: context)
+        let location = Location(lat: latitude!, long: longitude!, name: businessName.text!, adr: address, url: website.text, category: getSelectedCategory(), context: context)
+       
+        CoreDataStackManager.sharedInstance().saveContext()
+        performSegueWithIdentifier("rateLocationSegue", sender: location)
+    }
+    
+    func getSelectedCategory() -> String{
+        let row = categoryPicker.selectedRowInComponent(0)
+        let category = categories[row]
+        return category
     }
 }

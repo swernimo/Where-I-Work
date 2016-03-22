@@ -20,7 +20,6 @@ class Location: NSManagedObject {
     @NSManaged var address: Address?
     @NSManaged var website: String?
     @NSManaged var category: String
-    var pinColor: UIColor = UIColor.clearColor()
     
     //includ fields for ratings
     
@@ -40,14 +39,5 @@ class Location: NSManagedObject {
         address = adr
         website = url
         self.category = category
-        setPinColor()
-    }
-    
-    func setPinColor(){
-        if(category == "coffee"){
-            pinColor = UIColor.redColor()
-        }else if(category == "libraries"){
-            pinColor = UIColor.purpleColor()
-        }
     }
 }
