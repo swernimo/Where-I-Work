@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1494E9BB1C94C37C0089F2F6 /* LocationDisabledViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1494E9BA1C94C37C0089F2F6 /* LocationDisabledViewController.swift */; };
+		1494E9BF1CA0F63B0089F2F6 /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1494E9BE1CA0F63B0089F2F6 /* NetworkHelper.swift */; };
 		14A939AB1C8C91270064A22E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A939AA1C8C91270064A22E /* AppDelegate.swift */; };
 		14A939B01C8C91270064A22E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14A939AE1C8C91270064A22E /* Main.storyboard */; };
 		14A939B31C8C91270064A22E /* Where_I_Work.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 14A939B11C8C91270064A22E /* Where_I_Work.xcdatamodeld */; };
@@ -42,6 +43,7 @@
 
 /* Begin PBXFileReference section */
 		1494E9BA1C94C37C0089F2F6 /* LocationDisabledViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationDisabledViewController.swift; sourceTree = "<group>"; };
+		1494E9BE1CA0F63B0089F2F6 /* NetworkHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
 		14A939A71C8C91270064A22E /* Where I Work.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Where I Work.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		14A939AA1C8C91270064A22E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		14A939AF1C8C91270064A22E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 		14A939DD1C925DA60064A22E /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				1494E9BE1CA0F63B0089F2F6 /* NetworkHelper.swift */,
 				14A939DE1C925DB10064A22E /* Constants.swift */,
 				14A939DB1C8FDADE0064A22E /* LocationHelper.swift */,
 			);
@@ -364,6 +367,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1494E9BF1CA0F63B0089F2F6 /* NetworkHelper.swift in Sources */,
 				14A939DA1C8FDAD40064A22E /* YelpClient.swift in Sources */,
 				1494E9BB1C94C37C0089F2F6 /* LocationDisabledViewController.swift in Sources */,
 				14A939E91C9263140064A22E /* LocationCoreData.swift in Sources */,

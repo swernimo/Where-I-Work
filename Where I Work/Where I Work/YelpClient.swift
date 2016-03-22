@@ -121,7 +121,12 @@ class YelpClient : BDBOAuth1RequestOperationManager {
                 
                 locationArray.append(loc)
             }
-            completionHandler(locations: locationArray, error: nil)
+            if(NetworkHelper.isConnectedToNetwork()){
+                completionHandler(locations: locationArray, error: nil)
+            }
+            else{
+                completionHandler(locations: [], error: self.createNSError("Network error"))
+            }
             },
             failure: { (operation, error) in
                 completionHandler(locations: [], error: error)

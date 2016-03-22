@@ -91,6 +91,10 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
             (locations, error) in
             
             if(error != nil){
+                if(error?.description == "Network Error"){
+                    let alertview = UIAlertController(title: "Network Error", message: "You must have network access to use this app", preferredStyle: .Alert)
+                    self.showViewController(alertview, sender: nil)
+                }
                 print(error)
             }
             
@@ -108,5 +112,11 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
         let annotation = MKPointAnnotation()
         annotation.coordinate = coordinate
         return annotation
+    }
+    
+    func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
+        //display a popover with business name and category
+        
+        mapView.deselectAnnotation(view.annotation!, animated: false)
     }
 }
