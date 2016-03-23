@@ -35,7 +35,10 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
     
     func displayLocation(){
         if(location != nil){
-            
+            businessName.text = location?.businessName
+            address.text = location?.address?.getAddressDisplayString()
+            category.text = location?.category
+            website.text = location?.website
         }
         else{
             hideControlsIfLocationIsNil()

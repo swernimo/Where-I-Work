@@ -33,4 +33,16 @@ class Address: NSManagedObject{
         zipCode = zip
         self.state = state
     }
+    
+    func getAddressDisplayString() -> String{
+        var addressString = ""
+        addressString.appendContentsOf(street)
+        addressString.appendContentsOf("\r\n")
+        addressString.appendContentsOf(city)
+        addressString.appendContentsOf(" ")
+        addressString.appendContentsOf(state)
+        addressString.appendContentsOf(", ")
+        addressString.appendContentsOf(zipCode)
+        return addressString
+    }
 }
