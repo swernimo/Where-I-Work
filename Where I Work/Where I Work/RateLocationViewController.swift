@@ -13,7 +13,36 @@ import MapKit
 class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
     var location: Location? = nil
     
+    
+    @IBOutlet weak var businessName: UILabel!
+    @IBOutlet weak var address: UILabel!
+    @IBOutlet weak var category: UILabel!
+    @IBOutlet weak var website: UILabel!
+    @IBOutlet weak var noiseLevelStepper: UIStepper!
+    @IBOutlet weak var noiseLevelLabel: UILabel!
+    @IBOutlet weak var freeWifiSwitch: UISwitch!
+    @IBOutlet weak var wifiStrengthStepper: UIStepper!
+    @IBOutlet weak var wifiStrengthLabel: UILabel!
+    @IBOutlet weak var seatingAvailabliityStepper: UIStepper!
+    @IBOutlet weak var seatingAvailabiltyLabel: UILabel!
+    @IBOutlet weak var workThereAgainSwitch: UISwitch!
+    @IBOutlet weak var notesTextView: UITextView!
+    
+    
     override func viewDidLoad() {
+        displayLocation()
+    }
+    
+    func displayLocation(){
+        if(location != nil){
+            
+        }
+        else{
+            hideControlsIfLocationIsNil()
+        }
+    }
+    
+    func hideControlsIfLocationIsNil(){
         
     }
     
@@ -26,5 +55,20 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
             break
         }
         
+    }
+    
+    @IBAction func cancelButton_Clicked(sender: UIBarButtonItem) {
+        performSegueWithIdentifier("mapViewSegue", sender: nil)
+    }
+
+    @IBAction func saveButton_Clicked(sender: UIBarButtonItem) {
+        //TODO: create new rating object
+        //TODO: save to CoreData
+        performSegueWithIdentifier("mapViewSegue", sender: nil)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        location = nil
+        hideControlsIfLocationIsNil()
     }
 }
