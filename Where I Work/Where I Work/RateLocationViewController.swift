@@ -43,7 +43,19 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
     }
     
     func hideControlsIfLocationIsNil(){
-        
+        setRatingControlsToDefaultState()
+    }
+    
+    func setRatingControlsToDefaultState(){
+        noiseLevelLabel.text = ""
+        noiseLevelStepper.stepValue = 0
+        freeWifiSwitch.on = false
+        wifiStrengthLabel.text = ""
+        wifiStrengthStepper.stepValue = 0
+        seatingAvailabiltyLabel.text = ""
+        seatingAvailabliityStepper.stepValue = 0
+        workThereAgainSwitch.on = false
+        notesTextView.text = ""
     }
     
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
@@ -58,11 +70,12 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
     }
     
     @IBAction func cancelButton_Clicked(sender: UIBarButtonItem) {
+        setRatingControlsToDefaultState()
         performSegueWithIdentifier("mapViewSegue", sender: nil)
     }
 
     @IBAction func saveButton_Clicked(sender: UIBarButtonItem) {
-        //TODO: create new rating object
+        //TODO: create new rating object OR get the existing rating for this business
         //TODO: save to CoreData
         performSegueWithIdentifier("mapViewSegue", sender: nil)
     }
