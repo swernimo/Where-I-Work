@@ -69,11 +69,14 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
 
     func setupMapView(){
         mapView.delegate = self
-        updateMapViewToUserCurrentLocation(getUserCurrentLocation())
+        let currentLocation = getUserCurrentLocation()
+        if(currentLocation != nil){
+            updateMapViewToUserCurrentLocation(currentLocation!)
+        }
     }
     
-    func getUserCurrentLocation() -> CLLocationCoordinate2D{
-        return (locationManager.location?.coordinate)!
+    func getUserCurrentLocation() -> CLLocationCoordinate2D?{
+        return (locationManager.location?.coordinate)
     }
     
     func updateMapViewToUserCurrentLocation(userLocation: CLLocationCoordinate2D) -> Void{
@@ -83,7 +86,10 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
     }
     
     @IBAction func locationRefresh_Clicked(sender: UIBarButtonItem) {
-        updateMapViewToUserCurrentLocation(getUserCurrentLocation())
+        let currentLocation = getUserCurrentLocation()
+        if(currentLocation != nil){
+            updateMapViewToUserCurrentLocation(currentLocation!)
+        }
     }
     
     @IBAction func addLocation_Clicked(sender: UIBarButtonItem) {
@@ -92,26 +98,28 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
     
     func getLocations() -> Void{
         let location = getUserCurrentLocation()
-        let lat = location.latitude
-        let long = location.longitude
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = true;
-        locationHelper.getLocations(lat, longitude: long){
-            (locations, error) in
-            
-            if(error != nil){
-                if(error?.description == "Network Error"){
-                    let alertview = UIAlertController(title: "Network Error", message: "You must have network access to use this app", preferredStyle: .Alert)
-                    self.showViewController(alertview, sender: nil)
+        if(location != nil){
+            let lat = location!.latitude
+            let long = location!.longitude
+            UIApplication.sharedApplication().networkActivityIndicatorVisible = true;
+            locationHelper.getLocations(lat, longitude: long){
+                (locations, error) in
+                
+                if(error != nil){
+                    if(error?.description == "Network Error"){
+                        let alertview = UIAlertController(title: "Network Error", message: "You must have network access to use this app", preferredStyle: .Alert)
+                        self.showViewController(alertview, sender: nil)
+                    }
+                    print(error)
                 }
-                print(error)
+                
+                for(_, location) in locations.enumerate(){
+                    let annotation = self.createMKPointAnnotationFromLocation(location)
+                    self.mapView.addAnnotation(annotation)
+                    self.locationArray.append(location)
+                }
+                UIApplication.sharedApplication().networkActivityIndicatorVisible = false;
             }
-            
-            for(_, location) in locations.enumerate(){
-                let annotation = self.createMKPointAnnotationFromLocation(location)
-                self.mapView.addAnnotation(annotation)
-                self.locationArray.append(location)
-            }
-            UIApplication.sharedApplication().networkActivityIndicatorVisible = false;
         }
     }
     
