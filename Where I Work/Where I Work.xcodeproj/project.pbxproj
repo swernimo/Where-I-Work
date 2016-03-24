@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1433B90A1CA38996001FF5A2 /* Rating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1433B9091CA38996001FF5A2 /* Rating.swift */; };
 		1494E9BB1C94C37C0089F2F6 /* LocationDisabledViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1494E9BA1C94C37C0089F2F6 /* LocationDisabledViewController.swift */; };
 		1494E9BF1CA0F63B0089F2F6 /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1494E9BE1CA0F63B0089F2F6 /* NetworkHelper.swift */; };
 		14A939AB1C8C91270064A22E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A939AA1C8C91270064A22E /* AppDelegate.swift */; };
@@ -42,6 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1433B9091CA38996001FF5A2 /* Rating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rating.swift; sourceTree = "<group>"; };
 		1494E9BA1C94C37C0089F2F6 /* LocationDisabledViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationDisabledViewController.swift; sourceTree = "<group>"; };
 		1494E9BE1CA0F63B0089F2F6 /* NetworkHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
 		14A939A71C8C91270064A22E /* Where I Work.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Where I Work.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -176,6 +178,7 @@
 			children = (
 				14A939E11C925EF50064A22E /* Location.swift */,
 				14A939E31C92601B0064A22E /* Address.swift */,
+				1433B9091CA38996001FF5A2 /* Rating.swift */,
 			);
 			name = Entities;
 			sourceTree = "<group>";
@@ -379,6 +382,7 @@
 				14A939E21C925EF50064A22E /* Location.swift in Sources */,
 				14A939D11C8E95FE0064A22E /* MapViewController.swift in Sources */,
 				14A939DC1C8FDADE0064A22E /* LocationHelper.swift in Sources */,
+				1433B90A1CA38996001FF5A2 /* Rating.swift in Sources */,
 				14A939AB1C8C91270064A22E /* AppDelegate.swift in Sources */,
 				14A939DF1C925DB10064A22E /* Constants.swift in Sources */,
 			);
