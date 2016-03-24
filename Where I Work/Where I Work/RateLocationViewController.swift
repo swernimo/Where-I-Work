@@ -51,12 +51,12 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
     
     func setRatingControlsToDefaultState(){
         noiseLevelLabel.text = ""
-        noiseLevelStepper.stepValue = 0
+        noiseLevelStepper.stepValue = 1
         freeWifiSwitch.on = false
         wifiStrengthLabel.text = ""
-        wifiStrengthStepper.stepValue = 0
+        wifiStrengthStepper.stepValue = 1
         seatingAvailabiltyLabel.text = ""
-        seatingAvailabliityStepper.stepValue = 0
+        seatingAvailabliityStepper.stepValue = 1
         workThereAgainSwitch.on = false
         notesTextView.text = ""
     }
