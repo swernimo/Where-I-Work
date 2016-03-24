@@ -37,6 +37,11 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
         }
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        location = nil
+        hideControlsIfLocationIsNil()
+    }
+    
     func loadRating(forLocation: Location) -> Rating?{
         let ratingHelper = RatingHelper()
         return ratingHelper.getRatingForLocation(forLocation)
@@ -50,12 +55,12 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
         }
         
         setHiddenForRatingLabels(false)
-        noiseLevelStepper.stepValue = r.noiseLevel
+        noiseLevelStepper.value = r.noiseLevel
         noiseLevelLabel.text = getStepperLabelText(r.noiseLevel)
         freeWifiSwitch.on = r.freeWifi
-        wifiStrengthStepper.stepValue = r.wifiStrength
+        wifiStrengthStepper.value = r.wifiStrength
         wifiStrengthLabel.text = getStepperLabelText(r.wifiStrength)
-        seatingAvailabliityStepper.stepValue = r.seatingAvailability
+        seatingAvailabliityStepper.value = r.seatingAvailability
         seatingAvailabiltyLabel.text = getStepperLabelText(r.seatingAvailability)
         workThereAgainSwitch.on = r.workThereAgain
         notesTextView.text = r.notes
@@ -68,7 +73,7 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
     }
     
     func getStepperLabelText(level: Double) -> String{
-        return "\(level) out of 5"
+        return "\(level) / 5"
     }
     
     func displayLocation(){
@@ -89,12 +94,12 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
     
     func setRatingControlsToDefaultState(){
         noiseLevelLabel.text = ""
-        noiseLevelStepper.stepValue = 1
+        noiseLevelStepper.value = 1
         freeWifiSwitch.on = false
         wifiStrengthLabel.text = ""
-        wifiStrengthStepper.stepValue = 1
+        wifiStrengthStepper.value = 1
         seatingAvailabiltyLabel.text = ""
-        seatingAvailabliityStepper.stepValue = 1
+        seatingAvailabliityStepper.value = 1
         workThereAgainSwitch.on = false
         notesTextView.text = ""
     }
@@ -121,8 +126,19 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
         performSegueWithIdentifier("mapViewSegue", sender: nil)
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        location = nil
-        hideControlsIfLocationIsNil()
+    @IBAction func noiseLevel_StepChanged(sender: UIStepper) {
+        noiseLevelLabel.hidden = false
+        noiseLevelLabel.text = getStepperLabelText(sender.value)
+    }
+    
+    @IBAction func seatingAvailability_StepChanged(sender: UIStepper) {
+        seatingAvailabiltyLabel.hidden = false
+        seatingAvailabiltyLabel.text = getStepperLabelText(sender.value)
+    }
+    
+    @IBAction func wifiStrength_StepChanged(sender: UIStepper) {
+
+        wifiStrengthLabel.hidden = false
+        wifiStrengthLabel.text = getStepperLabelText(sender.value)
     }
 }
