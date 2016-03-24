@@ -33,12 +33,42 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
         displayLocation()
         if(location != nil){
             let rating = loadRating(location!)
+            displayRatingIfExisting(rating)
         }
     }
     
     func loadRating(forLocation: Location) -> Rating?{
         let ratingHelper = RatingHelper()
         return ratingHelper.getRatingForLocation(forLocation)
+    }
+    
+    func displayRatingIfExisting(rating: Rating?){
+        guard let r = rating where rating != nil else{
+            setHiddenForRatingLabels(true)
+            notesTextView.text = ""
+            return
+        }
+        
+        setHiddenForRatingLabels(false)
+        noiseLevelStepper.stepValue = r.noiseLevel
+        noiseLevelLabel.text = getStepperLabelText(r.noiseLevel)
+        freeWifiSwitch.on = r.freeWifi
+        wifiStrengthStepper.stepValue = r.wifiStrength
+        wifiStrengthLabel.text = getStepperLabelText(r.wifiStrength)
+        seatingAvailabliityStepper.stepValue = r.seatingAvailability
+        seatingAvailabiltyLabel.text = getStepperLabelText(r.seatingAvailability)
+        workThereAgainSwitch.on = r.workThereAgain
+        notesTextView.text = r.notes
+    }
+    
+    func setHiddenForRatingLabels(hidden: Bool){
+        noiseLevelLabel.hidden = hidden
+        wifiStrengthLabel.hidden = hidden
+        seatingAvailabiltyLabel.hidden = hidden
+    }
+    
+    func getStepperLabelText(level: Double) -> String{
+        return "\(level) out of 5"
     }
     
     func displayLocation(){
