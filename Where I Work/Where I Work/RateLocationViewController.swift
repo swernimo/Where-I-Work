@@ -31,6 +31,14 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
     
     override func viewDidLoad() {
         displayLocation()
+        if(location != nil){
+            let rating = loadRating(location!)
+        }
+    }
+    
+    func loadRating(forLocation: Location) -> Rating?{
+        let ratingHelper = RatingHelper()
+        return ratingHelper.getRatingForLocation(forLocation)
     }
     
     func displayLocation(){
