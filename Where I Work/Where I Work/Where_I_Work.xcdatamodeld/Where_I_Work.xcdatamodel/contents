@@ -16,7 +16,7 @@
         <attribute name="website" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="address" maxCount="1" deletionRule="Nullify" destinationEntity="Address" syncable="YES"/>
     </entity>
-    <entity name="Rating" syncable="YES">
+    <entity name="Rating" representedClassName="Rating" syncable="YES">
         <attribute name="freeWifi" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="noiseLevel" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
@@ -29,6 +29,6 @@
     <elements>
         <element name="Address" positionX="-54" positionY="-9" width="128" height="120"/>
         <element name="Location" positionX="-63" positionY="-18" width="128" height="150"/>
-        <element name="Rating" positionX="-54" positionY="45" width="128" height="165"/>
+        <element name="Rating" positionX="-54" positionY="45" width="128" height="30"/>
     </elements>
 </model>

@@ -20,9 +20,9 @@ class RatingCoreData: NSObject, NSFetchedResultsControllerDelegate{
         
         let fetchRequest = NSFetchRequest(entityName: "Rating")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]
-        if(self.location != nil){
-            fetchRequest.predicate = NSPredicate(format: "location == %@", self.location!)
-        }
+//        if(self.location != nil){
+//            fetchRequest.predicate = NSPredicate(format: "location == %@", self.location!)
+//        }
         
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
             managedObjectContext: self.sharedContext,
