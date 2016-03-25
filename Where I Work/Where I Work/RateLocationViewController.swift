@@ -11,8 +11,7 @@ import UIKit
 import MapKit
 
 class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
-    var location: Location? = nil
-    
+    var location: Location?
     
     @IBOutlet weak var businessName: UILabel!
     @IBOutlet weak var address: UILabel!
@@ -44,7 +43,7 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
     
     func loadRating(forLocation: Location) -> Rating?{
         let ratingHelper = RatingHelper()
-        return ratingHelper.getRatingForLocation(forLocation)
+       return ratingHelper.getRatingForLocation(forLocation)
     }
     
     func displayRatingIfExisting(rating: Rating?){
@@ -55,14 +54,14 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
         }
         
         setHiddenForRatingLabels(false)
-        noiseLevelStepper.value = r.noiseLevel
-        noiseLevelLabel.text = getStepperLabelText(r.noiseLevel)
-        freeWifiSwitch.on = r.freeWifi
-        wifiStrengthStepper.value = r.wifiStrength
-        wifiStrengthLabel.text = getStepperLabelText(r.wifiStrength)
-        seatingAvailabliityStepper.value = r.seatingAvailability
-        seatingAvailabiltyLabel.text = getStepperLabelText(r.seatingAvailability)
-        workThereAgainSwitch.on = r.workThereAgain
+        noiseLevelStepper.value = Double(r.noiseLevel)
+        noiseLevelLabel.text = getStepperLabelText(Double(r.noiseLevel))
+        freeWifiSwitch.on = (r.freeWifi == 1)
+        wifiStrengthStepper.value = Double(r.wifiStrength)
+        wifiStrengthLabel.text = getStepperLabelText(Double(r.wifiStrength))
+        seatingAvailabliityStepper.value = Double(r.seatingAvailability)
+        seatingAvailabiltyLabel.text = getStepperLabelText(Double(r.seatingAvailability))
+        workThereAgainSwitch.on = (r.workThereAgain == 1)
         notesTextView.text = r.notes
     }
     
@@ -121,8 +120,10 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
     }
 
     @IBAction func saveButton_Clicked(sender: UIBarButtonItem) {
-        //TODO: create new rating object OR get the existing rating for this business
-        //TODO: save to CoreData
+        let context = CoreDataStackManager.sharedInstance().managedObjectContext
+        let _ = Rating(noise: noiseLevelStepper.value, freeWifi: freeWifiSwitch.on, wifiStrength: wifiStrengthStepper.value, seatingAvailabilityRating: seatingAvailabliityStepper.value, wouldWorkThereAgain: workThereAgainSwitch.on, notes: notesTextView.text, location: location!, context: context)
+        
+        CoreDataStackManager.sharedInstance().saveContext()
         performSegueWithIdentifier("mapViewSegue", sender: nil)
     }
     

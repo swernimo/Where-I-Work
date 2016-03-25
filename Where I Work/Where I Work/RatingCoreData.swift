@@ -43,9 +43,7 @@ class RatingCoreData: NSObject, NSFetchedResultsControllerDelegate{
             guard let item = fetchedResultsController.sections![0].objects?[index] as? Rating else {
                 continue
             }
-            if(item.location == location){
-                return item
-            }
+            return item
         }
 
         return nil

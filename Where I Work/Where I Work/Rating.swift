@@ -12,12 +12,12 @@ import CoreData
 @objc(Rating)
 class Rating: NSManagedObject{
     
-    @NSManaged var noiseLevel: Double
-    @NSManaged var freeWifi: Bool
-    @NSManaged var wifiStrength: Double
-    @NSManaged var seatingAvailability: Double
+    @NSManaged var noiseLevel: NSNumber
+    @NSManaged var freeWifi: NSNumber
+    @NSManaged var wifiStrength: NSNumber
+    @NSManaged var seatingAvailability: NSNumber
     @NSManaged var id: String
-    @NSManaged var workThereAgain: Bool
+    @NSManaged var workThereAgain: NSNumber
     @NSManaged var notes: String
     @NSManaged var location: Location
     
@@ -26,16 +26,16 @@ class Rating: NSManagedObject{
         super.init(entity: entity, insertIntoManagedObjectContext: context)
     }
     
-    init(noise: Double, freeWifi: Bool, wifiStrength: Double, seatingAvailabilityRating: Double, wouldWorkThereAgain: Bool, notes: String, location: Location, context: NSManagedObjectContext){
+    init(noise: NSNumber, freeWifi: Bool, wifiStrength: Double, seatingAvailabilityRating: Double, wouldWorkThereAgain: Bool, notes: String, location: Location, context: NSManagedObjectContext){
         let entity =  NSEntityDescription.entityForName("Rating", inManagedObjectContext: context)!
         super.init(entity: entity, insertIntoManagedObjectContext: context)
         
         id = NSUUID().UUIDString
-        noiseLevel = noise
-        self.freeWifi = freeWifi
+        self.noiseLevel = noise
+        self.freeWifi = NSNumber(bool: freeWifi)
         self.wifiStrength = wifiStrength
-        seatingAvailability = seatingAvailabilityRating
-        self.workThereAgain = wouldWorkThereAgain
+        self.seatingAvailability = seatingAvailabilityRating
+        self.workThereAgain = NSNumber(bool: wouldWorkThereAgain)
         self.notes = notes
         self.location = location
     }
