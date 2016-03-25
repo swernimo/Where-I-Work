@@ -116,9 +116,9 @@ class YelpClient : BDBOAuth1RequestOperationManager {
                 }
                 
                 let address = self.parseAddressFromLocationDictionary(location)
-                
-                let loc = Location(lat: lat, long: long, name: name, adr: address, url: nil, category: categoryName, context: self.sharedContext)
-                
+                let id = NSUUID().UUIDString
+                let loc = Location(id: id, lat: lat, long: long, name: name, adr: address, url: nil, category: categoryName, context: self.sharedContext)
+                CoreDataStackManager.sharedInstance().saveContext()
                 locationArray.append(loc)
             }
             if(NetworkHelper.isConnectedToNetwork()){

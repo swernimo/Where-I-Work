@@ -21,20 +21,18 @@ class Location: NSManagedObject {
     @NSManaged var website: String?
     @NSManaged var category: String
     
-    //includ fields for ratings
-    
     override init(entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext?) {
         
         super.init(entity: entity, insertIntoManagedObjectContext: context)
     }
     
-    init(lat: Double, long: Double, name: String, adr: Address?, url: String?, category: String, context: NSManagedObjectContext){
+    init(id: String, lat: Double, long: Double, name: String, adr: Address?, url: String?, category: String, context: NSManagedObjectContext){
         let entity =  NSEntityDescription.entityForName("Location", inManagedObjectContext: context)!
         super.init(entity: entity, insertIntoManagedObjectContext: context)
         
         latitude = lat
         longitude = long
-        id = NSUUID().UUIDString
+        self.id = id
         businessName = name
         address = adr
         website = url

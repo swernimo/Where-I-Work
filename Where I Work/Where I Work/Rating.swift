@@ -20,17 +20,18 @@ class Rating: NSManagedObject{
     @NSManaged var workThereAgain: NSNumber
     @NSManaged var notes: String
     @NSManaged var location: Location
+    @NSManaged var dateCreated: NSDate
     
     override init(entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext?) {
         
         super.init(entity: entity, insertIntoManagedObjectContext: context)
     }
     
-    init(noise: NSNumber, freeWifi: Bool, wifiStrength: Double, seatingAvailabilityRating: Double, wouldWorkThereAgain: Bool, notes: String, location: Location, context: NSManagedObjectContext){
+    init(id: String, noise: NSNumber, freeWifi: Bool, wifiStrength: Double, seatingAvailabilityRating: Double, wouldWorkThereAgain: Bool, notes: String, location: Location, created: NSDate, context: NSManagedObjectContext){
         let entity =  NSEntityDescription.entityForName("Rating", inManagedObjectContext: context)!
         super.init(entity: entity, insertIntoManagedObjectContext: context)
         
-        id = NSUUID().UUIDString
+        self.id = id
         self.noiseLevel = noise
         self.freeWifi = NSNumber(bool: freeWifi)
         self.wifiStrength = wifiStrength
@@ -38,5 +39,6 @@ class Rating: NSManagedObject{
         self.workThereAgain = NSNumber(bool: wouldWorkThereAgain)
         self.notes = notes
         self.location = location
+        self.dateCreated = created
     }
 }

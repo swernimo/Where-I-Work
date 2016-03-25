@@ -75,9 +75,9 @@ class NewLocationViewController: UIViewController, UIPickerViewDelegate, UIPicke
     
     @IBAction func saveButton_Clicked(sender: UIBarButtonItem) {
         let context = CoreDataStackManager.sharedInstance().managedObjectContext
-       
+       let id = NSUUID().UUIDString
         let address = Address(street: streetAddress.text!, city: city.text!, zip: zipCode.text!, state: state.text!, context: context)
-        let location = Location(lat: latitude!, long: longitude!, name: businessName.text!, adr: address, url: website.text, category: getSelectedCategory(), context: context)
+        let location = Location(id: id, lat: latitude!, long: longitude!, name: businessName.text!, adr: address, url: website.text, category: getSelectedCategory(), context: context)
        
         CoreDataStackManager.sharedInstance().saveContext()
         performSegueWithIdentifier("rateLocationSegue", sender: location)

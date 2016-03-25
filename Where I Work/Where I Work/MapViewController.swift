@@ -16,6 +16,7 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
     var locationManager: CLLocationManager!
     let locationHelper = LocationHelper()
     var locationArray: [Location] = []
+    var loadDataFromYelp: Bool = true
     
     @IBOutlet weak var mapView: MKMapView!
     
@@ -102,7 +103,7 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
             let lat = location!.latitude
             let long = location!.longitude
             UIApplication.sharedApplication().networkActivityIndicatorVisible = true;
-            locationHelper.getLocations(lat, longitude: long){
+            locationHelper.getLocations(lat, longitude: long, callYelp: loadDataFromYelp){
                 (locations, error) in
                 
                 if(error != nil){
@@ -132,42 +133,6 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
         return annotation
     }
     
-    //code taken from pin sample app
-//    
-//    // Here we create a view with a "right callout accessory view". You might choose to look into other
-//    // decoration alternatives. Notice the similarity between this method and the cellForRowAtIndexPath
-//    // method in TableViewDataSource.
-//    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
-//        
-//        let reuseId = "pin"
-//        
-//        var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId) as? MKPinAnnotationView
-//        
-//        if pinView == nil {
-//            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
-//            pinView!.canShowCallout = true
-//            pinView!.pinTintColor = UIColor.redColor();
-//            pinView!.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure)
-//        }
-//        else {
-//            pinView!.annotation = annotation
-//        }
-//        
-//        return pinView
-//    }
-//    
-//    
-//    // This delegate method is implemented to respond to taps. It opens the system browser
-//    // to the URL specified in the annotationViews subtitle property.
-//    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-//        if control == view.rightCalloutAccessoryView {
-//            let app = UIApplication.sharedApplication()
-//            if let toOpen = view.annotation?.subtitle! {
-//                app.openURL(NSURL(string: toOpen)!)
-//            }
-//        }
-//    }
-    
     func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
        //get the selected location from the array
         var selectedLocation: Location? = nil
@@ -182,6 +147,7 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
         }
         
         if(selectedLocation != nil){
+            //print("selected location id is: \(selectedLocation!.id)")
             performSegueWithIdentifier("rateLocationSegue", sender: selectedLocation)
         }
         mapView.deselectAnnotation(view.annotation!, animated: false)

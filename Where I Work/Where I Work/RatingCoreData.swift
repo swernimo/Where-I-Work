@@ -21,7 +21,7 @@ class RatingCoreData: NSObject, NSFetchedResultsControllerDelegate{
         let fetchRequest = NSFetchRequest(entityName: "Rating")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]
 //        if(self.location != nil){
-//            fetchRequest.predicate = NSPredicate(format: "location == %@", self.location!)
+            fetchRequest.predicate = NSPredicate(format: "location == %@", self.location!)
 //        }
         
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
@@ -35,17 +35,24 @@ class RatingCoreData: NSObject, NSFetchedResultsControllerDelegate{
     
     func loadRatingForLocation(location: Location) -> Rating?{
         self.location = location
+        var rating: Rating? = nil
         do{
             try fetchedResultsController.performFetch()
         }catch{}
         fetchedResultsController.delegate = self
+        
         for var index = 0; index < fetchedResultsController.sections![0].numberOfObjects; index++ {
             guard let item = fetchedResultsController.sections![0].objects?[index] as? Rating else {
                 continue
             }
-            return item
+           
+//            if(item.location.id == location.id){
+//                rating = item
+//                break
+//            }
+            rating = item
         }
 
-        return nil
+        return rating
     }
 }

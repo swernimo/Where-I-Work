@@ -11,19 +11,22 @@ import CoreData
 
 
 class LocationHelper {
-    func getLocations(latitude: Double, longitude: Double, completionHandler: (locations: [Location], error: NSError?) -> Void) -> Void{
+    func getLocations(latitude: Double, longitude: Double, callYelp: Bool, completionHandler: (locations: [Location], error: NSError?) -> Void) -> Void{
         var locations: [Location] = []
-        
+        var error: NSError? = nil
         locations.appendContentsOf(loadFromCoreData())
-        loadFromYelp(latitude, long: longitude) {
-            (results, error) in
+        if(callYelp){
             
-            if(error == nil && results.count > 0){
-                locations.appendContentsOf(results)
+            loadFromYelp(latitude, long: longitude) {
+                (results, err) in
+                
+                if(err == nil && results.count > 0){
+                    locations.appendContentsOf(results)
+                }
+                error = err
             }
-            
-            completionHandler(locations: locations, error: error)
         }
+        completionHandler(locations: locations, error: error)
     }
     
     func loadFromCoreData() -> [Location]{

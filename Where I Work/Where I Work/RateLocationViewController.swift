@@ -37,8 +37,11 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        location = nil
-        hideControlsIfLocationIsNil()
+        guard let mapViewController = segue.destinationViewController as? MapViewController else{
+            return
+        }
+        
+        mapViewController.loadDataFromYelp = false
     }
     
     func loadRating(forLocation: Location) -> Rating?{
@@ -121,7 +124,9 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
 
     @IBAction func saveButton_Clicked(sender: UIBarButtonItem) {
         let context = CoreDataStackManager.sharedInstance().managedObjectContext
-        let _ = Rating(noise: noiseLevelStepper.value, freeWifi: freeWifiSwitch.on, wifiStrength: wifiStrengthStepper.value, seatingAvailabilityRating: seatingAvailabliityStepper.value, wouldWorkThereAgain: workThereAgainSwitch.on, notes: notesTextView.text, location: location!, context: context)
+        let id = NSUUID().UUIDString
+        let date = NSDate()
+        let _ = Rating(id: id, noise: noiseLevelStepper.value, freeWifi: freeWifiSwitch.on, wifiStrength: wifiStrengthStepper.value, seatingAvailabilityRating: seatingAvailabliityStepper.value, wouldWorkThereAgain: workThereAgainSwitch.on, notes: notesTextView.text, location: location!, created: date, context: context)
         
         CoreDataStackManager.sharedInstance().saveContext()
         performSegueWithIdentifier("mapViewSegue", sender: nil)
