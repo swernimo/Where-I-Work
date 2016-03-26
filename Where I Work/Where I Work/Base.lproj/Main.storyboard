@@ -58,7 +58,7 @@
                     <navigationItem key="navigationItem" title="Where I Work" id="xjr-C6-Gxd">
                         <barButtonItem key="leftBarButtonItem" systemItem="refresh" id="Ugx-cN-NzB">
                             <connections>
-                                <action selector="locationRefresh_Clicked:" destination="BYZ-38-t0r" id="2CH-6k-1ZI"/>
+                                <action selector="locationRefresh_Clicked:" destination="BYZ-38-t0r" id="U05-xj-GAN"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="3zJ-5T-o3U"/>
