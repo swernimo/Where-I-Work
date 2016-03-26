@@ -119,9 +119,15 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
     
     @IBAction func cancelButton_Clicked(sender: UIBarButtonItem) {
         setRatingControlsToDefaultState()
-        performSegueWithIdentifier("mapViewSegue", sender: nil)
+        dismissViewControllerAndNavigateToMapView()
     }
-
+    
+    func dismissViewControllerAndNavigateToMapView(){
+        dismissViewControllerAnimated(false, completion: {
+            self.performSegueWithIdentifier("mapViewSegue", sender: nil)
+        })
+    }
+    
     @IBAction func saveButton_Clicked(sender: UIBarButtonItem) {
         let context = CoreDataStackManager.sharedInstance().managedObjectContext
         let id = NSUUID().UUIDString
@@ -129,7 +135,7 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
         let _ = Rating(id: id, noise: noiseLevelStepper.value, freeWifi: freeWifiSwitch.on, wifiStrength: wifiStrengthStepper.value, seatingAvailabilityRating: seatingAvailabliityStepper.value, wouldWorkThereAgain: workThereAgainSwitch.on, notes: notesTextView.text, location: location!, created: date, context: context)
         
         CoreDataStackManager.sharedInstance().saveContext()
-        performSegueWithIdentifier("mapViewSegue", sender: nil)
+        dismissViewControllerAndNavigateToMapView()
     }
     
     @IBAction func noiseLevel_StepChanged(sender: UIStepper) {
