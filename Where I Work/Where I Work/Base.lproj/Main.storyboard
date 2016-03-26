@@ -56,16 +56,22 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Where I Work" id="xjr-C6-Gxd">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="xQo-2I-cEF"/>
                         <barButtonItem key="leftBarButtonItem" systemItem="refresh" id="Ugx-cN-NzB">
                             <connections>
                                 <action selector="locationRefresh_Clicked:" destination="BYZ-38-t0r" id="U05-xj-GAN"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="3zJ-5T-o3U"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="3zJ-5T-o3U">
+                            <connections>
+                                <action selector="addLocation_Clicked:" destination="BYZ-38-t0r" id="1Dr-f0-mPc"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="ekv-CH-1Id" id="6Ik-Vc-Lmk"/>
                         <segue destination="iZh-85-XFu" kind="presentation" identifier="locationDisabledSegue" animates="NO" modalPresentationStyle="fullScreen" id="gsY-w3-VgJ"/>
+                        <segue destination="lm6-y1-2Hm" kind="show" identifier="newLocationSegue" id="UcC-NX-IYH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -769,7 +775,7 @@
             </objects>
             <point key="canvasLocation" x="3705" y="952.5"/>
         </scene>
-        <!--New Location View Controller-->
+        <!--Add New Location-->
         <scene sceneID="sKI-T4-6Y5">
             <objects>
                 <viewController id="lm6-y1-2Hm" customClass="NewLocationViewController" customModule="Where_I_Work" customModuleProvider="target" sceneMemberID="viewController">
@@ -995,6 +1001,14 @@
                             </mask>
                         </variation>
                     </view>
+                    <navigationItem key="navigationItem" title="Add New Location" id="Jks-ud-LBP">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="fX4-z3-BpA"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="2AB-ea-LkC">
+                            <connections>
+                                <action selector="saveButton_Clicked:" destination="lm6-y1-2Hm" id="X38-k1-g0y"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="businessName" destination="cUc-ss-D6x" id="AJ5-dl-g70"/>
                         <outlet property="categoryPicker" destination="Qgn-s6-4N2" id="6Up-DH-kv2"/>
