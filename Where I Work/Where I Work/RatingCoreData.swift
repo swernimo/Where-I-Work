@@ -19,7 +19,7 @@ class RatingCoreData: NSObject, NSFetchedResultsControllerDelegate{
     lazy var fetchedResultsController: NSFetchedResultsController = {
         
         let fetchRequest = NSFetchRequest(entityName: "Rating")
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "dateCreated", ascending: true)]
 //        if(self.location != nil){
             fetchRequest.predicate = NSPredicate(format: "location == %@", self.location!)
 //        }
