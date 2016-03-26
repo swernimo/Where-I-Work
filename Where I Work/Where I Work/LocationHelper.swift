@@ -33,8 +33,24 @@ class LocationHelper {
     
     func loadFromCoreData() -> [Location]{
         let locCoreData = LocationCoreData()
-        
-        return locCoreData.loadSavedLocations()
+        var saved = locCoreData.loadSavedLocations()
+        saved = removeDuplicateLocations(saved)
+        print("number of saved locations: \(saved.count)")
+        return saved
+    }
+    
+    func removeDuplicateLocations(locationArray: [Location]) -> [Location]{
+        var noDuplicates: [Location] = []
+        if(locationArray.isEmpty == false){
+            for index in 0 ... (locationArray.count - 1){
+                let location = locationArray[index]
+                let contains = noDuplicates.contains({ $0.businessName == location.businessName && $0.longitude == location.longitude && $0.latitude == location.latitude})
+                if(contains == false){
+                    noDuplicates.append(location)
+                }
+            }
+        }
+        return noDuplicates
     }
     
     func loadFromYelp(lat: Double, long: Double, savedLocations: [Location], completionHandler: (locations: [Location], error: NSError?) -> Void) {
