@@ -11,5 +11,20 @@ import MapKit
 
 class LocationDisabledViewController: UIViewController, CLLocationManagerDelegate{
     
-
+    var locationManager: CLLocationManager!
+    
+    override func viewDidLoad() {
+        setupLocationManager()
+    }
+    
+    func setupLocationManager()->Void{
+        locationManager = CLLocationManager()
+        locationManager.delegate = self
+    }
+    
+    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        if((status == .AuthorizedAlways) || (status == .AuthorizedWhenInUse)){
+            dismissViewControllerAnimated(false, completion: nil)
+        }
+    }
 }

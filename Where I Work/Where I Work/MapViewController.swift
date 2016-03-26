@@ -28,7 +28,6 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
             break
         case .AuthorizedWhenInUse, .AuthorizedAlways:
             setupMapView()
-//            getLocations()
             break
         }
     }
@@ -62,19 +61,24 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         if((status == .AuthorizedAlways) || (status == .AuthorizedWhenInUse)){
             getLocations()
+            zoomMapToCurrentLocation()
         }
         else{
             performSegueWithIdentifier("locationNotAuthorizedSegue", sender: nil)
         }
     }
-
-    func setupMapView(){
-        mapView.delegate = self
-        mapView.removeAnnotations(mapView.annotations)
+    
+    func zoomMapToCurrentLocation(){
         let currentLocation = getUserCurrentLocation()
         if(currentLocation != nil){
             updateMapViewToUserCurrentLocation(currentLocation!)
         }
+    }
+    
+    func setupMapView(){
+        mapView.delegate = self
+        mapView.removeAnnotations(mapView.annotations)
+        zoomMapToCurrentLocation()
     }
     
     func getUserCurrentLocation() -> CLLocationCoordinate2D?{
@@ -82,16 +86,13 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
     }
     
     func updateMapViewToUserCurrentLocation(userLocation: CLLocationCoordinate2D) -> Void{
-        let region = MKCoordinateRegion(center: userLocation, span: MKCoordinateSpanMake(0.01, 0.01))
+        let region = MKCoordinateRegion(center: userLocation, span: MKCoordinateSpanMake(0.05, 0.05))
         
         mapView.setRegion(region, animated: true)
     }
     
     @IBAction func locationRefresh_Clicked(sender: UIBarButtonItem) {
-        let currentLocation = getUserCurrentLocation()
-        if(currentLocation != nil){
-            updateMapViewToUserCurrentLocation(currentLocation!)
-        }
+        zoomMapToCurrentLocation()
     }
     
     @IBAction func addLocation_Clicked(sender: UIBarButtonItem) {
