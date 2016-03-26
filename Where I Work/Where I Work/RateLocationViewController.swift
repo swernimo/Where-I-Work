@@ -126,9 +126,7 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
         let _ = Rating(id: id, noise: noiseLevelStepper.value, freeWifi: freeWifiSwitch.on, wifiStrength: wifiStrengthStepper.value, seatingAvailabilityRating: seatingAvailabliityStepper.value, wouldWorkThereAgain: workThereAgainSwitch.on, notes: notesTextView.text, location: location!, created: date, context: context)
         
         CoreDataStackManager.sharedInstance().saveContext()
-        dismissViewControllerAnimated(false, completion: {
-            //segue to the Rate Location Page
-        })
+        navigationController?.popToRootViewControllerAnimated(true)
     }
     
     @IBAction func noiseLevel_StepChanged(sender: UIStepper) {
@@ -140,7 +138,7 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
         seatingAvailabiltyLabel.hidden = false
         seatingAvailabiltyLabel.text = getStepperLabelText(sender.value)
     }
-    
+
     @IBAction func wifiStrength_StepChanged(sender: UIStepper) {
 
         wifiStrengthLabel.hidden = false
