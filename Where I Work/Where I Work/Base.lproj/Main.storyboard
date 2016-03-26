@@ -65,6 +65,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="ekv-CH-1Id" id="6Ik-Vc-Lmk"/>
+                        <segue destination="iZh-85-XFu" kind="presentation" identifier="locationDisabledSegue" animates="NO" modalPresentationStyle="fullScreen" id="gsY-w3-VgJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

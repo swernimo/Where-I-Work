@@ -24,7 +24,7 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
        setupLocationManager()
         switch(CLLocationManager.authorizationStatus()){
         case .NotDetermined, .Restricted, .Denied:
-         performSegueWithIdentifier("locationNotAuthorizedSegue", sender: nil)
+         performSegueWithIdentifier("locationDisabledSegue", sender: nil)
             break
         case .AuthorizedWhenInUse, .AuthorizedAlways:
             setupMapView()
@@ -64,7 +64,7 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
             zoomMapToCurrentLocation()
         }
         else{
-            performSegueWithIdentifier("locationNotAuthorizedSegue", sender: nil)
+            performSegueWithIdentifier("locationDisabledSegue", sender: nil)
         }
     }
     
