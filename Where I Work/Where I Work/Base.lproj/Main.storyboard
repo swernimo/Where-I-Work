@@ -174,7 +174,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Syt-aQ-9PI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1324.5" y="1374"/>
+            <point key="canvasLocation" x="2247" y="1372.5"/>
         </scene>
         <!--Rate Location-->
         <scene sceneID="dZ7-p4-dyE">
@@ -794,11 +794,12 @@
                         <outlet property="wifiStrengthLabel" destination="xRY-AO-614" id="LvU-au-Xdo"/>
                         <outlet property="wifiStrengthStepper" destination="td0-uO-Pkk" id="PsN-93-cQS"/>
                         <outlet property="workThereAgainSwitch" destination="u6S-Fx-pim" id="UDD-c4-xFu"/>
+                        <segue destination="iZh-85-XFu" kind="presentation" identifier="locationDisabledSegue" modalPresentationStyle="fullScreen" id="hZg-xJ-RVk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="urE-R9-Ez1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3268.5" y="954.75"/>
+            <point key="canvasLocation" x="3454.5" y="960.75"/>
         </scene>
         <!--Add New Location-->
         <scene sceneID="sKI-T4-6Y5">
@@ -1043,11 +1044,12 @@
                         <outlet property="website" destination="TWQ-xY-OSP" id="Nj4-KE-JcP"/>
                         <outlet property="zipCode" destination="VUO-fX-c7W" id="KEL-RM-il9"/>
                         <segue destination="9Zw-Nd-Fo7" kind="show" identifier="rateLocationSegue" id="0gt-tV-vyt"/>
+                        <segue destination="iZh-85-XFu" kind="presentation" identifier="locationDisabledSegue" modalPresentationStyle="fullScreen" id="CIV-wz-pGx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rxY-5Q-7c5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3268.5" y="242.25"/>
+            <point key="canvasLocation" x="3454.5" y="234.75"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="u2G-zj-Gj2">
@@ -1070,5 +1072,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="0gt-tV-vyt"/>
+        <segue reference="CIV-wz-pGx"/>
     </inferredMetricsTieBreakers>
 </document>
