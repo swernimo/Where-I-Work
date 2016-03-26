@@ -34,6 +34,8 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
             let rating = loadRating(location!)
             displayRatingIfExisting(rating)
         }
+        notesTextView.layer.borderColor = UIColor.grayColor().CGColor
+        notesTextView.layer.borderWidth = 1
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
