@@ -34,6 +34,8 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
             let rating = loadRating(location!)
             displayRatingIfExisting(rating)
         }
+        notesTextView.layer.borderColor = UIColor.grayColor().CGColor
+        notesTextView.layer.borderWidth = 1
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -109,23 +111,12 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         switch(status){
         case .NotDetermined, .Restricted, .Denied:
-            performSegueWithIdentifier("locationNotAuthorizedSegue", sender: nil)
+            performSegueWithIdentifier("locationDisabledSegue", sender: nil)
             break
         default:
             break
         }
         
-    }
-    
-    @IBAction func cancelButton_Clicked(sender: UIBarButtonItem) {
-        setRatingControlsToDefaultState()
-        dismissViewControllerAndNavigateToMapView()
-    }
-    
-    func dismissViewControllerAndNavigateToMapView(){
-        dismissViewControllerAnimated(false, completion: {
-            self.performSegueWithIdentifier("mapViewSegue", sender: nil)
-        })
     }
     
     @IBAction func saveButton_Clicked(sender: UIBarButtonItem) {
@@ -135,7 +126,7 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
         let _ = Rating(id: id, noise: noiseLevelStepper.value, freeWifi: freeWifiSwitch.on, wifiStrength: wifiStrengthStepper.value, seatingAvailabilityRating: seatingAvailabliityStepper.value, wouldWorkThereAgain: workThereAgainSwitch.on, notes: notesTextView.text, location: location!, created: date, context: context)
         
         CoreDataStackManager.sharedInstance().saveContext()
-        dismissViewControllerAndNavigateToMapView()
+        navigationController?.popToRootViewControllerAnimated(true)
     }
     
     @IBAction func noiseLevel_StepChanged(sender: UIStepper) {
@@ -147,7 +138,7 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
         seatingAvailabiltyLabel.hidden = false
         seatingAvailabiltyLabel.text = getStepperLabelText(sender.value)
     }
-    
+
     @IBAction func wifiStrength_StepChanged(sender: UIStepper) {
 
         wifiStrengthLabel.hidden = false
