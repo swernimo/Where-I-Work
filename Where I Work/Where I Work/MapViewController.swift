@@ -28,7 +28,7 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
             break
         case .AuthorizedWhenInUse, .AuthorizedAlways:
             setupMapView()
-            getLocations()
+//            getLocations()
             break
         }
     }
@@ -70,6 +70,7 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
 
     func setupMapView(){
         mapView.delegate = self
+        mapView.removeAnnotations(mapView.annotations)
         let currentLocation = getUserCurrentLocation()
         if(currentLocation != nil){
             updateMapViewToUserCurrentLocation(currentLocation!)
@@ -99,6 +100,7 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
     
     func getLocations() -> Void{
         let location = getUserCurrentLocation()
+        locationArray.removeAll()
         if(location != nil){
             let lat = location!.latitude
             let long = location!.longitude

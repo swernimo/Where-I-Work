@@ -17,16 +17,18 @@ class LocationHelper {
         locations.appendContentsOf(loadFromCoreData())
         if(callYelp){
             
-            loadFromYelp(latitude, long: longitude) {
+            loadFromYelp(latitude, long: longitude, savedLocations: locations) {
                 (results, err) in
                 
                 if(err == nil && results.count > 0){
                     locations.appendContentsOf(results)
                 }
                 error = err
+                completionHandler(locations: locations, error: error)
             }
+        }else{
+            completionHandler(locations: locations, error: error)
         }
-        completionHandler(locations: locations, error: error)
     }
     
     func loadFromCoreData() -> [Location]{
@@ -35,9 +37,9 @@ class LocationHelper {
         return locCoreData.loadSavedLocations()
     }
     
-    func loadFromYelp(lat: Double, long: Double, completionHandler: (locations: [Location], error: NSError?) -> Void) {
+    func loadFromYelp(lat: Double, long: Double, savedLocations: [Location], completionHandler: (locations: [Location], error: NSError?) -> Void) {
         
-        YelpClient.sharedInstance.getLocations(lat, longitude: long) {
+        YelpClient.sharedInstance.getLocations(lat, longitude: long, savedLocations: savedLocations) {
             (locations, error) in
             
             completionHandler(locations: locations, error: error)

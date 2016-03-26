@@ -11,13 +11,5 @@ import MapKit
 
 class LocationDisabledViewController: UIViewController, CLLocationManagerDelegate{
     
-    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-        switch(status){
-        case .AuthorizedWhenInUse, .AuthorizedAlways:
-            performSegueWithIdentifier("mapViewSegue", sender: nil)
-            break
-        default:
-            break
-        }
-    }
+
 }

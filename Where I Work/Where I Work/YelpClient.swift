@@ -52,7 +52,7 @@ class YelpClient : BDBOAuth1RequestOperationManager {
             let token = BDBOAuth1Credential(token: accessToken, secret: accessSecret, expiration: nil)
             self.requestSerializer.saveAccessToken(token)
         }
-    func getLocations(latitude: Double, longitude: Double, completionHandler: (locations: [Location], error: NSError?) -> Void) -> Void{
+    func getLocations(latitude: Double, longitude: Double, savedLocations: [Location], completionHandler: (locations: [Location], error: NSError?) -> Void) -> Void{
 
         var params: [String: AnyObject] = [:]
         
@@ -118,8 +118,15 @@ class YelpClient : BDBOAuth1RequestOperationManager {
                 let address = self.parseAddressFromLocationDictionary(location)
                 let id = NSUUID().UUIDString
                 let loc = Location(id: id, lat: lat, long: long, name: name, adr: address, url: nil, category: categoryName, context: self.sharedContext)
-                CoreDataStackManager.sharedInstance().saveContext()
-                locationArray.append(loc)
+                
+                let locationAlreadySaved = self.locationAlreadySaved(loc, savedLocations: savedLocations)
+                if(locationAlreadySaved){
+                    continue
+                }else{
+                    CoreDataStackManager.sharedInstance().saveContext()
+                    locationArray.append(loc)
+                }
+                
             }
             if(NetworkHelper.isConnectedToNetwork()){
                 completionHandler(locations: locationArray, error: nil)
@@ -131,6 +138,24 @@ class YelpClient : BDBOAuth1RequestOperationManager {
             failure: { (operation, error) in
                 completionHandler(locations: [], error: error)
         })
+    }
+    
+    func locationAlreadySaved(location: Location, savedLocations: [Location]) -> Bool{
+        var saved = false
+        if(savedLocations.isEmpty == false){
+            for index in 0 ... savedLocations.count{
+                let loc = savedLocations[index]
+                if(loc.businessName == location.businessName){
+                    if(loc.latitude == location.latitude){
+                        if(loc.longitude == location.longitude){
+                            saved = true
+                            break
+                        }
+                    }
+                }
+            }
+        }
+        return saved
     }
     
     func createNSError(errorDescription: String) -> NSError{
