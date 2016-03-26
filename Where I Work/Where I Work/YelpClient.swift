@@ -132,7 +132,7 @@ class YelpClient : BDBOAuth1RequestOperationManager {
                 completionHandler(locations: locationArray, error: nil)
             }
             else{
-                completionHandler(locations: [], error: self.createNSError("Network error"))
+                completionHandler(locations: [], error: self.createNSError("Network Error"))
             }
             },
             failure: { (operation, error) in

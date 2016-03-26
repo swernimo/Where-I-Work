@@ -105,13 +105,18 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
             let lat = location!.latitude
             let long = location!.longitude
             UIApplication.sharedApplication().networkActivityIndicatorVisible = true;
+            
+            if(NetworkHelper.isConnectedToNetwork() == false){
+                loadDataFromYelp = false
+                showNetWorkErrorAlert()
+            }
+            
             locationHelper.getLocations(lat, longitude: long, callYelp: loadDataFromYelp){
                 (locations, error) in
                 
                 if(error != nil){
                     if(error?.description == "Network Error"){
-                        let alertview = UIAlertController(title: "Network Error", message: "You must have network access to use this app", preferredStyle: .Alert)
-                        self.showViewController(alertview, sender: nil)
+                        self.showNetWorkErrorAlert()
                     }
                     print(error)
                 }
@@ -124,6 +129,11 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
                 UIApplication.sharedApplication().networkActivityIndicatorVisible = false;
             }
         }
+    }
+    
+    func showNetWorkErrorAlert(){
+        let alertview = UIAlertController(title: "Network Error", message: "You must have network access to use this app", preferredStyle: .Alert)
+        self.showViewController(alertview, sender: nil)
     }
     
     func createMKPointAnnotationFromLocation(location: Location) -> MKPointAnnotation{
