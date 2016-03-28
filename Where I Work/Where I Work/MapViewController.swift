@@ -32,6 +32,15 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
         }
     }
     
+    override func viewWillAppear(animated: Bool) {
+        let status = CLLocationManager.authorizationStatus()
+        
+        if(status == .AuthorizedWhenInUse){
+            setupMapView()
+            getLocations()
+        }
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         if(segue.identifier == "rateLocationSegue"){
@@ -128,6 +137,7 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
                     self.locationArray.append(location)
                 }
                 UIApplication.sharedApplication().networkActivityIndicatorVisible = false;
+                self.loadDataFromYelp = false
             }
         }
     }
@@ -141,8 +151,8 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
         let coordinate = CLLocationCoordinate2DMake(location.latitude, location.longitude)
         let annotation = MKPointAnnotation()
         annotation.coordinate = coordinate
-        annotation.title = location.businessName
-        annotation.subtitle = location.category
+//        annotation.title = location.businessName
+//        annotation.subtitle = location.category
         return annotation
     }
     
