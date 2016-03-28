@@ -137,7 +137,8 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
     
     func showNetWorkErrorAlert(){
         let alertview = UIAlertController(title: "Network Error", message: "You must have network access to use this app", preferredStyle: .Alert)
-        self.showViewController(alertview, sender: nil)
+        alertview.addAction(UIAlertAction(title: "Okay", style: .Default, handler: nil))
+        presentViewController(alertview, animated: true, completion: nil)
     }
     
     func createMKPointAnnotationFromLocation(location: Location) -> MKPointAnnotation{

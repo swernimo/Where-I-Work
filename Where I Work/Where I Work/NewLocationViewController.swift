@@ -74,7 +74,6 @@ class NewLocationViewController: UIViewController, UIPickerViewDelegate, UIPicke
     @IBAction func saveButton_Clicked(sender: UIBarButtonItem) {
         let context = CoreDataStackManager.sharedInstance().managedObjectContext
        let id = NSUUID().UUIDString
-        //TODO: get the Lat/Long by geocoding the address
         let geoCoder = CLGeocoder()
         let address = Address(street: streetAddress.text!, city: city.text!, zip: zipCode.text!, state: state.text!, context: context)
         geoCoder.geocodeAddressString(address.getAddressDisplayString(false)){
@@ -87,7 +86,7 @@ class NewLocationViewController: UIViewController, UIPickerViewDelegate, UIPicke
                 
                 let location = Location(id: id, lat: latitude!, long: longitude!, name: self.businessName.text!, adr: address, url: self.website.text, category: self.getSelectedCategory(), context: context)
                 
-                dispatch_sync(dispatch_get_main_queue(), {
+                dispatch_async(dispatch_get_main_queue(), {
                     
                     CoreDataStackManager.sharedInstance().saveContext()
                     self.performSegueWithIdentifier("rateLocationSegue", sender: location)
