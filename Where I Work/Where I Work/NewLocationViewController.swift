@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import MapKit
+import CoreLocation
 
 class NewLocationViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, CLLocationManagerDelegate{
     
@@ -21,9 +22,6 @@ class NewLocationViewController: UIViewController, UIPickerViewDelegate, UIPicke
     @IBOutlet weak var zipCode: UITextField!
     @IBOutlet weak var website: UITextField!
     @IBOutlet weak var categoryPicker: UIPickerView!
-    
-    var latitude: Double? = nil
-    var longitude: Double? = nil
     
     override func viewDidLoad() {
         setupCategoryPickerView()
@@ -76,11 +74,29 @@ class NewLocationViewController: UIViewController, UIPickerViewDelegate, UIPicke
     @IBAction func saveButton_Clicked(sender: UIBarButtonItem) {
         let context = CoreDataStackManager.sharedInstance().managedObjectContext
        let id = NSUUID().UUIDString
+        //TODO: get the Lat/Long by geocoding the address
+        let geoCoder = CLGeocoder()
         let address = Address(street: streetAddress.text!, city: city.text!, zip: zipCode.text!, state: state.text!, context: context)
-        let location = Location(id: id, lat: latitude!, long: longitude!, name: businessName.text!, adr: address, url: website.text, category: getSelectedCategory(), context: context)
-       
-        CoreDataStackManager.sharedInstance().saveContext()
-        performSegueWithIdentifier("rateLocationSegue", sender: location)
+        geoCoder.geocodeAddressString(address.getAddressDisplayString(false)){
+            (result, error) in
+            
+            if(result != nil && error == nil){
+                let placeMark = result?.first
+                let latitude = placeMark?.location?.coordinate.latitude
+                let longitude = placeMark?.location?.coordinate.longitude
+                
+                let location = Location(id: id, lat: latitude!, long: longitude!, name: self.businessName.text!, adr: address, url: self.website.text, category: self.getSelectedCategory(), context: context)
+                
+                dispatch_sync(dispatch_get_main_queue(), {
+                    
+                    CoreDataStackManager.sharedInstance().saveContext()
+                    self.performSegueWithIdentifier("rateLocationSegue", sender: location)
+                })
+            }
+            else{
+                print(error?.description)
+            }
+        }
     }
     
     func getSelectedCategory() -> String{

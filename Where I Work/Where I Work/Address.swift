@@ -34,10 +34,14 @@ class Address: NSManagedObject{
         self.state = state
     }
     
-    func getAddressDisplayString() -> String{
+    func getAddressDisplayString(includeNewLine: Bool) -> String{
         var addressString = ""
         addressString.appendContentsOf(street)
-        addressString.appendContentsOf("\r\n")
+        if(includeNewLine){
+            addressString.appendContentsOf("\r\n")
+        }else{
+            addressString.appendContentsOf(" ")
+        }
         addressString.appendContentsOf(city)
         addressString.appendContentsOf(" ")
         addressString.appendContentsOf(state)

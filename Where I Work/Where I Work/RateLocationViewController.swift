@@ -83,7 +83,7 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
     func displayLocation(){
         if(location != nil){
             businessName.text = location?.businessName
-            address.text = location?.address?.getAddressDisplayString()
+            address.text = location?.address?.getAddressDisplayString(true)
             category.text = location?.category
             website.text = location?.website
         }
