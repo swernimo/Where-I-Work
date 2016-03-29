@@ -153,8 +153,6 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
         let coordinate = CLLocationCoordinate2DMake(location.latitude, location.longitude)
         let annotation = MKPointAnnotation()
         annotation.coordinate = coordinate
-//        annotation.title = location.businessName
-//        annotation.subtitle = location.category
         return annotation
     }
     
@@ -232,36 +230,39 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
         
         let geoCoder = CLGeocoder()
         let clLocation = CLLocation(latitude: longPressLat!, longitude: longPressLong!)
-        
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-        geoCoder.reverseGeocodeLocation(clLocation, completionHandler: {
-            (placemarks, error) in
-            
-            if(placemarks == nil || error != nil){
-                return
-            }
-            
-            let placemark = placemarks?.first
-            
-            let dictionary = placemark!.addressDictionary!
-            
-            let street = dictionary[kABPersonAddressStreetKey]!.description
-            let city = dictionary[kABPersonAddressCityKey]!.description
-            let state = dictionary[kABPersonAddressStateKey]!.description
-            let zip = dictionary[kABPersonAddressZIPKey]!.description
-            
-            let address = Address(street: street, city: city, zip: zip, state: state, context: context)
-            
-            let id = NSUUID().UUIDString
-            let location = Location(id: id, lat: self.longPressLat!, long: self.longPressLong!, name: name, adr: address, url: website, category: category, context: context)
-            
-            CoreDataStackManager.sharedInstance().saveContext()
-            
-            dispatch_async(dispatch_get_main_queue(), {
+        if(NetworkHelper.isConnectedToNetwork()){
+            UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+            geoCoder.reverseGeocodeLocation(clLocation, completionHandler: {
+                (placemarks, error) in
                 
-                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-                self.performSegueWithIdentifier("rateLocationSegue", sender: location)
+                if(placemarks == nil || error != nil){
+                    return
+                }
+                
+                let placemark = placemarks?.first
+                
+                let dictionary = placemark!.addressDictionary!
+                
+                let street = dictionary[kABPersonAddressStreetKey]!.description
+                let city = dictionary[kABPersonAddressCityKey]!.description
+                let state = dictionary[kABPersonAddressStateKey]!.description
+                let zip = dictionary[kABPersonAddressZIPKey]!.description
+                
+                let address = Address(street: street, city: city, zip: zip, state: state, context: context)
+                
+                let id = NSUUID().UUIDString
+                let location = Location(id: id, lat: self.longPressLat!, long: self.longPressLong!, name: name, adr: address, url: website, category: category, context: context)
+                
+                CoreDataStackManager.sharedInstance().saveContext()
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    
+                    UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+                    self.performSegueWithIdentifier("rateLocationSegue", sender: location)
+                })
             })
-        })
+        }else{
+            showNetWorkErrorAlert()
+        }
     }
 }

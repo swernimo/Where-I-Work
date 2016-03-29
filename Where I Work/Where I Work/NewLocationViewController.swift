@@ -76,30 +76,39 @@ class NewLocationViewController: UIViewController, UIPickerViewDelegate, UIPicke
        let id = NSUUID().UUIDString
         let geoCoder = CLGeocoder()
         let address = Address(street: streetAddress.text!, city: city.text!, zip: zipCode.text!, state: state.text!, context: context)
-        
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-        geoCoder.geocodeAddressString(address.getAddressDisplayString(false)){
-            (result, error) in
-            
-            if(result != nil && error == nil){
-                let placeMark = result?.first
-                let latitude = placeMark?.location?.coordinate.latitude
-                let longitude = placeMark?.location?.coordinate.longitude
+        if(NetworkHelper.isConnectedToNetwork()){
+            UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+            geoCoder.geocodeAddressString(address.getAddressDisplayString(false)){
+                (result, error) in
                 
-                let location = Location(id: id, lat: latitude!, long: longitude!, name: self.businessName.text!, adr: address, url: self.website.text, category: self.getSelectedCategory(), context: context)
-                
-                dispatch_async(dispatch_get_main_queue(), {
+                if(result != nil && error == nil){
+                    let placeMark = result?.first
+                    let latitude = placeMark?.location?.coordinate.latitude
+                    let longitude = placeMark?.location?.coordinate.longitude
                     
-                    CoreDataStackManager.sharedInstance().saveContext()
-                    self.performSegueWithIdentifier("rateLocationSegue", sender: location)
-                })
+                    let location = Location(id: id, lat: latitude!, long: longitude!, name: self.businessName.text!, adr: address, url: self.website.text, category: self.getSelectedCategory(), context: context)
+                    
+                    dispatch_async(dispatch_get_main_queue(), {
+                        
+                        CoreDataStackManager.sharedInstance().saveContext()
+                        self.performSegueWithIdentifier("rateLocationSegue", sender: location)
+                    })
+                }
+                else{
+                    print(error?.description)
+                }
+                
+                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
             }
-            else{
-                print(error?.description)
-            }
-            
-            UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+        }else{
+            showNetWorkErrorAlert()
         }
+    }
+    
+    func showNetWorkErrorAlert(){
+        let alertview = UIAlertController(title: "Network Error", message: "You must have network access to use this app", preferredStyle: .Alert)
+        alertview.addAction(UIAlertAction(title: "Okay", style: .Default, handler: nil))
+        presentViewController(alertview, animated: true, completion: nil)
     }
     
     func getSelectedCategory() -> String{
