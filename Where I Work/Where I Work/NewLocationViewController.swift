@@ -95,18 +95,18 @@ class NewLocationViewController: UIViewController, UIPickerViewDelegate, UIPicke
                     })
                 }
                 else{
-                    print(error?.description)
+                    self.showAlert("Geocoding Error", message: error!.description)
                 }
                 
                 UIApplication.sharedApplication().networkActivityIndicatorVisible = false
             }
         }else{
-            showNetWorkErrorAlert()
+            showAlert("Network Error", message: "You must have network access to use this app")
         }
     }
     
-    func showNetWorkErrorAlert(){
-        let alertview = UIAlertController(title: "Network Error", message: "You must have network access to use this app", preferredStyle: .Alert)
+    func showAlert(title: String, message: String){
+        let alertview = UIAlertController(title: title, message: message, preferredStyle: .Alert)
         alertview.addAction(UIAlertAction(title: "Okay", style: .Default, handler: nil))
         presentViewController(alertview, animated: true, completion: nil)
     }

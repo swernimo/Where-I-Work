@@ -119,7 +119,7 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
             
             if(NetworkHelper.isConnectedToNetwork() == false){
                 loadDataFromYelp = false
-                showNetWorkErrorAlert()
+                showAlert("Network Error", message: "You must have network access to use this app")
             }
             
             locationHelper.getLocations(lat, longitude: long, callYelp: loadDataFromYelp){
@@ -127,7 +127,7 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
                 
                 if(error != nil){
                     if(error?.description == "Network Error"){
-                        self.showNetWorkErrorAlert()
+                        self.showAlert("Network Error", message: "You must have network access to use this app")
                     }
                     print(error)
                 }
@@ -143,8 +143,8 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
         }
     }
     
-    func showNetWorkErrorAlert(){
-        let alertview = UIAlertController(title: "Network Error", message: "You must have network access to use this app", preferredStyle: .Alert)
+    func showAlert(title: String, message: String){
+        let alertview = UIAlertController(title: title, message: message, preferredStyle: .Alert)
         alertview.addAction(UIAlertAction(title: "Okay", style: .Default, handler: nil))
         presentViewController(alertview, animated: true, completion: nil)
     }
@@ -236,6 +236,7 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
                 (placemarks, error) in
                 
                 if(placemarks == nil || error != nil){
+                    self.showAlert("Geocoding Error", message: error!.description)
                     return
                 }
                 
@@ -262,7 +263,7 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
                 })
             })
         }else{
-            showNetWorkErrorAlert()
+            showAlert("Network Error", message: "You must have network access to use this app")
         }
     }
 }
