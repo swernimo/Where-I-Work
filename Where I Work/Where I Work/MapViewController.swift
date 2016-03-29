@@ -233,6 +233,7 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
         let geoCoder = CLGeocoder()
         let clLocation = CLLocation(latitude: longPressLat!, longitude: longPressLong!)
         
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         geoCoder.reverseGeocodeLocation(clLocation, completionHandler: {
             (placemarks, error) in
             
@@ -257,6 +258,8 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
             CoreDataStackManager.sharedInstance().saveContext()
             
             dispatch_async(dispatch_get_main_queue(), {
+                
+                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
                 self.performSegueWithIdentifier("rateLocationSegue", sender: location)
             })
         })

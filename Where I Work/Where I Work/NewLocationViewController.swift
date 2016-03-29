@@ -76,6 +76,8 @@ class NewLocationViewController: UIViewController, UIPickerViewDelegate, UIPicke
        let id = NSUUID().UUIDString
         let geoCoder = CLGeocoder()
         let address = Address(street: streetAddress.text!, city: city.text!, zip: zipCode.text!, state: state.text!, context: context)
+        
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         geoCoder.geocodeAddressString(address.getAddressDisplayString(false)){
             (result, error) in
             
@@ -95,6 +97,8 @@ class NewLocationViewController: UIViewController, UIPickerViewDelegate, UIPicke
             else{
                 print(error?.description)
             }
+            
+            UIApplication.sharedApplication().networkActivityIndicatorVisible = false
         }
     }
     
