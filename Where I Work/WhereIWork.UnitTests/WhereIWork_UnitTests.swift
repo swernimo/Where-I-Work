@@ -1,15 +1,14 @@
 //
-//  Where_I_WorkTests.swift
-//  Where I WorkTests
+//  WhereIWork_UnitTests.swift
+//  WhereIWork.UnitTests
 //
-//  Created by Sean Wernimont on 3/6/16.
+//  Created by Sean Wernimont on 5/26/16.
 //  Copyright © 2016 Just One Guy. All rights reserved.
 //
 
 import XCTest
-@testable import Where_I_Work
 
-class Where_I_WorkTests: XCTestCase {
+class WhereIWork_UnitTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
