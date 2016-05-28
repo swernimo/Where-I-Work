@@ -35,7 +35,6 @@ class LocationHelper {
         let locCoreData = LocationCoreData()
         var saved = locCoreData.loadSavedLocations()
         saved = removeDuplicateLocations(saved)
-        print("number of saved locations: \(saved.count)")
         return saved
     }
     
