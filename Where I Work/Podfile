@@ -15,5 +15,5 @@ target 'UnitTests' do
 end
 
 target 'Where I Work' do
-    
+    pod 'Cosmos', '~> 1.2'    
 end

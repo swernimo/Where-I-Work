@@ -4,11 +4,14 @@
 //
 //  Created by Sean Wernimont on 3/7/16.
 //  Copyright © 2016 Just One Guy. All rights reserved.
+//  
+// star rating control creator: https://github.com/marketplacer/Cosmos
 //
 
 import Foundation
 import UIKit
 import MapKit
+import Cosmos
 
 class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
     var location: Location?
@@ -22,10 +25,9 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
     @IBOutlet weak var freeWifiSwitch: UISwitch!
     @IBOutlet weak var wifiStrengthStepper: UIStepper!
     @IBOutlet weak var wifiStrengthLabel: UILabel!
-    @IBOutlet weak var seatingAvailabliityStepper: UIStepper!
-    @IBOutlet weak var seatingAvailabiltyLabel: UILabel!
     @IBOutlet weak var workThereAgainSwitch: UISwitch!
     @IBOutlet weak var notesTextView: UITextView!
+    @IBOutlet weak var seatingRating: CosmosView!
     
     
     override func viewDidLoad() {
@@ -36,6 +38,12 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
         }
         notesTextView.layer.borderColor = UIColor.grayColor().CGColor
         notesTextView.layer.borderWidth = 1
+        seatingRating.settings.fillMode = .Half
+        seatingRating.didFinishTouchingCosmos = {
+            rating in
+            print("rating: \(rating)")
+            //if the rating changed enable the save button
+        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -64,8 +72,6 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
         freeWifiSwitch.on = (r.freeWifi == 1)
         wifiStrengthStepper.value = Double(r.wifiStrength)
         wifiStrengthLabel.text = getStepperLabelText(Double(r.wifiStrength))
-        seatingAvailabliityStepper.value = Double(r.seatingAvailability)
-        seatingAvailabiltyLabel.text = getStepperLabelText(Double(r.seatingAvailability))
         workThereAgainSwitch.on = (r.workThereAgain == 1)
         notesTextView.text = r.notes
     }
@@ -73,7 +79,6 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
     func setHiddenForRatingLabels(hidden: Bool){
         noiseLevelLabel.hidden = hidden
         wifiStrengthLabel.hidden = hidden
-        seatingAvailabiltyLabel.hidden = hidden
     }
     
     func getStepperLabelText(level: Double) -> String{
@@ -102,8 +107,6 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
         freeWifiSwitch.on = false
         wifiStrengthLabel.text = ""
         wifiStrengthStepper.value = 1
-        seatingAvailabiltyLabel.text = ""
-        seatingAvailabliityStepper.value = 1
         workThereAgainSwitch.on = false
         notesTextView.text = ""
     }
@@ -123,7 +126,7 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
         let context = CoreDataStackManager.sharedInstance().managedObjectContext
         let id = NSUUID().UUIDString
         let date = NSDate()
-        let _ = Rating(id: id, noise: noiseLevelStepper.value, freeWifi: freeWifiSwitch.on, wifiStrength: wifiStrengthStepper.value, seatingAvailabilityRating: seatingAvailabliityStepper.value, wouldWorkThereAgain: workThereAgainSwitch.on, notes: notesTextView.text, location: location!, created: date, context: context)
+        let _ = Rating(id: id, noise: noiseLevelStepper.value, freeWifi: freeWifiSwitch.on, wifiStrength: wifiStrengthStepper.value, seatingAvailabilityRating: seatingRating.rating, wouldWorkThereAgain: workThereAgainSwitch.on, notes: notesTextView.text, location: location!, created: date, context: context)
         
         CoreDataStackManager.sharedInstance().saveContext()
         navigationController?.popToRootViewControllerAnimated(true)
@@ -134,11 +137,6 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
         noiseLevelLabel.text = getStepperLabelText(sender.value)
     }
     
-    @IBAction func seatingAvailability_StepChanged(sender: UIStepper) {
-        seatingAvailabiltyLabel.hidden = false
-        seatingAvailabiltyLabel.text = getStepperLabelText(sender.value)
-    }
-
     @IBAction func wifiStrength_StepChanged(sender: UIStepper) {
 
         wifiStrengthLabel.hidden = false
