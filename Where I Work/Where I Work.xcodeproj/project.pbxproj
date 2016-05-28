@@ -11,6 +11,7 @@
 		1433B90C1CA38D22001FF5A2 /* RatingCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1433B90B1CA38D22001FF5A2 /* RatingCoreData.swift */; };
 		1433B90E1CA38F9E001FF5A2 /* RatingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1433B90D1CA38F9E001FF5A2 /* RatingHelper.swift */; };
 		1434C20C1CF90B5F002A040C /* AddressSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1434C20B1CF90B5F002A040C /* AddressSpec.swift */; };
+		144519341CF9428200BACEDD /* QuickConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144519331CF9428200BACEDD /* QuickConfig.swift */; };
 		1494E9BB1C94C37C0089F2F6 /* LocationDisabledViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1494E9BA1C94C37C0089F2F6 /* LocationDisabledViewController.swift */; };
 		1494E9BF1CA0F63B0089F2F6 /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1494E9BE1CA0F63B0089F2F6 /* NetworkHelper.swift */; };
 		14A939AB1C8C91270064A22E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A939AA1C8C91270064A22E /* AppDelegate.swift */; };
@@ -73,6 +74,7 @@
 		1434C2011CF90A27002A040C /* UnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1434C2051CF90A27002A040C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1434C20B1CF90B5F002A040C /* AddressSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressSpec.swift; sourceTree = "<group>"; };
+		144519331CF9428200BACEDD /* QuickConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickConfig.swift; sourceTree = "<group>"; };
 		14777AE11CF7DD5500E332B8 /* WhereIWork.UnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WhereIWork.UnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		14777AEF1CF7DD8900E332B8 /* WhereIWork.UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WhereIWork.UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1494E9BA1C94C37C0089F2F6 /* LocationDisabledViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationDisabledViewController.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 			children = (
 				1434C2051CF90A27002A040C /* Info.plist */,
 				1434C20B1CF90B5F002A040C /* AddressSpec.swift */,
+				144519331CF9428200BACEDD /* QuickConfig.swift */,
 			);
 			path = UnitTests;
 			sourceTree = "<group>";
@@ -580,6 +583,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1434C20C1CF90B5F002A040C /* AddressSpec.swift in Sources */,
+				144519341CF9428200BACEDD /* QuickConfig.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -846,6 +850,7 @@
 			baseConfigurationReference = DBDA3C82A5B8310D2249B9F4 /* Pods-Where I Work.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEFINES_MODULE = YES;
 				INFOPLIST_FILE = "Where I Work/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "JOG.Where-I-Work";
@@ -858,6 +863,7 @@
 			baseConfigurationReference = F9EE443448657756009ADFFB /* Pods-Where I Work.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEFINES_MODULE = YES;
 				INFOPLIST_FILE = "Where I Work/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "JOG.Where-I-Work";
