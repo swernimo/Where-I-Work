@@ -8,10 +8,12 @@ def testing_pods
     pod 'Nimble'
 end
 
-target 'WhereIWork.UnitTests' do
+target 'UnitTests' do
+    pod 'Quick'
+    pod 'Nimble'
     testing_pods
 end
 
-target 'WhereIWork.UITests' do
-    testing_pods
+target 'Where I Work' do
+    
 end
