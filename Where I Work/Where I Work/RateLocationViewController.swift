@@ -20,14 +20,12 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
     @IBOutlet weak var address: UILabel!
     @IBOutlet weak var category: UILabel!
     @IBOutlet weak var website: UILabel!
-    @IBOutlet weak var noiseLevelStepper: UIStepper!
-    @IBOutlet weak var noiseLevelLabel: UILabel!
     @IBOutlet weak var freeWifiSwitch: UISwitch!
-    @IBOutlet weak var wifiStrengthStepper: UIStepper!
-    @IBOutlet weak var wifiStrengthLabel: UILabel!
     @IBOutlet weak var workThereAgainSwitch: UISwitch!
     @IBOutlet weak var notesTextView: UITextView!
     @IBOutlet weak var seatingRating: CosmosView!
+    @IBOutlet weak var noiseRating: CosmosView!
+    @IBOutlet weak var wifiRating: CosmosView!
     
     
     override func viewDidLoad() {
@@ -36,14 +34,25 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
             let rating = loadRating(location!)
             displayRatingIfExisting(rating)
         }
-        notesTextView.layer.borderColor = UIColor.grayColor().CGColor
-        notesTextView.layer.borderWidth = 1
-        seatingRating.settings.fillMode = .Half
+        setNotesTextViewBorder()
+        setFillModeForRatingControls([seatingRating, noiseRating, wifiRating])
         seatingRating.didFinishTouchingCosmos = {
             rating in
             print("rating: \(rating)")
-            //if the rating changed enable the save button
+            //TODO: if the rating changed enable the save button
         }
+    }
+    
+    func setFillModeForRatingControls(ratingControls: [CosmosView]){
+        for index in 0..<ratingControls.count{
+            let control = ratingControls[index]
+            control.settings.fillMode = .Half
+        }
+    }
+    
+    func setNotesTextViewBorder(){
+        notesTextView.layer.borderColor = UIColor.grayColor().CGColor
+        notesTextView.layer.borderWidth = 1
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -61,28 +70,14 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
     
     func displayRatingIfExisting(rating: Rating?){
         guard let r = rating where rating != nil else{
-            setHiddenForRatingLabels(true)
+            //TODO: set the rating controls
             notesTextView.text = ""
             return
         }
         
-        setHiddenForRatingLabels(false)
-        noiseLevelStepper.value = Double(r.noiseLevel)
-        noiseLevelLabel.text = getStepperLabelText(Double(r.noiseLevel))
         freeWifiSwitch.on = (r.freeWifi == 1)
-        wifiStrengthStepper.value = Double(r.wifiStrength)
-        wifiStrengthLabel.text = getStepperLabelText(Double(r.wifiStrength))
         workThereAgainSwitch.on = (r.workThereAgain == 1)
         notesTextView.text = r.notes
-    }
-    
-    func setHiddenForRatingLabels(hidden: Bool){
-        noiseLevelLabel.hidden = hidden
-        wifiStrengthLabel.hidden = hidden
-    }
-    
-    func getStepperLabelText(level: Double) -> String{
-        return "\(level) / 5"
     }
     
     func displayLocation(){
@@ -102,13 +97,10 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
     }
     
     func setRatingControlsToDefaultState(){
-        noiseLevelLabel.text = ""
-        noiseLevelStepper.value = 1
         freeWifiSwitch.on = false
-        wifiStrengthLabel.text = ""
-        wifiStrengthStepper.value = 1
         workThereAgainSwitch.on = false
         notesTextView.text = ""
+        //TODO: set the rating controls
     }
     
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
@@ -126,20 +118,9 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
         let context = CoreDataStackManager.sharedInstance().managedObjectContext
         let id = NSUUID().UUIDString
         let date = NSDate()
-        let _ = Rating(id: id, noise: noiseLevelStepper.value, freeWifi: freeWifiSwitch.on, wifiStrength: wifiStrengthStepper.value, seatingAvailabilityRating: seatingRating.rating, wouldWorkThereAgain: workThereAgainSwitch.on, notes: notesTextView.text, location: location!, created: date, context: context)
+        let _ = Rating(id: id, noise: noiseRating.rating, freeWifi: freeWifiSwitch.on, wifiStrength: wifiRating.rating, seatingAvailabilityRating: seatingRating.rating, wouldWorkThereAgain: workThereAgainSwitch.on, notes: notesTextView.text, location: location!, created: date, context: context)
         
         CoreDataStackManager.sharedInstance().saveContext()
         navigationController?.popToRootViewControllerAnimated(true)
-    }
-    
-    @IBAction func noiseLevel_StepChanged(sender: UIStepper) {
-        noiseLevelLabel.hidden = false
-        noiseLevelLabel.text = getStepperLabelText(sender.value)
-    }
-    
-    @IBAction func wifiStrength_StepChanged(sender: UIStepper) {
-
-        wifiStrengthLabel.hidden = false
-        wifiStrengthLabel.text = getStepperLabelText(sender.value)
     }
 }

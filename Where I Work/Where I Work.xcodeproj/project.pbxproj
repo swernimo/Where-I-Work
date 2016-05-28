@@ -32,6 +32,7 @@
 		14A939E71C9262870064A22E /* CoreDataStackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A939E61C9262870064A22E /* CoreDataStackManager.swift */; };
 		14A939E91C9263140064A22E /* LocationCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A939E81C9263140064A22E /* LocationCoreData.swift */; };
 		14DCAC221C928D2800168581 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 14DCAC211C928D2800168581 /* Podfile */; };
+		14DF2B401CFA3B5600FE8E26 /* RateLocationViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DF2B3F1CFA3B5600FE8E26 /* RateLocationViewControllerSpec.swift */; };
 		722414DCD563EFE6CFD1A3B0 /* Pods_Where_I_Work.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C75339E43250443577256D31 /* Pods_Where_I_Work.framework */; };
 		C52A31BF14B3E524A50ACC3A /* Pods_UnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E32F3307C50217327BED273F /* Pods_UnitTests.framework */; };
 /* End PBXBuildFile section */
@@ -100,6 +101,7 @@
 		14A939E61C9262870064A22E /* CoreDataStackManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackManager.swift; sourceTree = "<group>"; };
 		14A939E81C9263140064A22E /* LocationCoreData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationCoreData.swift; sourceTree = "<group>"; };
 		14DCAC211C928D2800168581 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		14DF2B3F1CFA3B5600FE8E26 /* RateLocationViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateLocationViewControllerSpec.swift; sourceTree = "<group>"; };
 		20D0FA36985D0215BD0A5B36 /* Pods-UnitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-UnitTests/Pods-UnitTests.release.xcconfig"; sourceTree = "<group>"; };
 		2B7BEA9D5BF0639FE5258FC1 /* Pods_WhereIWork_UnitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WhereIWork_UnitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		41BD4CD022403CD39B9662E7 /* Pods_WhereIWork_UITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WhereIWork_UITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -160,6 +162,7 @@
 				1434C2051CF90A27002A040C /* Info.plist */,
 				1434C20B1CF90B5F002A040C /* AddressSpec.swift */,
 				144519331CF9428200BACEDD /* QuickConfig.swift */,
+				14DF2B3F1CFA3B5600FE8E26 /* RateLocationViewControllerSpec.swift */,
 			);
 			path = UnitTests;
 			sourceTree = "<group>";
@@ -582,6 +585,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14DF2B401CFA3B5600FE8E26 /* RateLocationViewControllerSpec.swift in Sources */,
 				1434C20C1CF90B5F002A040C /* AddressSpec.swift in Sources */,
 				144519341CF9428200BACEDD /* QuickConfig.swift in Sources */,
 			);

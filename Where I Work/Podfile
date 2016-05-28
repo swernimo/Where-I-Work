@@ -2,6 +2,7 @@ use_frameworks!
 
 pod 'AFNetworking', '~> 2.5'
 pod 'BDBOAuth1Manager'
+pod 'Cosmos', '~> 1.2'
 
 def testing_pods
     pod 'Quick'
@@ -9,11 +10,9 @@ def testing_pods
 end
 
 target 'UnitTests' do
-    pod 'Quick'
-    pod 'Nimble'
     testing_pods
 end
 
 target 'Where I Work' do
-    pod 'Cosmos', '~> 1.2'    
+       
 end
