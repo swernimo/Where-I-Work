@@ -197,12 +197,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bgn-9M-FOA">
-                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="0.0" y="185" width="400" height="563"/>
-                                </variation>
-                            </scrollView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Business Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5CS-cl-xF8">
                                 <rect key="frame" x="-42" y="-21" width="42" height="21"/>
                                 <constraints>
@@ -225,36 +219,66 @@
                                     </mask>
                                 </variation>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cvf-At-WII">
+                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="41" id="83E-fT-J9n"/>
+                                </constraints>
+                                <string key="text">123 Main St
+Any City, State, 12345-6789</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="83E-fT-J9n"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="83E-fT-J9n"/>
+                                    </mask>
+                                </variation>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="5CS-cl-xF8" firstAttribute="top" secondItem="7Cx-fV-WON" secondAttribute="bottom" constant="8" id="114-Yr-z0B"/>
                             <constraint firstItem="5CS-cl-xF8" firstAttribute="leading" secondItem="kD3-bk-T7Z" secondAttribute="leadingMargin" constant="80" id="149-dx-1Sc"/>
+                            <constraint firstItem="cvf-At-WII" firstAttribute="top" secondItem="5CS-cl-xF8" secondAttribute="bottom" constant="8" symbolic="YES" id="2fh-FL-j58"/>
                             <constraint firstItem="5CS-cl-xF8" firstAttribute="width" secondItem="kD3-bk-T7Z" secondAttribute="width" id="9hK-bp-fgc"/>
                             <constraint firstItem="5CS-cl-xF8" firstAttribute="centerX" secondItem="kD3-bk-T7Z" secondAttribute="centerX" id="LNl-Ni-hHf"/>
+                            <constraint firstItem="cvf-At-WII" firstAttribute="width" secondItem="kD3-bk-T7Z" secondAttribute="width" id="h5Y-qo-y55"/>
+                            <constraint firstItem="cvf-At-WII" firstAttribute="centerX" secondItem="kD3-bk-T7Z" secondAttribute="centerX" id="mlo-Uz-OWZ"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
-                                <exclude reference="Bgn-9M-FOA"/>
                                 <exclude reference="5CS-cl-xF8"/>
+                                <exclude reference="cvf-At-WII"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="114-Yr-z0B"/>
                                 <exclude reference="149-dx-1Sc"/>
                                 <exclude reference="9hK-bp-fgc"/>
                                 <exclude reference="LNl-Ni-hHf"/>
+                                <exclude reference="2fh-FL-j58"/>
+                                <exclude reference="h5Y-qo-y55"/>
+                                <exclude reference="mlo-Uz-OWZ"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
-                                <include reference="Bgn-9M-FOA"/>
                                 <include reference="5CS-cl-xF8"/>
+                                <include reference="cvf-At-WII"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="114-Yr-z0B"/>
                                 <include reference="149-dx-1Sc"/>
                                 <exclude reference="9hK-bp-fgc"/>
                                 <include reference="LNl-Ni-hHf"/>
+                                <include reference="2fh-FL-j58"/>
+                                <include reference="h5Y-qo-y55"/>
+                                <include reference="mlo-Uz-OWZ"/>
                             </mask>
                         </variation>
                     </view>
@@ -467,17 +491,6 @@
                                     <rect key="frame" x="11" y="439" width="154" height="18"/>
                                 </variation>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cvf-At-WII">
-                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
-                                <string key="text">123 Main St
-Any City, State, 12345-6789</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="76" y="38" width="218" height="41"/>
-                                </variation>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coffee &amp; Tea" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uTf-OR-pzD">
                                 <rect key="frame" x="-42" y="-21" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -535,7 +548,6 @@ Any City, State, 12345-6789</string>
                                 <exclude reference="zDI-HN-lqJ"/>
                                 <exclude reference="5mP-zZ-3kz"/>
                                 <exclude reference="NMT-B2-7Iv"/>
-                                <exclude reference="cvf-At-WII"/>
                                 <exclude reference="uTf-OR-pzD"/>
                                 <exclude reference="cR3-DC-2bC"/>
                                 <exclude reference="cXn-jM-dma"/>
@@ -561,7 +573,6 @@ Any City, State, 12345-6789</string>
                                 <include reference="zDI-HN-lqJ"/>
                                 <include reference="5mP-zZ-3kz"/>
                                 <include reference="NMT-B2-7Iv"/>
-                                <include reference="cvf-At-WII"/>
                                 <include reference="uTf-OR-pzD"/>
                                 <include reference="cR3-DC-2bC"/>
                                 <include reference="cXn-jM-dma"/>
