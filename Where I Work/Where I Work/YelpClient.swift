@@ -119,13 +119,13 @@ class YelpClient : BDBOAuth1RequestOperationManager {
                 let id = NSUUID().UUIDString
                 let loc = Location(id: id, lat: lat, long: long, name: name, adr: address, url: nil, category: categoryName, context: self.sharedContext)
                 
-                let locationAlreadySaved = self.locationAlreadySaved(loc, savedLocations: savedLocations)
-                if(locationAlreadySaved){
-                    continue
-                }else{
-                    CoreDataStackManager.sharedInstance().saveContext()
+//                let locationAlreadySaved = self.locationAlreadySaved(loc, savedLocations: savedLocations)
+//                if(locationAlreadySaved){
+//                    continue
+//                }else{
+//                    CoreDataStackManager.sharedInstance().saveContext()
                     locationArray.append(loc)
-                }
+//                }
                 
             }
             if(NetworkHelper.isConnectedToNetwork()){
@@ -143,7 +143,7 @@ class YelpClient : BDBOAuth1RequestOperationManager {
     func locationAlreadySaved(location: Location, savedLocations: [Location]) -> Bool{
         var saved = false
         if(savedLocations.isEmpty == false){
-            for index in 0 ... savedLocations.count{
+            for index in 0 ..< savedLocations.count{
                 let loc = savedLocations[index]
                 if(loc.businessName == location.businessName){
                     if(loc.latitude == location.latitude){
