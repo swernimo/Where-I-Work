@@ -480,6 +480,62 @@ Any City, State, 12345-6789</string>
                                             </mask>
                                         </variation>
                                     </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Value" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MDb-Xd-h6n">
+                                        <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="79" id="3mO-uq-1x5"/>
+                                            <constraint firstAttribute="height" constant="21" id="sds-PI-hj6"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="3mO-uq-1x5"/>
+                                                <exclude reference="sds-PI-hj6"/>
+                                            </mask>
+                                        </variation>
+                                        <variation key="heightClass=regular-widthClass=compact">
+                                            <mask key="constraints">
+                                                <include reference="3mO-uq-1x5"/>
+                                                <include reference="sds-PI-hj6"/>
+                                            </mask>
+                                        </variation>
+                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zVT-3H-BKd" customClass="CosmosView" customModule="Cosmos">
+                                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="24" id="Auu-tV-ezs"/>
+                                            <constraint firstAttribute="width" constant="130" id="sjX-hv-a9D"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="rating">
+                                                <real key="value" value="0.0"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="totalStars">
+                                                <integer key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="fillMode">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="minTouchRating">
+                                                <real key="value" value="0.0"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="Auu-tV-ezs"/>
+                                                <exclude reference="sjX-hv-a9D"/>
+                                            </mask>
+                                        </variation>
+                                        <variation key="heightClass=regular-widthClass=compact">
+                                            <mask key="constraints">
+                                                <include reference="Auu-tV-ezs"/>
+                                                <include reference="sjX-hv-a9D"/>
+                                            </mask>
+                                        </variation>
+                                    </view>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="Pbv-AF-3N0" firstAttribute="top" secondItem="eE2-UN-TfA" secondAttribute="bottom" constant="16" id="0u8-zD-TcU"/>
@@ -509,7 +565,13 @@ Any City, State, 12345-6789</string>
                                     <constraint firstAttribute="bottom" secondItem="zDI-HN-lqJ" secondAttribute="bottom" constant="403" id="URC-Id-KH0">
                                         <variation key="heightClass=regular-widthClass=compact" constant="403"/>
                                     </constraint>
+                                    <constraint firstItem="zVT-3H-BKd" firstAttribute="leading" secondItem="CO3-eb-PaG" secondAttribute="leading" id="VpZ-36-jT5"/>
+                                    <constraint firstItem="zVT-3H-BKd" firstAttribute="top" secondItem="MDb-Xd-h6n" secondAttribute="top" id="cWs-Qt-nAv"/>
+                                    <constraint firstItem="MDb-Xd-h6n" firstAttribute="top" secondItem="c1H-Lg-nYF" secondAttribute="bottom" constant="8" symbolic="YES" id="qhu-eJ-jZg">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="12"/>
+                                    </constraint>
                                     <constraint firstItem="c1H-Lg-nYF" firstAttribute="top" secondItem="Pbv-AF-3N0" secondAttribute="bottom" constant="14" id="qjG-Cu-k4w"/>
+                                    <constraint firstItem="MDb-Xd-h6n" firstAttribute="leading" secondItem="c1H-Lg-nYF" secondAttribute="leading" id="tTW-yg-CaP"/>
                                     <constraint firstItem="7Uw-KA-3JS" firstAttribute="top" secondItem="99Y-Oz-aZY" secondAttribute="top" constant="179" id="u3h-Sf-byS"/>
                                     <constraint firstItem="Pbv-AF-3N0" firstAttribute="leading" secondItem="99Y-Oz-aZY" secondAttribute="leading" constant="26" id="vMu-JD-nSG">
                                         <variation key="heightClass=regular-widthClass=compact" constant="27"/>
@@ -526,6 +588,8 @@ Any City, State, 12345-6789</string>
                                         <exclude reference="7Uw-KA-3JS"/>
                                         <exclude reference="c1H-Lg-nYF"/>
                                         <exclude reference="CO3-eb-PaG"/>
+                                        <exclude reference="MDb-Xd-h6n"/>
+                                        <exclude reference="zVT-3H-BKd"/>
                                     </mask>
                                     <mask key="constraints">
                                         <exclude reference="Sbx-oc-BcI"/>
@@ -541,10 +605,14 @@ Any City, State, 12345-6789</string>
                                         <exclude reference="AfB-to-k2S"/>
                                         <exclude reference="OId-dv-iaQ"/>
                                         <exclude reference="qjG-Cu-k4w"/>
+                                        <exclude reference="qhu-eJ-jZg"/>
+                                        <exclude reference="tTW-yg-CaP"/>
                                         <exclude reference="2fr-kf-WJm"/>
                                         <exclude reference="QHg-nt-Jsz"/>
                                         <exclude reference="8Uw-x0-POo"/>
                                         <exclude reference="x0d-j0-Vci"/>
+                                        <exclude reference="VpZ-36-jT5"/>
+                                        <exclude reference="cWs-Qt-nAv"/>
                                         <exclude reference="TGF-WS-Ta6"/>
                                         <exclude reference="u3h-Sf-byS"/>
                                         <exclude reference="x9W-X0-i3n"/>
@@ -559,6 +627,8 @@ Any City, State, 12345-6789</string>
                                         <include reference="7Uw-KA-3JS"/>
                                         <include reference="c1H-Lg-nYF"/>
                                         <include reference="CO3-eb-PaG"/>
+                                        <include reference="MDb-Xd-h6n"/>
+                                        <include reference="zVT-3H-BKd"/>
                                     </mask>
                                     <mask key="constraints">
                                         <include reference="Sbx-oc-BcI"/>
@@ -574,10 +644,14 @@ Any City, State, 12345-6789</string>
                                         <include reference="AfB-to-k2S"/>
                                         <include reference="OId-dv-iaQ"/>
                                         <include reference="qjG-Cu-k4w"/>
+                                        <include reference="qhu-eJ-jZg"/>
+                                        <include reference="tTW-yg-CaP"/>
                                         <include reference="2fr-kf-WJm"/>
                                         <include reference="QHg-nt-Jsz"/>
                                         <include reference="8Uw-x0-POo"/>
                                         <include reference="x0d-j0-Vci"/>
+                                        <include reference="VpZ-36-jT5"/>
+                                        <include reference="cWs-Qt-nAv"/>
                                         <include reference="TGF-WS-Ta6"/>
                                         <include reference="u3h-Sf-byS"/>
                                         <include reference="x9W-X0-i3n"/>
@@ -708,15 +782,6 @@ Any City, State, 12345-6789</string>
                                 <nil key="highlightedColor"/>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="81" y="497" width="67" height="18"/>
-                                </variation>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Value for Money" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rsj-Yc-QY3">
-                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="38" y="193" width="118" height="21"/>
                                 </variation>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9II-iR-iFy" customClass="CosmosView" customModule="Cosmos">
@@ -866,7 +931,6 @@ Any City, State, 12345-6789</string>
                             <mask key="subviews">
                                 <exclude reference="r9O-Lv-yZL"/>
                                 <exclude reference="Y4p-fS-eYf"/>
-                                <exclude reference="rsj-Yc-QY3"/>
                                 <exclude reference="9II-iR-iFy"/>
                                 <exclude reference="V6K-fJ-iBW"/>
                                 <exclude reference="ZNf-Ea-pxb"/>
@@ -884,7 +948,6 @@ Any City, State, 12345-6789</string>
                             <mask key="subviews">
                                 <include reference="r9O-Lv-yZL"/>
                                 <include reference="Y4p-fS-eYf"/>
-                                <include reference="rsj-Yc-QY3"/>
                                 <include reference="9II-iR-iFy"/>
                                 <include reference="V6K-fJ-iBW"/>
                                 <include reference="ZNf-Ea-pxb"/>
