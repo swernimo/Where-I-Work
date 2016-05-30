@@ -22,11 +22,16 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
     @IBOutlet weak var website: UILabel!
     @IBOutlet weak var freeWifiSwitch: UISwitch!
     @IBOutlet weak var workThereAgainSwitch: UISwitch!
-    @IBOutlet weak var notesTextView: UITextView!
     @IBOutlet weak var seatingRating: CosmosView!
     @IBOutlet weak var noiseRating: CosmosView!
     @IBOutlet weak var wifiRating: CosmosView!
-    
+    @IBOutlet weak var valueRating: CosmosView!
+    @IBOutlet weak var parkingRating: CosmosView!
+    @IBOutlet weak var powerRating: CosmosView!
+    @IBOutlet weak var loyaltySwitch: UISwitch!
+    @IBOutlet weak var wifiTextField: UITextField!
+    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var phoneNumberTextField: UILabel!
     
     override func viewDidLoad() {
         displayLocation()
@@ -34,7 +39,6 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
             let rating = loadRating(location!)
             displayRatingIfExisting(rating)
         }
-        setNotesTextViewBorder()
         setFillModeForRatingControls([seatingRating, noiseRating, wifiRating])
         seatingRating.didFinishTouchingCosmos = {
             rating in
@@ -48,11 +52,6 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
             let control = ratingControls[index]
             control.settings.fillMode = .Half
         }
-    }
-    
-    func setNotesTextViewBorder(){
-        notesTextView.layer.borderColor = UIColor.grayColor().CGColor
-        notesTextView.layer.borderWidth = 1
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -71,17 +70,16 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
     func displayRatingIfExisting(rating: Rating?){
         guard let r = rating where rating != nil else{
             //TODO: set the rating controls
-            notesTextView.text = ""
             return
         }
         
         freeWifiSwitch.on = (r.freeWifi == 1)
         workThereAgainSwitch.on = (r.workThereAgain == 1)
-        notesTextView.text = r.notes
     }
     
     func displayLocation(){
         if(location != nil){
+            
             businessName.text = location?.businessName
             address.text = location?.address?.getAddressDisplayString(true)
             category.text = location?.category
@@ -99,7 +97,6 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
     func setRatingControlsToDefaultState(){
         freeWifiSwitch.on = false
         workThereAgainSwitch.on = false
-        notesTextView.text = ""
         //TODO: set the rating controls
     }
     
@@ -118,7 +115,7 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
         let context = CoreDataStackManager.sharedInstance().managedObjectContext
         let id = NSUUID().UUIDString
         let date = NSDate()
-        let _ = Rating(id: id, noise: noiseRating.rating, freeWifi: freeWifiSwitch.on, wifiStrength: wifiRating.rating, seatingAvailabilityRating: seatingRating.rating, wouldWorkThereAgain: workThereAgainSwitch.on, notes: notesTextView.text, location: location!, created: date, context: context)
+        let _ = Rating(id: id, noise: noiseRating.rating, freeWifi: freeWifiSwitch.on, wifiStrength: wifiRating.rating, seatingAvailabilityRating: seatingRating.rating, wouldWorkThereAgain: workThereAgainSwitch.on, notes: "", location: location!, created: date, context: context)
         
         CoreDataStackManager.sharedInstance().saveContext()
         navigationController?.popToRootViewControllerAnimated(true)
