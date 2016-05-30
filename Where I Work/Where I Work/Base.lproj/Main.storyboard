@@ -261,6 +261,7 @@ Any City, State, 12345-6789</string>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" link="YES" staticText="YES"/>
                                 </accessibility>
+                                <gestureRecognizers/>
                                 <attributedString key="attributedText">
                                     <fragment content="Website">
                                         <attributes>
@@ -272,6 +273,9 @@ Any City, State, 12345-6789</string>
                                     </fragment>
                                 </attributedString>
                                 <nil key="highlightedColor"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="ItI-Ot-4fe" appends="YES" id="tC7-pL-wij"/>
+                                </connections>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(800) 249-1234" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cXn-jM-dma">
                                 <rect key="frame" x="-42" y="-21" width="42" height="21"/>
@@ -1160,6 +1164,7 @@ Any City, State, 12345-6789</string>
                         <outlet property="seatingRating" destination="2Mm-LM-s8j" id="lam-6d-nJn"/>
                         <outlet property="valueRating" destination="zVT-3H-BKd" id="b8y-hU-vWW"/>
                         <outlet property="website" destination="cR3-DC-2bC" id="sEl-Jw-86m"/>
+                        <outlet property="websiteTapGesture" destination="ItI-Ot-4fe" id="a1x-KH-PUb"/>
                         <outlet property="wifiRating" destination="CO3-eb-PaG" id="M5O-1D-8cX"/>
                         <outlet property="wifiTextField" destination="MKR-WN-53c" id="gih-qc-B2b"/>
                         <outlet property="workThereAgainSwitch" destination="SAe-2A-i2Q" id="DZk-GQ-XeH"/>
@@ -1167,6 +1172,12 @@ Any City, State, 12345-6789</string>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="urE-R9-Ez1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="ItI-Ot-4fe">
+                    <connections>
+                        <action selector="websiteLabel_Clicked:" destination="9Zw-Nd-Fo7" id="HAz-f2-kPj"/>
+                        <outlet property="delegate" destination="cR3-DC-2bC" id="lIG-B8-NFV"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="3454.5" y="960.75"/>
         </scene>
@@ -1392,6 +1403,6 @@ Any City, State, 12345-6789</string>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="0gt-tV-vyt"/>
-        <segue reference="CIV-wz-pGx"/>
+        <segue reference="hZg-xJ-RVk"/>
     </inferredMetricsTieBreakers>
 </document>

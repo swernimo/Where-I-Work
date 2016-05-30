@@ -84,7 +84,7 @@ class NewLocationViewController: UIViewController, UIPickerViewDelegate, UIPicke
                     
                     dispatch_async(dispatch_get_main_queue(), {
                         
-                        CoreDataStackManager.sharedInstance().saveContext()
+// CoreDataStackManager.sharedInstance().saveContext()
                         self.performSegueWithIdentifier("rateLocationSegue", sender: location)
                     })
                 }

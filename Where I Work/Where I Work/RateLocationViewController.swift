@@ -13,7 +13,7 @@ import UIKit
 import MapKit
 import Cosmos
 
-class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
+class RateLocationViewController : UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDelegate{
     var location: Location?
     
     @IBOutlet weak var businessName: UILabel!
@@ -32,6 +32,7 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
     @IBOutlet weak var wifiTextField: UITextField!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var phoneNumberTextField: UILabel!
+    @IBOutlet var websiteTapGesture: UITapGestureRecognizer!
     
     override func viewDidLoad() {
         displayLocation()
@@ -45,6 +46,10 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
             print("rating: \(rating)")
             //TODO: if the rating changed enable the save button
         }
+        websiteTapGesture.delegate = self
+        websiteTapGesture.addTarget(self, action:#selector(RateLocationViewController.websiteLabel_Clicked))
+        website.addGestureRecognizer(websiteTapGesture)
+        website.userInteractionEnabled = true
     }
     
     func setFillModeForRatingControls(ratingControls: [CosmosView]){
@@ -79,11 +84,17 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
     
     func displayLocation(){
         if(location != nil){
-            
             businessName.text = location?.businessName
             address.text = location?.address?.getAddressDisplayString(true)
             category.text = location?.category
-            website.text = location?.website
+            if(location?.website != nil){
+                website.text = "Website"
+                websiteTapGesture.enabled = true
+                website.hidden = false
+            }else{
+                websiteTapGesture.enabled = false
+                website.hidden = true
+            }
         }
         else{
             hideControlsIfLocationIsNil()
@@ -111,13 +122,21 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate{
         
     }
     
+    func websiteLabel_Clicked(sender: UITapGestureRecognizer) {
+        let url = NSURL(string: location!.website!)!
+        let canOpen = UIApplication.sharedApplication().canOpenURL(url)
+        if(canOpen){
+            UIApplication.sharedApplication().openURL(url)
+        }
+    }
+    
     @IBAction func saveButton_Clicked(sender: UIBarButtonItem) {
         let context = CoreDataStackManager.sharedInstance().managedObjectContext
         let id = NSUUID().UUIDString
         let date = NSDate()
         let _ = Rating(id: id, noise: noiseRating.rating, freeWifi: freeWifiSwitch.on, wifiStrength: wifiRating.rating, seatingAvailabilityRating: seatingRating.rating, wouldWorkThereAgain: workThereAgainSwitch.on, notes: "", location: location!, created: date, context: context)
         
-        CoreDataStackManager.sharedInstance().saveContext()
+        //CoreDataStackManager.sharedInstance().saveContext()
         navigationController?.popToRootViewControllerAnimated(true)
     }
 }
