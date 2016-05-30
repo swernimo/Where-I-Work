@@ -25,43 +25,112 @@ class YelpClient : BDBOAuth1RequestOperationManager {
     let sharedContext = CoreDataStackManager.sharedInstance().managedObjectContext
     
     var accessToken: String!
-        var accessSecret: String!
-    
-        class var sharedInstance : YelpClient {
-            struct Static {
-                static var token : dispatch_once_t = 0
-                static var instance : YelpClient? = nil
-            }
-    
-            dispatch_once(&Static.token) {
-                Static.instance = YelpClient(consumerKey: yelpConsumerKey, consumerSecret: yelpConsumerSecret, accessToken: yelpToken, accessSecret: yelpTokenSecret)
-            }
-            return Static.instance!
+    var accessSecret: String!
+
+    class var sharedInstance : YelpClient {
+        struct Static {
+            static var token : dispatch_once_t = 0
+            static var instance : YelpClient? = nil
         }
-    
-        required init?(coder aDecoder: NSCoder) {
-            super.init(coder: aDecoder)
+
+        dispatch_once(&Static.token) {
+            Static.instance = YelpClient(consumerKey: yelpConsumerKey, consumerSecret: yelpConsumerSecret, accessToken: yelpToken, accessSecret: yelpTokenSecret)
         }
+        return Static.instance!
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+
+    init(consumerKey key: String!, consumerSecret secret: String!, accessToken: String!, accessSecret: String!) {
+        self.accessToken = accessToken
+        self.accessSecret = accessSecret
+        let baseUrl = NSURL(string: "https://api.yelp.com/v2/")
+        super.init(baseURL: baseUrl, consumerKey: key, consumerSecret: secret);
+
+        let token = BDBOAuth1Credential(token: accessToken, secret: accessSecret, expiration: nil)
+        self.requestSerializer.saveAccessToken(token)
+    }
     
-        init(consumerKey key: String!, consumerSecret secret: String!, accessToken: String!, accessSecret: String!) {
-            self.accessToken = accessToken
-            self.accessSecret = accessSecret
-            let baseUrl = NSURL(string: "https://api.yelp.com/v2/")
-            super.init(baseURL: baseUrl, consumerKey: key, consumerSecret: secret);
-    
-            let token = BDBOAuth1Credential(token: accessToken, secret: accessSecret, expiration: nil)
-            self.requestSerializer.saveAccessToken(token)
-        }
     func getLocations(latitude: Double, longitude: Double, savedLocations: [Location], completionHandler: (locations: [Location], error: NSError?) -> Void) -> Void{
 
-        var params: [String: AnyObject] = [:]
+        var params = getParameterDictionary()
         
         params["ll"] = latitude.description + "," + longitude.description
+        
+        searchYelp(params, completionHandler: completionHandler)
+    }
+    
+    func getLocations(boundingBox: BoundingBox, savedLocations: [Location], completionHandler: (locations: [Location], error: NSError?) -> Void) -> Void{
+        
+        var params = getParameterDictionary()
+        
+        params["bounds"] = "\(boundingBox.SouthWest.latitude),\(boundingBox.SouthWest.longitude)|\(boundingBox.NorthEast.latitude),\(boundingBox.NorthEast.longitude)"
+        
+        searchYelp(params, completionHandler: completionHandler)
+    }
+    
+    func getParameterDictionary() -> [String: AnyObject]{
+        var params: [String: AnyObject] = [:]
+        
         params["category_filter"] = "coffee,libraries,internetcafe,cafes"
         params["limit"] = 20
         params["radius_filter"] = 5000
         params["sort"] = YelpSortMode.Distance.rawValue
         
+        return params
+    }
+    
+    func locationAlreadySaved(location: Location, savedLocations: [Location]) -> Bool{
+        var saved = false
+        if(savedLocations.isEmpty == false){
+            for index in 0 ..< savedLocations.count{
+                let loc = savedLocations[index]
+                if(loc.businessName == location.businessName){
+                    if(loc.latitude == location.latitude){
+                        if(loc.longitude == location.longitude){
+                            saved = true
+                            break
+                        }
+                    }
+                }
+            }
+        }
+        return saved
+    }
+    
+    func createNSError(errorDescription: String) -> NSError{
+        return NSError(domain: "YelpClient", code: -1, userInfo: ["Description" : errorDescription])
+    }
+    
+    func parseAddressFromLocationDictionary(dictionary: NSDictionary) -> Address?{
+        guard let streetAddress = dictionary["address"] as? [String] else{
+            return nil
+        }
+        
+        if(streetAddress.isEmpty){
+            return nil
+        }
+        
+        let line1 = streetAddress[0]
+        
+        guard let postalCode = dictionary["postal_code"] as? String else{
+            return nil
+        }
+        
+        guard let state = dictionary["state_code"] as? String else{
+            return nil
+        }
+        
+        guard let city = dictionary["city"] as? String else{
+            return nil
+        }
+        
+        return Address(street: line1, city: city, zip: postalCode, state: state, context: sharedContext)
+    }
+    
+    private func searchYelp(params: [String:AnyObject], completionHandler: (locations: [Location], error: NSError?) -> Void) -> Void{
         self.GET("search", parameters: params, success: {
             (operation, response) in
             
@@ -122,13 +191,13 @@ class YelpClient : BDBOAuth1RequestOperationManager {
                 let id = NSUUID().UUIDString
                 let loc = Location(id: id, lat: lat, long: long, name: name, adr: address, url: nil, category: categoryName, phoneNumber: phone, context: self.sharedContext)
                 
-//                let locationAlreadySaved = self.locationAlreadySaved(loc, savedLocations: savedLocations)
-//                if(locationAlreadySaved){
-//                    continue
-//                }else{
-//                    CoreDataStackManager.sharedInstance().saveContext()
-                    locationArray.append(loc)
-//                }
+                //                let locationAlreadySaved = self.locationAlreadySaved(loc, savedLocations: savedLocations)
+                //                if(locationAlreadySaved){
+                //                    continue
+                //                }else{
+                //                    CoreDataStackManager.sharedInstance().saveContext()
+                locationArray.append(loc)
+                //                }
                 
             }
             if(NetworkHelper.isConnectedToNetwork()){
@@ -138,56 +207,10 @@ class YelpClient : BDBOAuth1RequestOperationManager {
                 completionHandler(locations: [], error: self.createNSError("Network Error"))
             }
             },
-            failure: { (operation, error) in
-                completionHandler(locations: [], error: error)
+                 failure: { (operation, error) in
+                    completionHandler(locations: [], error: error)
         })
+
     }
-    
-    func locationAlreadySaved(location: Location, savedLocations: [Location]) -> Bool{
-        var saved = false
-        if(savedLocations.isEmpty == false){
-            for index in 0 ..< savedLocations.count{
-                let loc = savedLocations[index]
-                if(loc.businessName == location.businessName){
-                    if(loc.latitude == location.latitude){
-                        if(loc.longitude == location.longitude){
-                            saved = true
-                            break
-                        }
-                    }
-                }
-            }
-        }
-        return saved
-    }
-    
-    func createNSError(errorDescription: String) -> NSError{
-        return NSError(domain: "YelpClient", code: -1, userInfo: ["Description" : errorDescription])
-    }
-    
-    func parseAddressFromLocationDictionary(dictionary: NSDictionary) -> Address?{
-        guard let streetAddress = dictionary["address"] as? [String] else{
-            return nil
-        }
-        
-        if(streetAddress.isEmpty){
-            return nil
-        }
-        
-        let line1 = streetAddress[0]
-        
-        guard let postalCode = dictionary["postal_code"] as? String else{
-            return nil
-        }
-        
-        guard let state = dictionary["state_code"] as? String else{
-            return nil
-        }
-        
-        guard let city = dictionary["city"] as? String else{
-            return nil
-        }
-        
-        return Address(street: line1, city: city, zip: postalCode, state: state, context: sharedContext)
-    }
+
 }

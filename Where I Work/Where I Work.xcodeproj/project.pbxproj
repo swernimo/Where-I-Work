@@ -31,6 +31,7 @@
 		14A939E41C92601B0064A22E /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A939E31C92601B0064A22E /* Address.swift */; };
 		14A939E71C9262870064A22E /* CoreDataStackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A939E61C9262870064A22E /* CoreDataStackManager.swift */; };
 		14A939E91C9263140064A22E /* LocationCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A939E81C9263140064A22E /* LocationCoreData.swift */; };
+		14C6637E1CFCC3F8008AF66B /* BoundingBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C6637D1CFCC3F8008AF66B /* BoundingBox.swift */; };
 		14DCAC221C928D2800168581 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 14DCAC211C928D2800168581 /* Podfile */; };
 		14DF2B401CFA3B5600FE8E26 /* RateLocationViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DF2B3F1CFA3B5600FE8E26 /* RateLocationViewControllerSpec.swift */; };
 		722414DCD563EFE6CFD1A3B0 /* Pods_Where_I_Work.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C75339E43250443577256D31 /* Pods_Where_I_Work.framework */; };
@@ -100,6 +101,7 @@
 		14A939E31C92601B0064A22E /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		14A939E61C9262870064A22E /* CoreDataStackManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackManager.swift; sourceTree = "<group>"; };
 		14A939E81C9263140064A22E /* LocationCoreData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationCoreData.swift; sourceTree = "<group>"; };
+		14C6637D1CFCC3F8008AF66B /* BoundingBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoundingBox.swift; sourceTree = "<group>"; };
 		14DCAC211C928D2800168581 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		14DF2B3F1CFA3B5600FE8E26 /* RateLocationViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateLocationViewControllerSpec.swift; sourceTree = "<group>"; };
 		20D0FA36985D0215BD0A5B36 /* Pods-UnitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-UnitTests/Pods-UnitTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -246,6 +248,7 @@
 				14A939E11C925EF50064A22E /* Location.swift */,
 				14A939E31C92601B0064A22E /* Address.swift */,
 				1433B9091CA38996001FF5A2 /* Rating.swift */,
+				14C6637D1CFCC3F8008AF66B /* BoundingBox.swift */,
 			);
 			name = Entities;
 			sourceTree = "<group>";
@@ -612,6 +615,7 @@
 				1494E9BF1CA0F63B0089F2F6 /* NetworkHelper.swift in Sources */,
 				14A939DA1C8FDAD40064A22E /* YelpClient.swift in Sources */,
 				1494E9BB1C94C37C0089F2F6 /* LocationDisabledViewController.swift in Sources */,
+				14C6637E1CFCC3F8008AF66B /* BoundingBox.swift in Sources */,
 				14A939E91C9263140064A22E /* LocationCoreData.swift in Sources */,
 				14A939D31C8E96130064A22E /* NewLocationViewController.swift in Sources */,
 				14A939E71C9262870064A22E /* CoreDataStackManager.swift in Sources */,

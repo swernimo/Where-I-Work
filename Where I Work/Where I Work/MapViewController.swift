@@ -127,24 +127,7 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
                 showAlert("Network Error", message: "You must have network access to use this app")
             }
             
-            locationHelper.getLocations(lat, longitude: long, callYelp: loadDataFromYelp){
-                (locations, error) in
-                
-                if(error != nil){
-                    if(error?.description == "Network Error"){
-                        self.showAlert("Network Error", message: "You must have network access to use this app")
-                    }
-                    print(error)
-                }
-                
-                for(_, location) in locations.enumerate(){
-                    let annotation = self.createMKPointAnnotationFromLocation(location)
-                    self.mapView.addAnnotation(annotation)
-                    self.locationArray.append(location)
-                }
-                UIApplication.sharedApplication().networkActivityIndicatorVisible = false;
-                self.loadDataFromYelp = false
-            }
+            locationHelper.getLocations(lat, longitude: long, callYelp: loadDataFromYelp, completionHandler:processLocationSearchResults)
         }
     }
     
@@ -300,9 +283,45 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
     
     @IBAction func searchInAreaButton_Clicked(sender: UIButton) {
         searchInAreaButton.hidden = true
-        //clear the current mapview of all pins
-        //get the bounding box for the current mapview region
-        //make service call to yelp to get the data
-        //add locations to map
+        clearMapView()
+        let boundingBox = getBoundingBox()
+        loadDataFromYelp = true
+        if(NetworkHelper.isConnectedToNetwork() == false){
+            loadDataFromYelp = false
+            showAlert("Network Error", message: "You must have network access to use this app")
+        }
+        
+        locationHelper.getLocations(boundingBox, callYelp: loadDataFromYelp, completionHandler:processLocationSearchResults)
+    }
+    
+    func clearMapView(){
+        mapView.removeAnnotations(mapView.annotations)
+    }
+    
+    func getBoundingBox() -> BoundingBox{
+        let nePoint = CGPoint(x: mapView.bounds.maxX, y: mapView.bounds.origin.y)
+        let swPoint = CGPoint(x: mapView.bounds.minX, y: mapView.bounds.maxY)
+        let neCoordinate = mapView.convertPoint(nePoint, toCoordinateFromView: mapView)
+        let swCoordinate = mapView.convertPoint(swPoint, toCoordinateFromView: mapView)
+        
+        return BoundingBox(NorthEast: neCoordinate, SouthWest: swCoordinate)
+    }
+    
+    func processLocationSearchResults(locations: [Location], error: NSError?){
+        if(error != nil){
+            if(error?.description == "Network Error"){
+                self.showAlert("Network Error", message: "You must have network access to use this app")
+            }
+            print(error)
+        }
+        
+        for(_, location) in locations.enumerate(){
+            let annotation = self.createMKPointAnnotationFromLocation(location)
+            self.mapView.addAnnotation(annotation)
+            self.locationArray.append(location)
+        }
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = false;
+        self.loadDataFromYelp = false
+
     }
 }
