@@ -23,7 +23,7 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ekv-CH-1Id">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                             </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ye4-wp-DPi">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ye4-wp-DPi">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -108,8 +108,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="mapView" destination="ekv-CH-1Id" id="6Ik-Vc-Lmk"/>
-                        <outlet property="mapViewView" destination="ekv-CH-1Id" id="AaG-6C-bW8"/>
+                        <outlet property="mapView" destination="ekv-CH-1Id" id="IYk-NQ-AH5"/>
                         <outlet property="searchInAreaButton" destination="ye4-wp-DPi" id="QJJ-Oo-ISO"/>
                         <segue destination="iZh-85-XFu" kind="presentation" identifier="locationDisabledSegue" animates="NO" modalPresentationStyle="fullScreen" id="gsY-w3-VgJ"/>
                         <segue destination="lm6-y1-2Hm" kind="show" identifier="newLocationSegue" id="UcC-NX-IYH"/>

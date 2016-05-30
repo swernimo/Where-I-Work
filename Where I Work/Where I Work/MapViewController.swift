@@ -21,9 +21,10 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
     var loadDataFromYelp: Bool = true
     var longPressLat: Double? = nil
     var longPressLong: Double? = nil
+    var userChangedRegion = false
     
     @IBOutlet weak var searchInAreaButton: UIButton!
-    @IBOutlet weak var mapViewView: MKMapView!
+    @IBOutlet weak var mapView: MKMapView!
     
     override func viewDidLoad() {
        setupLocationManager()
@@ -84,13 +85,13 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
     }
     
     func setupMapView(){
-        mapViewView.delegate = self
-        mapViewView.removeAnnotations(mapViewView.annotations)
+        mapView.delegate = self
+        mapView.removeAnnotations(mapView.annotations)
         let longPressRecogniser = UILongPressGestureRecognizer(target: self, action: #selector(MapViewController.handleLongPress(_:)))
         
         longPressRecogniser.minimumPressDuration = 1.5
         
-        mapViewView.addGestureRecognizer(longPressRecogniser)
+        mapView.addGestureRecognizer(longPressRecogniser)
         zoomMapToCurrentLocation()
     }
     
@@ -101,11 +102,12 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
     func updateMapViewToUserCurrentLocation(userLocation: CLLocationCoordinate2D) -> Void{
         let region = MKCoordinateRegion(center: userLocation, span: MKCoordinateSpanMake(0.05, 0.05))
         
-        mapViewView.setRegion(region, animated: true)
+        mapView.setRegion(region, animated: true)
     }
     
     @IBAction func locationRefresh_Clicked(sender: UIBarButtonItem) {
         zoomMapToCurrentLocation()
+        searchInAreaButton.hidden = true
     }
     
     @IBAction func addLocation_Clicked(sender: UIBarButtonItem) {
@@ -137,7 +139,7 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
                 
                 for(_, location) in locations.enumerate(){
                     let annotation = self.createMKPointAnnotationFromLocation(location)
-                    self.mapViewView.addAnnotation(annotation)
+                    self.mapView.addAnnotation(annotation)
                     self.locationArray.append(location)
                 }
                 UIApplication.sharedApplication().networkActivityIndicatorVisible = false;
@@ -185,8 +187,8 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
         if(gestureRecognizer.state != .Began){
             return;
         }
-        let touchPoint = gestureRecognizer.locationInView(self.mapViewView)
-        let touchMapCoordinate = mapViewView.convertPoint(touchPoint, toCoordinateFromView: mapViewView)
+        let touchPoint = gestureRecognizer.locationInView(self.mapView)
+        let touchMapCoordinate = mapView.convertPoint(touchPoint, toCoordinateFromView: mapView)
         
         let annotation = MKPointAnnotation()
         annotation.coordinate = touchMapCoordinate
@@ -194,7 +196,7 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
         longPressLat = touchMapCoordinate.latitude
         longPressLong = touchMapCoordinate.longitude
         
-        mapViewView.addAnnotation(annotation)
+        mapView.addAnnotation(annotation)
         
         let viewController = createNewLocationAlertView()
         presentViewController(viewController, animated: true, completion: nil)
@@ -276,9 +278,24 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
     }
     
     func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        //if the region is small enough (< 100 miles) show the search in this area button
-//        mapView.region.span.latitudeDelta.
+        if(userChangedRegion){
+            searchInAreaButton.hidden = !(Double(mapView.region.span.latitudeDelta) <= 0.065)
+        }else{
+            searchInAreaButton.hidden = true
+        }
+    }
+    
+    func mapView(mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
         
+        let view = mapView.subviews[0]
+        if let recongizers = view.gestureRecognizers{
+            for recongizer in recongizers{
+                if(recongizer.state == UIGestureRecognizerState.Began || recongizer.state == UIGestureRecognizerState.Ended){
+                    userChangedRegion = true
+                    break
+                }
+            }
+        }
     }
     
     @IBAction func searchInAreaButton_Clicked(sender: UIButton) {
