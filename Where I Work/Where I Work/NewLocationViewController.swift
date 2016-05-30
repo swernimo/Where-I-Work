@@ -21,10 +21,10 @@ class NewLocationViewController: UIViewController, UIPickerViewDelegate, UIPicke
     @IBOutlet weak var state: UITextField!
     @IBOutlet weak var zipCode: UITextField!
     @IBOutlet weak var website: UITextField!
-    @IBOutlet weak var categoryPicker: UIPickerView!
+    @IBOutlet weak var phone: UITextField!
+    @IBOutlet weak var category: UITextField!
     
     override func viewDidLoad() {
-        setupCategoryPickerView()
         loadDefaults()
     }
     
@@ -35,13 +35,7 @@ class NewLocationViewController: UIViewController, UIPickerViewDelegate, UIPicke
         state.text = nil
         zipCode.text = nil
         website.text = nil
-        categoryPicker.selectRow(0, inComponent: 0, animated: false)
     }
-    
-    func setupCategoryPickerView(){
-        categoryPicker.delegate = self
-        categoryPicker.dataSource = self
-        categoryPicker.showsSelectionIndicator = true    }
     
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return categories[row]
@@ -86,7 +80,7 @@ class NewLocationViewController: UIViewController, UIPickerViewDelegate, UIPicke
                     let latitude = placeMark?.location?.coordinate.latitude
                     let longitude = placeMark?.location?.coordinate.longitude
                     
-                    let location = Location(id: id, lat: latitude!, long: longitude!, name: self.businessName.text!, adr: address, url: self.website.text, category: self.getSelectedCategory(), context: context)
+                    let location = Location(id: id, lat: latitude!, long: longitude!, name: self.businessName.text!, adr: address, url: self.website.text, category: self.category.text!, context: context)
                     
                     dispatch_async(dispatch_get_main_queue(), {
                         
@@ -109,12 +103,6 @@ class NewLocationViewController: UIViewController, UIPickerViewDelegate, UIPicke
         let alertview = UIAlertController(title: title, message: message, preferredStyle: .Alert)
         alertview.addAction(UIAlertAction(title: "Okay", style: .Default, handler: nil))
         presentViewController(alertview, animated: true, completion: nil)
-    }
-    
-    func getSelectedCategory() -> String{
-        let row = categoryPicker.selectedRowInComponent(0)
-        let category = categories[row]
-        return category
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
