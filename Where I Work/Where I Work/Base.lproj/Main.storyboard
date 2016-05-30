@@ -5,6 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
         <!--Where I Work-->
@@ -1144,17 +1145,25 @@ Any City, State, 12345-6789</string>
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Rate Location" id="x4k-3T-t8c">
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="save" id="3Tg-Bg-nTz">
-                            <connections>
-                                <action selector="saveButton_Clicked:" destination="9Zw-Nd-Fo7" id="Bu2-QR-Xsq"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem image="Heart" id="sfU-lo-hlJ">
+                                <connections>
+                                    <action selector="favoriteButton_Clicked:" destination="9Zw-Nd-Fo7" id="pGz-oB-kZ3"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem style="plain" systemItem="save" id="3Tg-Bg-nTz">
+                                <connections>
+                                    <action selector="saveButton_Clicked:" destination="9Zw-Nd-Fo7" id="Bu2-QR-Xsq"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="address" destination="cvf-At-WII" id="740-nZ-5gA"/>
                         <outlet property="businessName" destination="5CS-cl-xF8" id="uHP-ty-Kue"/>
                         <outlet property="category" destination="uTf-OR-pzD" id="CfF-m6-9s6"/>
                         <outlet property="collectionView" destination="zDI-HN-lqJ" id="sQs-SC-tE8"/>
+                        <outlet property="favoriteButton" destination="sfU-lo-hlJ" id="GCN-Wq-nGl"/>
                         <outlet property="freeWifiSwitch" destination="7Uw-KA-3JS" id="A80-i7-wRA"/>
                         <outlet property="loyaltySwitch" destination="f4k-ba-5ng" id="7FB-T0-gcb"/>
                         <outlet property="noiseRating" destination="GFY-qp-ZOn" id="6Ei-mm-tck"/>
@@ -1399,6 +1408,7 @@ Any City, State, 12345-6789</string>
         </scene>
     </scenes>
     <resources>
+        <image name="Heart" width="16" height="16"/>
         <image name="Location" width="21" height="21"/>
     </resources>
     <inferredMetricsTieBreakers>

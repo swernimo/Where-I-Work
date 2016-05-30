@@ -33,6 +33,7 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate, 
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var phoneNumberTextField: UILabel!
     @IBOutlet var websiteTapGesture: UITapGestureRecognizer!
+    @IBOutlet weak var favoriteButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         displayLocation()
@@ -127,6 +128,19 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate, 
         let canOpen = UIApplication.sharedApplication().canOpenURL(url)
         if(canOpen){
             UIApplication.sharedApplication().openURL(url)
+        }
+    }
+    
+    @IBAction func favoriteButton_Clicked(sender: UIBarButtonItem) {
+        let img = sender.image
+        let emptyHeart = UIImage(named: "Heart")
+        let filledHeart = UIImage(named: "Heart-Filled")
+        if(img == emptyHeart){
+            sender.image = filledHeart
+            //TODO: if the location is NOT a favorite then add it to the favorites list
+        }else{
+            sender.image = emptyHeart
+            //TODO: if the location is a favorite then remove it from the favorites list
         }
     }
     
