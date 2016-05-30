@@ -23,36 +23,74 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ekv-CH-1Id">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                             </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ye4-wp-DPi">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="22" id="Awo-s4-pUv"/>
+                                    <constraint firstAttribute="width" constant="269" id="W2E-dl-S9c"/>
+                                </constraints>
+                                <state key="normal" title="Search in this area"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Awo-s4-pUv"/>
+                                        <exclude reference="W2E-dl-S9c"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="Awo-s4-pUv"/>
+                                        <include reference="W2E-dl-S9c"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="searchInAreaButton_Clicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WJu-W7-0ZF"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="ye4-wp-DPi" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="45" id="0go-61-dUH"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ye4-wp-DPi" secondAttribute="trailing" constant="46" id="7dF-mv-ora"/>
                             <constraint firstItem="ekv-CH-1Id" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="DJu-WT-Th2">
                                 <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
                             </constraint>
                             <constraint firstItem="ekv-CH-1Id" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="FtC-xD-dwA"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ye4-wp-DPi" secondAttribute="bottom" constant="702" id="QpO-2a-q3T"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ekv-CH-1Id" secondAttribute="trailing" constant="-20" id="c0o-kx-fUi"/>
+                            <constraint firstItem="ye4-wp-DPi" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="12" id="ohs-zv-sfq"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ekv-CH-1Id" secondAttribute="bottom" id="uMx-rX-QsE"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="ekv-CH-1Id"/>
+                                <exclude reference="ye4-wp-DPi"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="uMx-rX-QsE"/>
                                 <exclude reference="DJu-WT-Th2"/>
                                 <exclude reference="FtC-xD-dwA"/>
                                 <exclude reference="c0o-kx-fUi"/>
+                                <exclude reference="0go-61-dUH"/>
+                                <exclude reference="7dF-mv-ora"/>
+                                <exclude reference="ohs-zv-sfq"/>
+                                <exclude reference="QpO-2a-q3T"/>
+                                <exclude reference="uMx-rX-QsE"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
                                 <include reference="ekv-CH-1Id"/>
+                                <include reference="ye4-wp-DPi"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="uMx-rX-QsE"/>
                                 <include reference="DJu-WT-Th2"/>
                                 <include reference="FtC-xD-dwA"/>
                                 <include reference="c0o-kx-fUi"/>
+                                <include reference="0go-61-dUH"/>
+                                <include reference="7dF-mv-ora"/>
+                                <include reference="ohs-zv-sfq"/>
+                                <include reference="QpO-2a-q3T"/>
+                                <include reference="uMx-rX-QsE"/>
                             </mask>
                         </variation>
                     </view>
@@ -71,6 +109,8 @@
                     </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="ekv-CH-1Id" id="6Ik-Vc-Lmk"/>
+                        <outlet property="mapViewView" destination="ekv-CH-1Id" id="AaG-6C-bW8"/>
+                        <outlet property="searchInAreaButton" destination="ye4-wp-DPi" id="QJJ-Oo-ISO"/>
                         <segue destination="iZh-85-XFu" kind="presentation" identifier="locationDisabledSegue" animates="NO" modalPresentationStyle="fullScreen" id="gsY-w3-VgJ"/>
                         <segue destination="lm6-y1-2Hm" kind="show" identifier="newLocationSegue" id="UcC-NX-IYH"/>
                         <segue destination="9Zw-Nd-Fo7" kind="show" identifier="rateLocationSegue" id="qZ5-zk-SMg"/>
@@ -1414,7 +1454,7 @@ Any City, State, 12345-6789</string>
         <image name="Location" width="21" height="21"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="0gt-tV-vyt"/>
-        <segue reference="hZg-xJ-RVk"/>
+        <segue reference="qZ5-zk-SMg"/>
+        <segue reference="gsY-w3-VgJ"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -22,7 +22,8 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
     var longPressLat: Double? = nil
     var longPressLong: Double? = nil
     
-    @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var searchInAreaButton: UIButton!
+    @IBOutlet weak var mapViewView: MKMapView!
     
     override func viewDidLoad() {
        setupLocationManager()
@@ -34,6 +35,7 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
             setupMapView()
             break
         }
+        searchInAreaButton.hidden = true
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -82,13 +84,13 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
     }
     
     func setupMapView(){
-        mapView.delegate = self
-        mapView.removeAnnotations(mapView.annotations)
+        mapViewView.delegate = self
+        mapViewView.removeAnnotations(mapViewView.annotations)
         let longPressRecogniser = UILongPressGestureRecognizer(target: self, action: #selector(MapViewController.handleLongPress(_:)))
         
         longPressRecogniser.minimumPressDuration = 1.5
         
-        mapView.addGestureRecognizer(longPressRecogniser)
+        mapViewView.addGestureRecognizer(longPressRecogniser)
         zoomMapToCurrentLocation()
     }
     
@@ -99,7 +101,7 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
     func updateMapViewToUserCurrentLocation(userLocation: CLLocationCoordinate2D) -> Void{
         let region = MKCoordinateRegion(center: userLocation, span: MKCoordinateSpanMake(0.05, 0.05))
         
-        mapView.setRegion(region, animated: true)
+        mapViewView.setRegion(region, animated: true)
     }
     
     @IBAction func locationRefresh_Clicked(sender: UIBarButtonItem) {
@@ -135,7 +137,7 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
                 
                 for(_, location) in locations.enumerate(){
                     let annotation = self.createMKPointAnnotationFromLocation(location)
-                    self.mapView.addAnnotation(annotation)
+                    self.mapViewView.addAnnotation(annotation)
                     self.locationArray.append(location)
                 }
                 UIApplication.sharedApplication().networkActivityIndicatorVisible = false;
@@ -183,8 +185,8 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
         if(gestureRecognizer.state != .Began){
             return;
         }
-        let touchPoint = gestureRecognizer.locationInView(self.mapView)
-        let touchMapCoordinate = mapView.convertPoint(touchPoint, toCoordinateFromView: mapView)
+        let touchPoint = gestureRecognizer.locationInView(self.mapViewView)
+        let touchMapCoordinate = mapViewView.convertPoint(touchPoint, toCoordinateFromView: mapViewView)
         
         let annotation = MKPointAnnotation()
         annotation.coordinate = touchMapCoordinate
@@ -192,7 +194,7 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
         longPressLat = touchMapCoordinate.latitude
         longPressLong = touchMapCoordinate.longitude
         
-        mapView.addAnnotation(annotation)
+        mapViewView.addAnnotation(annotation)
         
         let viewController = createNewLocationAlertView()
         presentViewController(viewController, animated: true, completion: nil)
@@ -271,5 +273,19 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
         }else{
             showAlert("Network Error", message: "You must have network access to use this app")
         }
+    }
+    
+    func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        //if the region is small enough (< 100 miles) show the search in this area button
+//        mapView.region.span.latitudeDelta.
+        
+    }
+    
+    @IBAction func searchInAreaButton_Clicked(sender: UIButton) {
+        searchInAreaButton.hidden = true
+        //clear the current mapview of all pins
+        //get the bounding box for the current mapview region
+        //make service call to yelp to get the data
+        //add locations to map
     }
 }
