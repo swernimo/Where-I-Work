@@ -84,22 +84,24 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate, 
     }
     
     func displayLocation(){
-        if(location != nil){
-            businessName.text = location?.businessName
-            address.text = location?.address?.getAddressDisplayString(true)
-            category.text = location?.category
-            if(location?.website != nil){
-                website.text = "Website"
-                websiteTapGesture.enabled = true
-                website.hidden = false
-            }else{
-                websiteTapGesture.enabled = false
-                website.hidden = true
-            }
-        }
-        else{
+        guard let loc = location where location != nil else{
             hideControlsIfLocationIsNil()
+            return
         }
+        businessName.text = loc.businessName
+        address.text = loc.address?.getAddressDisplayString(true)
+        category.text = loc.category
+        phoneNumberTextField.text = loc.phone
+        
+        guard let _ = loc.website where loc.website != nil else{
+            websiteTapGesture.enabled = false
+            website.hidden = true
+            return
+        }
+        
+        website.text = "Website"
+        websiteTapGesture.enabled = true
+        website.hidden = false
     }
     
     func hideControlsIfLocationIsNil(){

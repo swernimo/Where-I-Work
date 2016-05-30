@@ -10,7 +10,8 @@ import Foundation
 import UIKit
 import MapKit
 import CoreLocation
-import AddressBook
+//import AddressBook
+import Contacts
 
 class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapViewDelegate{
     
@@ -214,18 +215,23 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
         viewController.addTextFieldWithConfigurationHandler { (textField) in
             textField.placeholder = "Category"
         }
+        
+        viewController.addTextFieldWithConfigurationHandler { (textField) in
+            textField.placeholder = "Phone Number"
+        }
         viewController.addAction(UIAlertAction(title: "Save Location", style: .Default, handler: {
             (alert) in
             let nameTextField = viewController.textFields![0] as UITextField
             let websiteTextField = viewController.textFields![1] as UITextField
             let category = viewController.textFields![2] as UITextField
-            self.createAndSaveLocation(nameTextField.text!, website: websiteTextField.text, category: category.text!)
+            let phone = viewController.textFields![3] as UITextField
+            self.createAndSaveLocation(nameTextField.text!, website: websiteTextField.text, category: category.text!, phone: phone.text)
         }))
         
         return viewController
     }
     
-    func createAndSaveLocation(name: String, website: String?, category: String) -> Void{
+    func createAndSaveLocation(name: String, website: String?, category: String, phone: String?) -> Void{
         let context = CoreDataStackManager.sharedInstance().managedObjectContext
         
         let geoCoder = CLGeocoder()
@@ -244,15 +250,15 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
                 
                 let dictionary = placemark!.addressDictionary!
                 
-                let street = dictionary[kABPersonAddressStreetKey]!.description
-                let city = dictionary[kABPersonAddressCityKey]!.description
-                let state = dictionary[kABPersonAddressStateKey]!.description
-                let zip = dictionary[kABPersonAddressZIPKey]!.description
+                let street = dictionary[CNPostalAddressStreetKey]!.description
+                let city = dictionary[CNPostalAddressCityKey]!.description
+                let state = dictionary[CNPostalAddressStateKey]!.description
+                let zip = dictionary[CNPostalAddressPostalCodeKey]!.description
                 
                 let address = Address(street: street, city: city, zip: zip, state: state, context: context)
                 
                 let id = NSUUID().UUIDString
-                let location = Location(id: id, lat: self.longPressLat!, long: self.longPressLong!, name: name, adr: address, url: website, category: category, context: context)
+                let location = Location(id: id, lat: self.longPressLat!, long: self.longPressLong!, name: name, adr: address, url: website, category: category, phoneNumber: phone, context: context)
                 
                 CoreDataStackManager.sharedInstance().saveContext()
                 

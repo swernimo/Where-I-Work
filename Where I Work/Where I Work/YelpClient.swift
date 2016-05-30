@@ -57,7 +57,7 @@ class YelpClient : BDBOAuth1RequestOperationManager {
         var params: [String: AnyObject] = [:]
         
         params["ll"] = latitude.description + "," + longitude.description
-        params["filter_category"] = "coffee,libraries"
+        params["category_filter"] = "coffee,libraries,internetcafe,cafes"
         params["limit"] = 20
         params["radius_filter"] = 5000
         params["sort"] = YelpSortMode.Distance.rawValue
@@ -103,21 +103,24 @@ class YelpClient : BDBOAuth1RequestOperationManager {
                     return
                 }
                 
+                guard let phone = bus["display_phone"] as? String else{
+                    continue
+                }
+                
+                guard let _ = bus["is_closed"] as? Bool else{
+                    completionHandler(locations: [], error: self.createNSError("Business: \(name) is permanently closed."))
+                    return
+                }
+                
                 var categoryName: String = ""
                 
-                for(_, category) in categoryArray.enumerate(){
-                    if(category.contains("coffee")){
-                        categoryName = "coffee"
-                        break
-                    }else if (category.contains("libraries")){
-                        categoryName = "libraries"
-                        break
-                    }
+                if(categoryArray.count > 0){
+                    categoryName = categoryArray[0][0]
                 }
                 
                 let address = self.parseAddressFromLocationDictionary(location)
                 let id = NSUUID().UUIDString
-                let loc = Location(id: id, lat: lat, long: long, name: name, adr: address, url: nil, category: categoryName, context: self.sharedContext)
+                let loc = Location(id: id, lat: lat, long: long, name: name, adr: address, url: nil, category: categoryName, phoneNumber: phone, context: self.sharedContext)
                 
 //                let locationAlreadySaved = self.locationAlreadySaved(loc, savedLocations: savedLocations)
 //                if(locationAlreadySaved){

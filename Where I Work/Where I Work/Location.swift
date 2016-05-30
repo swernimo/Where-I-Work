@@ -20,13 +20,14 @@ class Location: NSManagedObject {
     @NSManaged var address: Address?
     @NSManaged var website: String?
     @NSManaged var category: String
+    @NSManaged var phone: String?
     
     override init(entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext?) {
         
         super.init(entity: entity, insertIntoManagedObjectContext: context)
     }
     
-    init(id: String, lat: Double, long: Double, name: String, adr: Address?, url: String?, category: String, context: NSManagedObjectContext){
+    init(id: String, lat: Double, long: Double, name: String, adr: Address?, url: String?, category: String, phoneNumber: String?, context: NSManagedObjectContext){
         let entity =  NSEntityDescription.entityForName("Location", inManagedObjectContext: context)!
         super.init(entity: entity, insertIntoManagedObjectContext: context)
         
@@ -37,5 +38,6 @@ class Location: NSManagedObject {
         address = adr
         website = url
         self.category = category
+        phone = phoneNumber
     }
 }

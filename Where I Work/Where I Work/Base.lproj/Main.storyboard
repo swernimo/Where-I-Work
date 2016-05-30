@@ -278,32 +278,10 @@ Any City, State, 12345-6789</string>
                                     <outletCollection property="gestureRecognizers" destination="ItI-Ot-4fe" appends="YES" id="tC7-pL-wij"/>
                                 </connections>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(800) 249-1234" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cXn-jM-dma">
-                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="KfL-es-Ft3"/>
-                                    <constraint firstAttribute="width" constant="124" id="nxh-SP-Gdf"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="KfL-es-Ft3"/>
-                                        <exclude reference="nxh-SP-Gdf"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
-                                    <mask key="constraints">
-                                        <include reference="KfL-es-Ft3"/>
-                                        <include reference="nxh-SP-Gdf"/>
-                                    </mask>
-                                </variation>
-                            </label>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="interactive" translatesAutoresizingMaskIntoConstraints="NO" id="99Y-Oz-aZY">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <subviews>
-                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="zDI-HN-lqJ">
+                                    <collectionView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="zDI-HN-lqJ">
                                         <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                         <color key="backgroundColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -1070,6 +1048,30 @@ Any City, State, 12345-6789</string>
                                     </mask>
                                 </variation>
                             </scrollView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(800) 249-1234" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cXn-jM-dma">
+                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="KfL-es-Ft3"/>
+                                    <constraint firstAttribute="width" constant="124" id="nxh-SP-Gdf">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="162"/>
+                                    </constraint>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="KfL-es-Ft3"/>
+                                        <exclude reference="nxh-SP-Gdf"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="KfL-es-Ft3"/>
+                                        <include reference="nxh-SP-Gdf"/>
+                                    </mask>
+                                </variation>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -1095,8 +1097,8 @@ Any City, State, 12345-6789</string>
                                 <exclude reference="cvf-At-WII"/>
                                 <exclude reference="uTf-OR-pzD"/>
                                 <exclude reference="cR3-DC-2bC"/>
-                                <exclude reference="cXn-jM-dma"/>
                                 <exclude reference="99Y-Oz-aZY"/>
+                                <exclude reference="cXn-jM-dma"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="SLL-jW-bY5"/>
@@ -1122,8 +1124,8 @@ Any City, State, 12345-6789</string>
                                 <include reference="cvf-At-WII"/>
                                 <include reference="uTf-OR-pzD"/>
                                 <include reference="cR3-DC-2bC"/>
-                                <include reference="cXn-jM-dma"/>
                                 <include reference="99Y-Oz-aZY"/>
+                                <include reference="cXn-jM-dma"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="SLL-jW-bY5"/>

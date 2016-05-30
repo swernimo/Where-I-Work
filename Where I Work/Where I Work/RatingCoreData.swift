@@ -41,7 +41,7 @@ class RatingCoreData: NSObject, NSFetchedResultsControllerDelegate{
         }catch{}
         fetchedResultsController.delegate = self
         
-        for var index = 0; index < fetchedResultsController.sections![0].numberOfObjects; index++ {
+        for index in 0 ..< fetchedResultsController.sections![0].numberOfObjects {
             guard let item = fetchedResultsController.sections![0].objects?[index] as? Rating else {
                 continue
             }

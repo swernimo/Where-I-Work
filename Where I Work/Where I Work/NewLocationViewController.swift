@@ -35,6 +35,8 @@ class NewLocationViewController: UIViewController, UIPickerViewDelegate, UIPicke
         state.text = nil
         zipCode.text = nil
         website.text = nil
+        phone.text = nil
+        category.text = nil
     }
     
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
@@ -80,7 +82,7 @@ class NewLocationViewController: UIViewController, UIPickerViewDelegate, UIPicke
                     let latitude = placeMark?.location?.coordinate.latitude
                     let longitude = placeMark?.location?.coordinate.longitude
                     
-                    let location = Location(id: id, lat: latitude!, long: longitude!, name: self.businessName.text!, adr: address, url: self.website.text, category: self.category.text!, context: context)
+                    let location = Location(id: id, lat: latitude!, long: longitude!, name: self.businessName.text!, adr: address, url: self.website.text, category: self.category.text!, phoneNumber: self.phone.text, context: context)
                     
                     dispatch_async(dispatch_get_main_queue(), {
                         
