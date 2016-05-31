@@ -14,5 +14,5 @@ target 'UnitTests' do
 end
 
 target 'Where I Work' do
-       
+  pod 'GoogleMaps'       
 end

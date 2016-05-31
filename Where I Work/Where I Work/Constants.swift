@@ -19,5 +19,6 @@ struct Constants {
     
     struct APIKeys {
         static let CoworkingMap = ""
+        static let GooglePlaces = "AIzaSyAlB_e1DipfIzEw899V0UIQpq7pJCDudxU"
     }
 }

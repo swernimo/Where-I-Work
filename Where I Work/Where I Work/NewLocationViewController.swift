@@ -59,7 +59,6 @@ class NewLocationViewController: UIViewController, UIPickerViewDelegate, UIPicke
         default:
             break
         }
-
     }
     
     @IBAction func cancelButton_Clicked(sender: UIBarButtonItem) {
@@ -81,8 +80,34 @@ class NewLocationViewController: UIViewController, UIPickerViewDelegate, UIPicke
                     let placeMark = result?.first
                     let latitude = placeMark?.location?.coordinate.latitude
                     let longitude = placeMark?.location?.coordinate.longitude
+                    var websiteAddress = self.website.text
                     
-                    let location = Location(id: id, lat: latitude!, long: longitude!, name: self.businessName.text!, adr: address, url: self.website.text, category: self.category.text!, phoneNumber: self.phone.text, context: context)
+                    print("geocode Latitude: \(latitude)")
+                    print("geocode longitude: \(longitude)")
+                    
+                    GoogleClient.sharedInstance.searchForPlace(latitude!, longitude: longitude!){
+                       (place, error) in
+//                        guard let _ = error where error != nil else{
+//                            print("Google Places Error")
+//                            print(error?.description)
+//                            return
+//                        }
+
+                        if(error != nil){
+                            
+                        }
+                        
+                        if(place != nil){
+                            print("Google Latitude: \(place?.coordinate.latitude)")
+                            print("Google Longitude: \(place?.coordinate.longitude)")
+                            if(websiteAddress == nil && place?.website != nil){
+                                websiteAddress = place?.website?.absoluteString
+                            }
+                            //update the location information (phone number, website, name, etc) with the information from google
+                        }
+                    }//, completionHandler: <#T##(place: GMSPlace?, error: NSError?) -> Void#>)
+                    
+                    let location = Location(id: id, lat: latitude!, long: longitude!, name: self.businessName.text!, adr: address, url: websiteAddress, category: self.category.text!, phoneNumber: self.phone.text, context: context)
                     
                     dispatch_async(dispatch_get_main_queue(), {
                         
