@@ -20,6 +20,7 @@ PODS:
   - AFNetworking/UIKit (2.6.3):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - AzureSDK-iOS (1.2.4)
   - BDBOAuth1Manager (1.6.0):
     - AFNetworking/NSURLConnection (~> 2.6.0)
     - AFNetworking/NSURLSession (~> 2.6.0)
@@ -30,6 +31,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 2.5)
+  - AzureSDK-iOS
   - BDBOAuth1Manager
   - Cosmos (~> 1.2)
   - GoogleMaps
@@ -38,12 +40,13 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
+  AzureSDK-iOS: faa868ba69b1c5abb27ecaec4046cf3a3fba4abd
   BDBOAuth1Manager: cd5a5872f355ca38180d52ca2dd844f0b0c84797
   Cosmos: 87c49100c69d2cb2eebfa4eb8d1e801fe29ff774
   GoogleMaps: b20a103ff307f58392e603cf142e59d7e30374c1
   Nimble: 0f3c8b8b084cda391209c3c5efbb48bedeeb920a
   Quick: 18d057bc66451eedd5d1c8dc99ba2a5db6e60226
 
-PODFILE CHECKSUM: cefd52c733a191b2961a70c7229dc3c84a25a7c7
+PODFILE CHECKSUM: bc2265de6be0de6a351b80611be8ed726f0eb77e
 
 COCOAPODS: 1.0.0

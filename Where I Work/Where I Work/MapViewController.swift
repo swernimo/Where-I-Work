@@ -214,6 +214,11 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
             let phone = viewController.textFields![3] as UITextField
             self.createAndSaveLocation(nameTextField.text!, website: websiteTextField.text, category: category.text!, phone: phone.text)
         }))
+        viewController.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: {
+            (_) in
+            
+            self.dismissViewControllerAnimated(false, completion: {})
+        }))
         
         return viewController
     }

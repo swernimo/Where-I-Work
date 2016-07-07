@@ -14,5 +14,8 @@ target 'UnitTests' do
 end
 
 target 'Where I Work' do
-  pod 'GoogleMaps'       
+  pod 'GoogleMaps'
+  pod 'AzureSDK-iOS'
+#  pod 'AzureStorageAPIClient'
+#  pod 'WindowsAzureMobileServices'       
 end

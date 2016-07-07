@@ -67,14 +67,14 @@
                                 <exclude reference="ye4-wp-DPi"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="DJu-WT-Th2"/>
-                                <exclude reference="FtC-xD-dwA"/>
-                                <exclude reference="c0o-kx-fUi"/>
+                                <exclude reference="QpO-2a-q3T"/>
+                                <exclude reference="uMx-rX-QsE"/>
                                 <exclude reference="0go-61-dUH"/>
                                 <exclude reference="7dF-mv-ora"/>
                                 <exclude reference="ohs-zv-sfq"/>
-                                <exclude reference="QpO-2a-q3T"/>
-                                <exclude reference="uMx-rX-QsE"/>
+                                <exclude reference="DJu-WT-Th2"/>
+                                <exclude reference="FtC-xD-dwA"/>
+                                <exclude reference="c0o-kx-fUi"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -83,14 +83,14 @@
                                 <include reference="ye4-wp-DPi"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="DJu-WT-Th2"/>
-                                <include reference="FtC-xD-dwA"/>
-                                <include reference="c0o-kx-fUi"/>
+                                <include reference="QpO-2a-q3T"/>
+                                <include reference="uMx-rX-QsE"/>
                                 <include reference="0go-61-dUH"/>
                                 <include reference="7dF-mv-ora"/>
                                 <include reference="ohs-zv-sfq"/>
-                                <include reference="QpO-2a-q3T"/>
-                                <include reference="uMx-rX-QsE"/>
+                                <include reference="DJu-WT-Th2"/>
+                                <include reference="FtC-xD-dwA"/>
+                                <include reference="c0o-kx-fUi"/>
                             </mask>
                         </variation>
                     </view>
@@ -235,7 +235,7 @@
                                     <constraint firstAttribute="width" constant="200" id="o2o-lk-627"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -261,7 +261,7 @@
                                 <string key="text">123 Main St
 Any City, State, 12345-6789</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -281,7 +281,7 @@ Any City, State, 12345-6789</string>
                                     <constraint firstAttribute="width" constant="100" id="d3o-Qc-rkx"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -1096,7 +1096,7 @@ Any City, State, 12345-6789</string>
                                     </constraint>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -1339,9 +1339,9 @@ Any City, State, 12345-6789</string>
                                 <exclude reference="cUc-ss-D6x"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="dbt-53-JL6"/>
-                                <exclude reference="q0g-b5-8RD"/>
-                                <exclude reference="yRm-2w-vJ1"/>
+                                <exclude reference="71G-qu-ib6"/>
+                                <exclude reference="NER-ho-9bu"/>
+                                <exclude reference="QHn-6d-gsx"/>
                                 <exclude reference="3X0-AE-0yC"/>
                                 <exclude reference="BB2-kN-rB5"/>
                                 <exclude reference="H2l-Ko-FGh"/>
@@ -1357,11 +1357,11 @@ Any City, State, 12345-6789</string>
                                 <exclude reference="jP4-JQ-lkU"/>
                                 <exclude reference="o2g-sf-jQx"/>
                                 <exclude reference="r0e-XY-gff"/>
-                                <exclude reference="fsO-s2-wmy"/>
-                                <exclude reference="QHn-6d-gsx"/>
                                 <exclude reference="PQd-o7-oVr"/>
-                                <exclude reference="71G-qu-ib6"/>
-                                <exclude reference="NER-ho-9bu"/>
+                                <exclude reference="dbt-53-JL6"/>
+                                <exclude reference="q0g-b5-8RD"/>
+                                <exclude reference="yRm-2w-vJ1"/>
+                                <exclude reference="fsO-s2-wmy"/>
                                 <exclude reference="Znz-iw-hmK"/>
                             </mask>
                         </variation>
@@ -1377,9 +1377,9 @@ Any City, State, 12345-6789</string>
                                 <include reference="cUc-ss-D6x"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="dbt-53-JL6"/>
-                                <include reference="q0g-b5-8RD"/>
-                                <include reference="yRm-2w-vJ1"/>
+                                <include reference="71G-qu-ib6"/>
+                                <include reference="NER-ho-9bu"/>
+                                <include reference="QHn-6d-gsx"/>
                                 <include reference="3X0-AE-0yC"/>
                                 <include reference="BB2-kN-rB5"/>
                                 <include reference="H2l-Ko-FGh"/>
@@ -1395,11 +1395,11 @@ Any City, State, 12345-6789</string>
                                 <include reference="jP4-JQ-lkU"/>
                                 <include reference="o2g-sf-jQx"/>
                                 <include reference="r0e-XY-gff"/>
-                                <include reference="fsO-s2-wmy"/>
-                                <include reference="QHn-6d-gsx"/>
                                 <include reference="PQd-o7-oVr"/>
-                                <include reference="71G-qu-ib6"/>
-                                <include reference="NER-ho-9bu"/>
+                                <include reference="dbt-53-JL6"/>
+                                <include reference="q0g-b5-8RD"/>
+                                <include reference="yRm-2w-vJ1"/>
+                                <include reference="fsO-s2-wmy"/>
                                 <include reference="Znz-iw-hmK"/>
                             </mask>
                         </variation>
