@@ -5,8 +5,8 @@ pod 'BDBOAuth1Manager'
 pod 'Cosmos', '~> 1.2'
 
 def testing_pods
-    pod 'Quick'
-    pod 'Nimble'
+#    pod 'Quick'
+#    pod 'Nimble'
 end
 
 target 'UnitTests' do
