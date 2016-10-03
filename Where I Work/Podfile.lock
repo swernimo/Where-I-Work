@@ -24,23 +24,36 @@ PODS:
   - BDBOAuth1Manager (1.6.0):
     - AFNetworking/NSURLConnection (~> 2.6.0)
     - AFNetworking/NSURLSession (~> 2.6.0)
-  - Cosmos (1.2.2)
-  - GoogleMaps (1.13.2)
+  - Cosmos (6.0.1)
+  - GoogleMaps (2.1.0):
+    - GoogleMaps/Maps (= 2.1.0)
+  - GoogleMaps/Base (2.1.0)
+  - GoogleMaps/Maps (2.1.0):
+    - GoogleMaps/Base (= 2.1.0)
+  - GooglePlacePicker (2.1.0):
+    - GoogleMaps (= 2.1.0)
+    - GooglePlaces (= 2.1.0)
+  - GooglePlaces (2.1.0):
+    - GoogleMaps/Base (= 2.1.0)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.5)
   - AzureSDK-iOS
   - BDBOAuth1Manager
-  - Cosmos (~> 1.2)
+  - Cosmos (~> 6.0.1)
   - GoogleMaps
+  - GooglePlacePicker
+  - GooglePlaces
 
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
   AzureSDK-iOS: faa868ba69b1c5abb27ecaec4046cf3a3fba4abd
   BDBOAuth1Manager: cd5a5872f355ca38180d52ca2dd844f0b0c84797
-  Cosmos: 87c49100c69d2cb2eebfa4eb8d1e801fe29ff774
-  GoogleMaps: b20a103ff307f58392e603cf142e59d7e30374c1
+  Cosmos: 374de9804e382a23662908688ab15c8f473977fe
+  GoogleMaps: 06589b9a38097bce0cd6e90f0fd9b5e4b4a9344c
+  GooglePlacePicker: a2228b447d10008bcb765a6a081f415e8599e5d4
+  GooglePlaces: 16e96266483b8010e9f275399403647978523c86
 
-PODFILE CHECKSUM: b58ce7590c13c166fbf95c1c8c59f1ce5923d8fd
+PODFILE CHECKSUM: 6d5b42cf24693b06da38a0793dce8261392924bd
 
 COCOAPODS: 1.0.0

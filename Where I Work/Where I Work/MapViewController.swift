@@ -29,28 +29,28 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
     override func viewDidLoad() {
        setupLocationManager()
         switch(CLLocationManager.authorizationStatus()){
-        case .NotDetermined, .Restricted, .Denied:
-         performSegueWithIdentifier("locationDisabledSegue", sender: nil)
+        case .notDetermined, .restricted, .denied:
+         performSegue(withIdentifier: "locationDisabledSegue", sender: nil)
             break
-        case .AuthorizedWhenInUse, .AuthorizedAlways:
+        case .authorizedWhenInUse, .authorizedAlways:
             setupMapView()
             break
         }
-        searchInAreaButton.hidden = true
+        searchInAreaButton.isHidden = true
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         let status = CLLocationManager.authorizationStatus()
         
-        if(status == .AuthorizedWhenInUse){
+        if(status == .authorizedWhenInUse){
             setupMapView()
             getLocations()
         }
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        guard let viewController = segue.destinationViewController as? RateLocationViewController else{
+        guard let viewController = segue.destination as? RateLocationViewController else{
             return
         }
         
@@ -67,13 +67,13 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
         }
     }
     
-    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-        if((status == .AuthorizedAlways) || (status == .AuthorizedWhenInUse)){
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if((status == .authorizedAlways) || (status == .authorizedWhenInUse)){
             getLocations()
             zoomMapToCurrentLocation()
         }
         else{
-            performSegueWithIdentifier("locationDisabledSegue", sender: nil)
+            performSegue(withIdentifier: "locationDisabledSegue", sender: nil)
         }
     }
     
@@ -99,19 +99,19 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
         return (locationManager.location?.coordinate)
     }
     
-    func updateMapViewToUserCurrentLocation(userLocation: CLLocationCoordinate2D) -> Void{
+    func updateMapViewToUserCurrentLocation(_ userLocation: CLLocationCoordinate2D) -> Void{
         let region = MKCoordinateRegion(center: userLocation, span: MKCoordinateSpanMake(0.05, 0.05))
         
         mapView.setRegion(region, animated: true)
     }
     
-    @IBAction func locationRefresh_Clicked(sender: UIBarButtonItem) {
+    @IBAction func locationRefresh_Clicked(_ sender: UIBarButtonItem) {
         zoomMapToCurrentLocation()
-        searchInAreaButton.hidden = true
+        searchInAreaButton.isHidden = true
     }
     
-    @IBAction func addLocation_Clicked(sender: UIBarButtonItem) {
-        performSegueWithIdentifier("newLocationSegue", sender: nil)
+    @IBAction func addLocation_Clicked(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: "newLocationSegue", sender: nil)
     }
     
     func getLocations() -> Void{
@@ -120,7 +120,7 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
         if(location != nil){
             let lat = location!.latitude
             let long = location!.longitude
-            UIApplication.sharedApplication().networkActivityIndicatorVisible = true;
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true;
             
             if(NetworkHelper.isConnectedToNetwork() == false){
                 loadDataFromYelp = false
@@ -131,24 +131,24 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
         }
     }
     
-    func showAlert(title: String, message: String){
-        let alertview = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-        alertview.addAction(UIAlertAction(title: "Okay", style: .Default, handler: nil))
-        presentViewController(alertview, animated: true, completion: nil)
+    func showAlert(_ title: String, message: String){
+        let alertview = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertview.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+        present(alertview, animated: true, completion: nil)
     }
     
-    func createMKPointAnnotationFromLocation(location: Location) -> MKPointAnnotation{
+    func createMKPointAnnotationFromLocation(_ location: Location) -> MKPointAnnotation{
         let coordinate = CLLocationCoordinate2DMake(location.latitude, location.longitude)
         let annotation = MKPointAnnotation()
         annotation.coordinate = coordinate
         return annotation
     }
     
-    func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
        //get the selected location from the array
         var selectedLocation: Location? = nil
         
-        for(_, location) in locationArray.enumerate(){
+        for(_, location) in locationArray.enumerated(){
             if(location.latitude == view.annotation!.coordinate.latitude){
                 if(location.longitude == view.annotation!.coordinate.longitude){
                     selectedLocation = location
@@ -158,20 +158,20 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
         }
         
         if(selectedLocation != nil){
-            performSegueWithIdentifier("rateLocationSegue", sender: selectedLocation)
+            performSegue(withIdentifier: "rateLocationSegue", sender: selectedLocation)
         }
         mapView.deselectAnnotation(view.annotation!, animated: false)
     }
     
-    func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) -> Void{
+    func handleLongPress(_ gestureRecognizer: UILongPressGestureRecognizer) -> Void{
         /*
          code pulled from http://stackoverflow.com/questions/3959994/how-to-add-a-push-pin-to-a-mkmapviewios-when-touching/3960754#3960754
          */
-        if(gestureRecognizer.state != .Began){
+        if(gestureRecognizer.state != .began){
             return;
         }
-        let touchPoint = gestureRecognizer.locationInView(self.mapView)
-        let touchMapCoordinate = mapView.convertPoint(touchPoint, toCoordinateFromView: mapView)
+        let touchPoint = gestureRecognizer.location(in: self.mapView)
+        let touchMapCoordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
         
         let annotation = MKPointAnnotation()
         annotation.coordinate = touchMapCoordinate
@@ -182,31 +182,31 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
         mapView.addAnnotation(annotation)
         
         let viewController = createNewLocationAlertView()
-        presentViewController(viewController, animated: true, completion: nil)
+        present(viewController, animated: true, completion: nil)
     }
     
     func createNewLocationAlertView() -> UIAlertController{
-        let viewController = UIAlertController(title: "Add Location", message: nil, preferredStyle: .Alert)
-        viewController.addTextFieldWithConfigurationHandler({
+        let viewController = UIAlertController(title: "Add Location", message: nil, preferredStyle: .alert)
+        viewController.addTextField(configurationHandler: {
             (textField) in
             
             textField.placeholder = "Business Name"
         })
         
-        viewController.addTextFieldWithConfigurationHandler({
+        viewController.addTextField(configurationHandler: {
             (textField) in
             
             textField.placeholder = "Website"
         })
         
-        viewController.addTextFieldWithConfigurationHandler { (textField) in
+        viewController.addTextField { (textField) in
             textField.placeholder = "Category"
         }
         
-        viewController.addTextFieldWithConfigurationHandler { (textField) in
+        viewController.addTextField { (textField) in
             textField.placeholder = "Phone Number"
         }
-        viewController.addAction(UIAlertAction(title: "Save Location", style: .Default, handler: {
+        viewController.addAction(UIAlertAction(title: "Save Location", style: .default, handler: {
             (alert) in
             let nameTextField = viewController.textFields![0] as UITextField
             let websiteTextField = viewController.textFields![1] as UITextField
@@ -214,27 +214,25 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
             let phone = viewController.textFields![3] as UITextField
             self.createAndSaveLocation(nameTextField.text!, website: websiteTextField.text, category: category.text!, phone: phone.text)
         }))
-        viewController.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: {
+        viewController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: {
             (_) in
             
-            self.dismissViewControllerAnimated(false, completion: {})
+            self.dismiss(animated: false, completion: {})
         }))
         
         return viewController
     }
     
-    func createAndSaveLocation(name: String, website: String?, category: String, phone: String?) -> Void{
-        let context = CoreDataStackManager.sharedInstance().managedObjectContext
-        
+    func createAndSaveLocation(_ name: String, website: String?, category: String, phone: String?) -> Void{
         let geoCoder = CLGeocoder()
         let clLocation = CLLocation(latitude: longPressLat!, longitude: longPressLong!)
         if(NetworkHelper.isConnectedToNetwork()){
-            UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
             geoCoder.reverseGeocodeLocation(clLocation, completionHandler: {
                 (placemarks, error) in
                 
                 if(placemarks == nil || error != nil){
-                    self.showAlert("Geocoding Error", message: error!.description)
+                    self.showAlert("Geocoding Error", message: error!.localizedDescription)
                     return
                 }
                 
@@ -242,22 +240,20 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
                 
                 let dictionary = placemark!.addressDictionary!
                 
-                let street = dictionary[CNPostalAddressStreetKey]!.description
-                let city = dictionary[CNPostalAddressCityKey]!.description
-                let state = dictionary[CNPostalAddressStateKey]!.description
-                let zip = dictionary[CNPostalAddressPostalCodeKey]!.description
+                let street = (dictionary[CNPostalAddressStreetKey]! as AnyObject).description
+                let city = (dictionary[CNPostalAddressCityKey]! as AnyObject).description
+                let state = (dictionary[CNPostalAddressStateKey]! as AnyObject).description
+                let zip = (dictionary[CNPostalAddressPostalCodeKey]! as AnyObject).description
                 
-                let address = Address(street: street, city: city, zip: zip, state: state, context: context)
+                let address = Address(street: street!, city: city!, zip: zip!, state: state!)
                 
-                let id = NSUUID().UUIDString
-                let location = Location(id: id, lat: self.longPressLat!, long: self.longPressLong!, name: name, adr: address, url: website, category: category, phoneNumber: phone, context: context)
+                let id = UUID().uuidString
+                let location = Location(id: id, lat: self.longPressLat!, long: self.longPressLong!, name: name, adr: address, url: website, category: category, phoneNumber: phone)
                 
-                CoreDataStackManager.sharedInstance().saveContext()
-                
-                dispatch_async(dispatch_get_main_queue(), {
+                DispatchQueue.main.async(execute: {
                     
-                    UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-                    self.performSegueWithIdentifier("rateLocationSegue", sender: location)
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                    self.performSegue(withIdentifier: "rateLocationSegue", sender: location)
                 })
             })
         }else{
@@ -265,20 +261,20 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
         }
     }
     
-    func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         if(userChangedRegion){
-            searchInAreaButton.hidden = !(Double(mapView.region.span.latitudeDelta) <= 0.065)
+            searchInAreaButton.isHidden = !(Double(mapView.region.span.latitudeDelta) <= 0.065)
         }else{
-            searchInAreaButton.hidden = true
+            searchInAreaButton.isHidden = true
         }
     }
     
-    func mapView(mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
+    func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
         
         let view = mapView.subviews[0]
         if let recongizers = view.gestureRecognizers{
             for recongizer in recongizers{
-                if(recongizer.state == UIGestureRecognizerState.Began || recongizer.state == UIGestureRecognizerState.Ended){
+                if(recongizer.state == UIGestureRecognizerState.began || recongizer.state == UIGestureRecognizerState.ended){
                     userChangedRegion = true
                     break
                 }
@@ -286,8 +282,8 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
         }
     }
     
-    @IBAction func searchInAreaButton_Clicked(sender: UIButton) {
-        searchInAreaButton.hidden = true
+    @IBAction func searchInAreaButton_Clicked(_ sender: UIButton) {
+        searchInAreaButton.isHidden = true
         clearMapView()
         let boundingBox = getBoundingBox()
         loadDataFromYelp = true
@@ -306,13 +302,13 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
     func getBoundingBox() -> BoundingBox{
         let nePoint = CGPoint(x: mapView.bounds.maxX, y: mapView.bounds.origin.y)
         let swPoint = CGPoint(x: mapView.bounds.minX, y: mapView.bounds.maxY)
-        let neCoordinate = mapView.convertPoint(nePoint, toCoordinateFromView: mapView)
-        let swCoordinate = mapView.convertPoint(swPoint, toCoordinateFromView: mapView)
+        let neCoordinate = mapView.convert(nePoint, toCoordinateFrom: mapView)
+        let swCoordinate = mapView.convert(swPoint, toCoordinateFrom: mapView)
         
         return BoundingBox(NorthEast: neCoordinate, SouthWest: swCoordinate)
     }
     
-    func processLocationSearchResults(locations: [Location], error: NSError?){
+    func processLocationSearchResults(_ locations: [Location], error: NSError?){
         if(error != nil){
             if(error?.description == "Network Error"){
                 self.showAlert("Network Error", message: "You must have network access to use this app")
@@ -320,12 +316,12 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
             print(error)
         }
         
-        for(_, location) in locations.enumerate(){
+        for(_, location) in locations.enumerated(){
             let annotation = self.createMKPointAnnotationFromLocation(location)
             self.mapView.addAnnotation(annotation)
             self.locationArray.append(location)
         }
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = false;
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false;
         self.loadDataFromYelp = false
 
     }

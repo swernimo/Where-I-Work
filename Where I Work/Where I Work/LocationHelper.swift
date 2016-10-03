@@ -11,59 +11,51 @@ import CoreData
 
 
 class LocationHelper {
-    func getLocations(latitude: Double, longitude: Double, callYelp: Bool, completionHandler: (locations: [Location], error: NSError?) -> Void) -> Void{
+    
+    func getLocations(_ latitude: Double, longitude: Double, callYelp: Bool, completionHandler: @escaping (_ locations: [Location], _ error: NSError?) -> Void) -> Void{
         var locations: [Location] = []
         var error: NSError? = nil
-        locations.appendContentsOf(loadFromCoreData())
         if(callYelp){
             
             loadFromYelp(latitude, long: longitude, savedLocations: locations) {
                 (results, err) in
                 
                 if(err == nil && results.count > 0){
-                    locations.appendContentsOf(results)
+                    locations.append(contentsOf: results)
                 }
                 error = err
-                completionHandler(locations: locations, error: error)
+                completionHandler(locations, error)
             }
         }else{
-            completionHandler(locations: locations, error: error)
+            completionHandler(locations, error)
         }
     }
     
-    func getLocations(boundingBox: BoundingBox, callYelp: Bool, completionHandler: (locations: [Location], error: NSError?) -> Void) -> Void{
+    func getLocations(_ boundingBox: BoundingBox, callYelp: Bool, completionHandler: @escaping (_ locations: [Location], _ error: NSError?) -> Void) -> Void{
         var locations: [Location] = []
         var error: NSError? = nil
-        locations.appendContentsOf(loadFromCoreData())
         if(callYelp){
             
             loadFromYelp(boundingBox, savedLocations: locations) {
                 (results, err) in
                 
                 if(err == nil && results.count > 0){
-                    locations.appendContentsOf(results)
+                    locations.append(contentsOf: results)
                 }
                 error = err
-                completionHandler(locations: locations, error: error)
+                completionHandler(locations, error)
             }
         }else{
-            completionHandler(locations: locations, error: error)
+            completionHandler(locations, error)
         }
     }
     
-    func loadFromCoreData() -> [Location]{
-        let locCoreData = LocationCoreData()
-        var saved = locCoreData.loadSavedLocations()
-        saved = removeDuplicateLocations(saved)
-        return saved
-    }
-    
-    func removeDuplicateLocations(locationArray: [Location]) -> [Location]{
+    func removeDuplicateLocations(_ locationArray: [Location]) -> [Location]{
         var noDuplicates: [Location] = []
         if(locationArray.isEmpty == false){
             for index in 0 ... (locationArray.count - 1){
                 let location = locationArray[index]
-                let contains = noDuplicates.contains({ $0.businessName == location.businessName && $0.longitude == location.longitude && $0.latitude == location.latitude})
+                let contains = noDuplicates.contains(where: { $0.businessName == location.businessName && $0.longitude == location.longitude && $0.latitude == location.latitude})
                 if(contains == false){
                     noDuplicates.append(location)
                 }
@@ -72,21 +64,21 @@ class LocationHelper {
         return noDuplicates
     }
     
-    func loadFromYelp(lat: Double, long: Double, savedLocations: [Location], completionHandler: (locations: [Location], error: NSError?) -> Void) {
+    func loadFromYelp(_ lat: Double, long: Double, savedLocations: [Location], completionHandler: @escaping (_ locations: [Location], _ error: NSError?) -> Void) {
         
         YelpClient.sharedInstance.getLocations(lat, longitude: long, savedLocations: savedLocations) {
             (locations, error) in
             
-            completionHandler(locations: locations, error: error)
+            completionHandler(locations, error)
         }
     }
     
-    func loadFromYelp(boudingBox: BoundingBox, savedLocations: [Location], completionHandler: (locations: [Location], error: NSError?) -> Void) {
+    func loadFromYelp(_ boudingBox: BoundingBox, savedLocations: [Location], completionHandler: @escaping (_ locations: [Location], _ error: NSError?) -> Void) {
         
         YelpClient.sharedInstance.getLocations(boudingBox, savedLocations: savedLocations) {
             (locations, error) in
             
-            completionHandler(locations: locations, error: error)
+            completionHandler(locations, error)
         }
     }
 }

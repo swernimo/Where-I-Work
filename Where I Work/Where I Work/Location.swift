@@ -6,31 +6,21 @@
 //  Copyright © 2016 Just One Guy. All rights reserved.
 //
 
-import Foundation
-import CoreData
-import UIKit
 
-@objc(Location)
-class Location: NSManagedObject {
+class Location {
     
-    @NSManaged var latitude: Double
-    @NSManaged var longitude: Double
-    @NSManaged var id: String
-    @NSManaged var businessName: String
-    @NSManaged var address: Address?
-    @NSManaged var website: String?
-    @NSManaged var category: String
-    @NSManaged var phone: String?
+    var latitude: Double
+    var longitude: Double
+    var id: String
+    var businessName: String
+    var address: Address?
+    var website: String?
+    var category: String
+    var phone: String?
     
-    override init(entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext?) {
-        
-        super.init(entity: entity, insertIntoManagedObjectContext: context)
-    }
+
     
-    init(id: String, lat: Double, long: Double, name: String, adr: Address?, url: String?, category: String, phoneNumber: String?, context: NSManagedObjectContext){
-        let entity =  NSEntityDescription.entityForName("Location", inManagedObjectContext: context)!
-        super.init(entity: entity, insertIntoManagedObjectContext: context)
-        
+    init(id: String, lat: Double, long: Double, name: String, adr: Address?, url: String?, category: String, phoneNumber: String?){
         latitude = lat
         longitude = long
         self.id = id

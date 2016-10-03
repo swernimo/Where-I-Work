@@ -6,31 +6,25 @@
 //  Copyright © 2016 Just One Guy. All rights reserved.
 //
 
-//import Foundation
+import Foundation
 import GoogleMaps
-//import AFNetworking
-//import BDBOAuth1Manager
+import GooglePlaces
+import GooglePlacePicker
+import AFNetworking
+import BDBOAuth1Manager
 
 class GoogleClient{
-//    var placesClient: GMSPlacesClient
-    class var sharedInstance : GoogleClient {
-        struct Static {
-            static var token : dispatch_once_t = 0
-            static var instance : GoogleClient? = nil
-        }
-        
-        dispatch_once(&Static.token) {
-            Static.instance = GoogleClient()
-        }
-        return Static.instance!
-    }
+    static let sharedInstance: GoogleClient = {
+        let instance = GoogleClient()
+        return instance
+    }()
     
-    func getCurrentPlace(completionHandler: (GMSPlaceLikelihoodList?, error: NSError?) -> Void){
+    func getCurrentPlace(_ completionHandler: @escaping (GMSPlaceLikelihoodList?, _ error: NSError?) -> Void){
         let placesClient = GMSPlacesClient()
-        placesClient.currentPlaceWithCallback(completionHandler)
+        placesClient.currentPlace(callback: completionHandler as! GMSPlaceLikelihoodListCallback)
     }
     
-    func searchForPlace(latiude: Double, longitude: Double, completionHandler: (place: GMSPlace?, error: NSError?) -> Void){
+    func searchForPlace(_ latiude: Double, longitude: Double, completionHandler: @escaping (_ place: GMSPlace?, _ error: NSError?) -> Void){
         
         let center = CLLocationCoordinate2DMake(latiude, longitude)
         let northEast = CLLocationCoordinate2DMake(center.latitude + 0.01, center.longitude + 0.01)
@@ -40,6 +34,6 @@ class GoogleClient{
         
         let placePicker = GMSPlacePicker(config: config)
         
-        placePicker.pickPlaceWithCallback(completionHandler)
+        placePicker.pickPlace(callback: completionHandler as! GMSPlaceResultCallback)
     }
 }

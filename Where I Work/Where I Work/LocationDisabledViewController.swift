@@ -22,9 +22,9 @@ class LocationDisabledViewController: UIViewController, CLLocationManagerDelegat
         locationManager.delegate = self
     }
     
-    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-        if((status == .AuthorizedAlways) || (status == .AuthorizedWhenInUse)){
-            dismissViewControllerAnimated(false, completion: nil)
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if((status == .authorizedAlways) || (status == .authorizedWhenInUse)){
+            dismiss(animated: false, completion: nil)
         }
     }
 }

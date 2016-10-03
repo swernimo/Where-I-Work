@@ -8,7 +8,7 @@
 // modified by Sean Wernimont
 
 import UIKit
-
+import CoreData
 import AFNetworking
 import BDBOAuth1Manager
 
@@ -18,26 +18,17 @@ let yelpToken = Constants.YelpKeys.Token
 let yelpTokenSecret = Constants.YelpKeys.TokenSecret
 
 enum YelpSortMode: Int {
-    case BestMatched = 0, Distance, HighestRated
+    case bestMatched = 0, distance, highestRated
 }
 
 class YelpClient : BDBOAuth1RequestOperationManager {
-    let sharedContext = CoreDataStackManager.sharedInstance().managedObjectContext
-    
     var accessToken: String!
     var accessSecret: String!
 
-    class var sharedInstance : YelpClient {
-        struct Static {
-            static var token : dispatch_once_t = 0
-            static var instance : YelpClient? = nil
-        }
-
-        dispatch_once(&Static.token) {
-            Static.instance = YelpClient(consumerKey: yelpConsumerKey, consumerSecret: yelpConsumerSecret, accessToken: yelpToken, accessSecret: yelpTokenSecret)
-        }
-        return Static.instance!
-    }
+    static let sharedInstance: YelpClient = {
+        let instance = YelpClient(consumerKey: yelpConsumerKey, consumerSecret: yelpConsumerSecret, accessToken: yelpToken, accessSecret: yelpTokenSecret)
+        return instance
+    }()
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -46,27 +37,30 @@ class YelpClient : BDBOAuth1RequestOperationManager {
     init(consumerKey key: String!, consumerSecret secret: String!, accessToken: String!, accessSecret: String!) {
         self.accessToken = accessToken
         self.accessSecret = accessSecret
-        let baseUrl = NSURL(string: "https://api.yelp.com/v2/")
+        let baseUrl = URL(string: "https://api.yelp.com/v2/")
         super.init(baseURL: baseUrl, consumerKey: key, consumerSecret: secret);
 
         let token = BDBOAuth1Credential(token: accessToken, secret: accessSecret, expiration: nil)
         self.requestSerializer.saveAccessToken(token)
     }
     
-    func getLocations(latitude: Double, longitude: Double, savedLocations: [Location], completionHandler: (locations: [Location], error: NSError?) -> Void) -> Void{
+    func getLocations(_ latitude: Double, longitude: Double, savedLocations: [Location], completionHandler: @escaping (_ locations: [Location], _ error: NSError?) -> Void) -> Void{
 
         var params = getParameterDictionary()
-        
-        params["ll"] = latitude.description + "," + longitude.description
+        var ll = String()
+        ll = latitude.description
+        ll += ","
+        ll += longitude.description
+        params["ll"] = ll as AnyObject? //latitude.description //+ ll + longitude.description
         
         searchYelp(params, completionHandler: completionHandler)
     }
     
-    func getLocations(boundingBox: BoundingBox, savedLocations: [Location], completionHandler: (locations: [Location], error: NSError?) -> Void) -> Void{
+    func getLocations(_ boundingBox: BoundingBox, savedLocations: [Location], completionHandler: @escaping (_ locations: [Location], _ error: NSError?) -> Void) -> Void{
         
         var params = getParameterDictionary()
         
-        params["bounds"] = "\(boundingBox.SouthWest.latitude),\(boundingBox.SouthWest.longitude)|\(boundingBox.NorthEast.latitude),\(boundingBox.NorthEast.longitude)"
+        params["bounds"] = "\(boundingBox.SouthWest.latitude),\(boundingBox.SouthWest.longitude)|\(boundingBox.NorthEast.latitude),\(boundingBox.NorthEast.longitude)" as AnyObject?
         
         searchYelp(params, completionHandler: completionHandler)
     }
@@ -74,15 +68,15 @@ class YelpClient : BDBOAuth1RequestOperationManager {
     func getParameterDictionary() -> [String: AnyObject]{
         var params: [String: AnyObject] = [:]
         
-        params["category_filter"] = "coffee,libraries,internetcafe,cafes"
-        params["limit"] = 20
-        params["radius_filter"] = 5000
-        params["sort"] = YelpSortMode.Distance.rawValue
+        params["category_filter"] = "coffee,libraries,internetcafe,cafes" as AnyObject?
+        params["limit"] = 20 as AnyObject?
+        params["radius_filter"] = 5000 as AnyObject?
+        params["sort"] = YelpSortMode.distance.rawValue as AnyObject?
         
         return params
     }
     
-    func locationAlreadySaved(location: Location, savedLocations: [Location]) -> Bool{
+    func locationAlreadySaved(_ location: Location, savedLocations: [Location]) -> Bool{
         var saved = false
         if(savedLocations.isEmpty == false){
             for index in 0 ..< savedLocations.count{
@@ -100,11 +94,11 @@ class YelpClient : BDBOAuth1RequestOperationManager {
         return saved
     }
     
-    func createNSError(errorDescription: String) -> NSError{
+    func createNSError(_ errorDescription: String) -> NSError{
         return NSError(domain: "YelpClient", code: -1, userInfo: ["Description" : errorDescription])
     }
     
-    func parseAddressFromLocationDictionary(dictionary: NSDictionary) -> Address?{
+    func parseAddressFromLocationDictionary(_ dictionary: NSDictionary) -> Address?{
         guard let streetAddress = dictionary["address"] as? [String] else{
             return nil
         }
@@ -127,48 +121,52 @@ class YelpClient : BDBOAuth1RequestOperationManager {
             return nil
         }
         
-        return Address(street: line1, city: city, zip: postalCode, state: state, context: sharedContext)
+        return Address(street: line1, city: city, zip: postalCode, state: state)
     }
     
-    private func searchYelp(params: [String:AnyObject], completionHandler: (locations: [Location], error: NSError?) -> Void) -> Void{
-        self.GET("search", parameters: params, success: {
+    fileprivate func searchYelp(_ params: [String:AnyObject], completionHandler: @escaping (_ locations: [Location], _ error: NSError?) -> Void) -> Void{
+        self.get("search", parameters: params, success: {
             (operation, response) in
             
             var locationArray: [Location] = []
             
-            guard let businesses = response["businesses"] as? [NSDictionary] else{
-                completionHandler(locations: [], error: self.createNSError("could not find businesses key in return"))
-                return
-            }
+            let responseDictionary = response as? [NSDictionary]
+//            responseDictionary?.first?[""]
+//            guard let businesses = response["businesses"] as? [NSDictionary] else{
+//                completionHandler([], self.createNSError("could not find businesses key in return"))
+//                return
+//            }
             
-            for(_, bus) in businesses.enumerate(){
+            let businesses = [NSDictionary]()
+            
+            for(_, bus) in businesses.enumerated(){
                 guard let name = bus["name"] as? String else{
-                    completionHandler(locations: [], error: self.createNSError("could not business name"))
+                    completionHandler([], self.createNSError("could not business name"))
                     return
                 }
                 
                 guard let location = bus["location"] as? NSDictionary else{
-                    completionHandler(locations: [], error: self.createNSError("could not find location"))
+                    completionHandler([], self.createNSError("could not find location"))
                     return
                 }
                 
                 guard let coordinate = location["coordinate"] as? NSDictionary else{
-                    completionHandler(locations: [], error: self.createNSError("could not find coordinate within location"))
+                    completionHandler([], self.createNSError("could not find coordinate within location"))
                     return
                 }
                 
                 guard let lat = coordinate["latitude"] as? Double else{
-                    completionHandler(locations: [], error: self.createNSError("could not find latitude within coordinate"))
+                    completionHandler([], self.createNSError("could not find latitude within coordinate"))
                     return
                 }
                 
                 guard let long = coordinate["longitude"] as? Double else{
-                    completionHandler(locations: [], error: self.createNSError("could not find longitude within coordinate"))
+                    completionHandler([], self.createNSError("could not find longitude within coordinate"))
                     return
                 }
                 
                 guard let categoryArray = bus["categories"] as? [[String]] else{
-                    completionHandler(locations: [], error: self.createNSError("could not find category array within business"))
+                    completionHandler([], self.createNSError("could not find category array within business"))
                     return
                 }
                 
@@ -177,7 +175,7 @@ class YelpClient : BDBOAuth1RequestOperationManager {
                 }
                 
                 guard let _ = bus["is_closed"] as? Bool else{
-                    completionHandler(locations: [], error: self.createNSError("Business: \(name) is permanently closed."))
+                    completionHandler([], self.createNSError("Business: \(name) is permanently closed."))
                     return
                 }
                 
@@ -188,27 +186,21 @@ class YelpClient : BDBOAuth1RequestOperationManager {
                 }
                 
                 let address = self.parseAddressFromLocationDictionary(location)
-                let id = NSUUID().UUIDString
-                let loc = Location(id: id, lat: lat, long: long, name: name, adr: address, url: nil, category: categoryName, phoneNumber: phone, context: self.sharedContext)
-                
-                //                let locationAlreadySaved = self.locationAlreadySaved(loc, savedLocations: savedLocations)
-                //                if(locationAlreadySaved){
-                //                    continue
-                //                }else{
-                //                    CoreDataStackManager.sharedInstance().saveContext()
+                let id = UUID().uuidString
+                let loc = Location(id: id, lat: lat, long: long, name: name, adr: address, url: nil, category: categoryName, phoneNumber: phone)
                 locationArray.append(loc)
-                //                }
                 
             }
             if(NetworkHelper.isConnectedToNetwork()){
-                completionHandler(locations: locationArray, error: nil)
+                completionHandler(locationArray, nil)
             }
             else{
-                completionHandler(locations: [], error: self.createNSError("Network Error"))
+                completionHandler([], self.createNSError("Network Error"))
             }
             },
-                 failure: { (operation, error) in
-                    completionHandler(locations: [], error: error)
+                 failure: { (op, error) in
+                    let arr = [Location]()
+                    completionHandler(arr, error as NSError?)
         })
 
     }

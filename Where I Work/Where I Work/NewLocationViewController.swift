@@ -39,40 +39,39 @@ class NewLocationViewController: UIViewController, UIPickerViewDelegate, UIPicke
         category.text = nil
     }
     
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return categories[row]
     }
     
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return categories.count
     }
     
-    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch(status){
-        case .NotDetermined, .Restricted, .Denied:
-            performSegueWithIdentifier("locationDisabledSegue", sender: nil)
+        case .notDetermined, .restricted, .denied:
+            performSegue(withIdentifier: "locationDisabledSegue", sender: nil)
             break
         default:
             break
         }
     }
     
-    @IBAction func cancelButton_Clicked(sender: UIBarButtonItem) {
+    @IBAction func cancelButton_Clicked(_ sender: UIBarButtonItem) {
         loadDefaults()
-        performSegueWithIdentifier("cancelAddSegue", sender: nil)
+        performSegue(withIdentifier: "cancelAddSegue", sender: nil)
     }
     
-    @IBAction func saveButton_Clicked(sender: UIBarButtonItem) {
-        let context = CoreDataStackManager.sharedInstance().managedObjectContext
-       let id = NSUUID().UUIDString
+    @IBAction func saveButton_Clicked(_ sender: UIBarButtonItem) {
+       let id = UUID().uuidString
         let geoCoder = CLGeocoder()
-        let address = Address(street: streetAddress.text!, city: city.text!, zip: zipCode.text!, state: state.text!, context: context)
+        let address = Address(street: streetAddress.text!, city: city.text!, zip: zipCode.text!, state: state.text!)
         if(NetworkHelper.isConnectedToNetwork()){
-            UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
             geoCoder.geocodeAddressString(address.getAddressDisplayString(false)){
                 (result, error) in
                 
@@ -84,8 +83,8 @@ class NewLocationViewController: UIViewController, UIPickerViewDelegate, UIPicke
                     
                     print("geocode Latitude: \(latitude)")
                     print("geocode longitude: \(longitude)")
-                    
-                    GoogleClient.sharedInstance.searchForPlace(latitude!, longitude: longitude!){
+                    let googleClient = GoogleClient()
+                    googleClient.searchForPlace(latitude!, longitude: longitude!){
                        (place, error) in
 //                        guard let _ = error where error != nil else{
 //                            print("Google Places Error")
@@ -107,35 +106,35 @@ class NewLocationViewController: UIViewController, UIPickerViewDelegate, UIPicke
                         }
                     }//, completionHandler: <#T##(place: GMSPlace?, error: NSError?) -> Void#>)
                     
-                    let location = Location(id: id, lat: latitude!, long: longitude!, name: self.businessName.text!, adr: address, url: websiteAddress, category: self.category.text!, phoneNumber: self.phone.text, context: context)
+                    let location = Location(id: id, lat: latitude!, long: longitude!, name: self.businessName.text!, adr: address, url: websiteAddress, category: self.category.text!, phoneNumber: self.phone.text)
                     
-                    dispatch_async(dispatch_get_main_queue(), {
+                    DispatchQueue.main.async(execute: {
                         
 // CoreDataStackManager.sharedInstance().saveContext()
-                        self.performSegueWithIdentifier("rateLocationSegue", sender: location)
+                        self.performSegue(withIdentifier: "rateLocationSegue", sender: location)
                     })
                 }
                 else{
-                    self.showAlert("Geocoding Error", message: error!.description)
+                    self.showAlert("Geocoding Error", message: error!.localizedDescription)
                 }
                 
-                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
             }
         }else{
             showAlert("Network Error", message: "You must have network access to use this app")
         }
     }
     
-    func showAlert(title: String, message: String){
-        let alertview = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-        alertview.addAction(UIAlertAction(title: "Okay", style: .Default, handler: nil))
-        presentViewController(alertview, animated: true, completion: nil)
+    func showAlert(_ title: String, message: String){
+        let alertview = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertview.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+        present(alertview, animated: true, completion: nil)
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if(segue.identifier == "rateLocationSegue"){
-            let viewController = segue.destinationViewController as! RateLocationViewController
+            let viewController = segue.destination as! RateLocationViewController
             
             viewController.location = sender as? Location
             

@@ -5,48 +5,38 @@
 //  Created by Sean Wernimont on 3/10/16.
 //  Copyright © 2016 Just One Guy. All rights reserved.
 //
-
 import Foundation
-import CoreData
 
-@objc(Address)
-class Address: NSManagedObject{
+class Address{
     
-    @NSManaged var street: String
-    @NSManaged var city: String
-    @NSManaged var state: String
-    @NSManaged var zipCode: String
-    @NSManaged var id: String
+    var street: String
+    var city: String
+    var state: String
+    var zipCode: String
+    var id: String
     
-    override init(entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext?) {
-        
-        super.init(entity: entity, insertIntoManagedObjectContext: context)
-    }
     
-    init(street: String, city: String, zip: String, state: String, context: NSManagedObjectContext){
-        let entity =  NSEntityDescription.entityForName("Address", inManagedObjectContext: context)!
-        super.init(entity: entity, insertIntoManagedObjectContext: context)
-        
-        id = NSUUID().UUIDString
+    init(street: String, city: String, zip: String, state: String){
+        id = UUID().uuidString
         self.street = street
         self.city = city
         zipCode = zip
         self.state = state
     }
     
-    func getAddressDisplayString(includeNewLine: Bool) -> String{
+    func getAddressDisplayString(_ includeNewLine: Bool) -> String{
         var addressString = ""
-        addressString.appendContentsOf(street)
+        addressString.append(street)
         if(includeNewLine){
-            addressString.appendContentsOf("\r\n")
+            addressString.append("\r\n")
         }else{
-            addressString.appendContentsOf(" ")
+            addressString.append(" ")
         }
-        addressString.appendContentsOf(city)
-        addressString.appendContentsOf(" ")
-        addressString.appendContentsOf(state)
-        addressString.appendContentsOf(", ")
-        addressString.appendContentsOf(zipCode)
+        addressString.append(city)
+        addressString.append(" ")
+        addressString.append(state)
+        addressString.append(", ")
+        addressString.append(zipCode)
         return addressString
     }
 }

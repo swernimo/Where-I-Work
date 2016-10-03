@@ -10,9 +10,10 @@ import Foundation
 
 class RatingHelper{
     
-    func getRatingForLocation(location: Location) -> Rating?{
-        let rating = RatingCoreData()
-        
-        return rating.loadRatingForLocation(location)
+    func getRatingForLocation(_ location: Location) -> Rating?{
+//        let rating = RatingCoreData()
+//        
+//        return rating.loadRatingForLocation(location)
+        return nil
     }
 }

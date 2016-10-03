@@ -50,41 +50,41 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate, 
         websiteTapGesture.delegate = self
         websiteTapGesture.addTarget(self, action:#selector(RateLocationViewController.websiteLabel_Clicked))
         website.addGestureRecognizer(websiteTapGesture)
-        website.userInteractionEnabled = true
+        website.isUserInteractionEnabled = true
     }
     
-    func setFillModeForRatingControls(ratingControls: [CosmosView]){
+    func setFillModeForRatingControls(_ ratingControls: [CosmosView]){
         for index in 0..<ratingControls.count{
             let control = ratingControls[index]
-            control.settings.fillMode = .Half
+            control.settings.fillMode = .half
         }
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        guard let mapViewController = segue.destinationViewController as? MapViewController else{
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let mapViewController = segue.destination as? MapViewController else{
             return
         }
         
         mapViewController.loadDataFromYelp = false
     }
     
-    func loadRating(forLocation: Location) -> Rating?{
+    func loadRating(_ forLocation: Location) -> Rating?{
         let ratingHelper = RatingHelper()
        return ratingHelper.getRatingForLocation(forLocation)
     }
     
-    func displayRatingIfExisting(rating: Rating?){
-        guard let r = rating where rating != nil else{
+    func displayRatingIfExisting(_ rating: Rating?){
+        guard let r = rating , rating != nil else{
             //TODO: set the rating controls
             return
         }
         
-        freeWifiSwitch.on = (r.freeWifi == 1)
-        workThereAgainSwitch.on = (r.workThereAgain == 1)
+        freeWifiSwitch.isOn = r.freeWifi
+        workThereAgainSwitch.isOn = r.workThereAgain
     }
     
     func displayLocation(){
-        guard let loc = location where location != nil else{
+        guard let loc = location , location != nil else{
             hideControlsIfLocationIsNil()
             return
         }
@@ -93,15 +93,15 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate, 
         category.text = loc.category
         phoneNumberTextField.text = loc.phone
         
-        guard let _ = loc.website where loc.website != nil else{
-            websiteTapGesture.enabled = false
-            website.hidden = true
+        guard let _ = loc.website , loc.website != nil else{
+            websiteTapGesture.isEnabled = false
+            website.isHidden = true
             return
         }
         
         website.text = "Website"
-        websiteTapGesture.enabled = true
-        website.hidden = false
+        websiteTapGesture.isEnabled = true
+        website.isHidden = false
     }
     
     func hideControlsIfLocationIsNil(){
@@ -109,15 +109,15 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate, 
     }
     
     func setRatingControlsToDefaultState(){
-        freeWifiSwitch.on = false
-        workThereAgainSwitch.on = false
+        freeWifiSwitch.isOn = false
+        workThereAgainSwitch.isOn = false
         //TODO: set the rating controls
     }
     
-    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch(status){
-        case .NotDetermined, .Restricted, .Denied:
-            performSegueWithIdentifier("locationDisabledSegue", sender: nil)
+        case .notDetermined, .restricted, .denied:
+            performSegue(withIdentifier: "locationDisabledSegue", sender: nil)
             break
         default:
             break
@@ -125,15 +125,15 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate, 
         
     }
     
-    func websiteLabel_Clicked(sender: UITapGestureRecognizer) {
-        let url = NSURL(string: location!.website!)!
-        let canOpen = UIApplication.sharedApplication().canOpenURL(url)
+    func websiteLabel_Clicked(_ sender: UITapGestureRecognizer) {
+        let url = URL(string: location!.website!)!
+        let canOpen = UIApplication.shared.canOpenURL(url)
         if(canOpen){
-            UIApplication.sharedApplication().openURL(url)
+            UIApplication.shared.openURL(url)
         }
     }
     
-    @IBAction func favoriteButton_Clicked(sender: UIBarButtonItem) {
+    @IBAction func favoriteButton_Clicked(_ sender: UIBarButtonItem) {
         let img = sender.image
         let emptyHeart = UIImage(named: "Heart")
         let filledHeart = UIImage(named: "Heart-Filled")
@@ -146,13 +146,13 @@ class RateLocationViewController : UIViewController, CLLocationManagerDelegate, 
         }
     }
     
-    @IBAction func saveButton_Clicked(sender: UIBarButtonItem) {
-        let context = CoreDataStackManager.sharedInstance().managedObjectContext
-        let id = NSUUID().UUIDString
-        let date = NSDate()
-        let _ = Rating(id: id, noise: noiseRating.rating, freeWifi: freeWifiSwitch.on, wifiStrength: wifiRating.rating, seatingAvailabilityRating: seatingRating.rating, wouldWorkThereAgain: workThereAgainSwitch.on, notes: "", location: location!, created: date, context: context)
+    @IBAction func saveButton_Clicked(_ sender: UIBarButtonItem) {
+      //  let context = CoreDataStackManager.sharedInstance().managedObjectContext
+        let id = UUID().uuidString
+        let date = Date()
+        let _ = Rating(id: id, noise: noiseRating.rating, freeWifi: freeWifiSwitch.isOn, wifiStrength: wifiRating.rating, seatingAvailabilityRating: seatingRating.rating, wouldWorkThereAgain: workThereAgainSwitch.isOn, notes: "", location: location!, created: date)
         
         //CoreDataStackManager.sharedInstance().saveContext()
-        navigationController?.popToRootViewControllerAnimated(true)
+        navigationController?.popToRootViewController(animated: true)
     }
 }
