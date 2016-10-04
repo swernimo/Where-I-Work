@@ -26,6 +26,7 @@
 		14A939DF1C925DB10064A22E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A939DE1C925DB10064A22E /* Constants.swift */; };
 		14A939E21C925EF50064A22E /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A939E11C925EF50064A22E /* Location.swift */; };
 		14A939E41C92601B0064A22E /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A939E31C92601B0064A22E /* Address.swift */; };
+		14B839251DA33CE00097B935 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 14B839241DA33CE00097B935 /* GoogleService-Info.plist */; };
 		14C6637E1CFCC3F8008AF66B /* BoundingBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C6637D1CFCC3F8008AF66B /* BoundingBox.swift */; };
 		14DCAC221C928D2800168581 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 14DCAC211C928D2800168581 /* Podfile */; };
 		722414DCD563EFE6CFD1A3B0 /* Pods_Where_I_Work.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C75339E43250443577256D31 /* Pods_Where_I_Work.framework */; };
@@ -56,6 +57,8 @@
 		14A939DE1C925DB10064A22E /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		14A939E11C925EF50064A22E /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		14A939E31C92601B0064A22E /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
+		14B839241DA33CE00097B935 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		14B839261DA340C00097B935 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		14C6637D1CFCC3F8008AF66B /* BoundingBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoundingBox.swift; sourceTree = "<group>"; };
 		14DCAC211C928D2800168581 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		14DF2B3F1CFA3B5600FE8E26 /* RateLocationViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateLocationViewControllerSpec.swift; sourceTree = "<group>"; };
@@ -119,9 +122,11 @@
 				14A939D81C8FDAB90064A22E /* Services */,
 				14A939CF1C8E95EA0064A22E /* ViewControllers */,
 				14A939AA1C8C91270064A22E /* AppDelegate.swift */,
+				14B839261DA340C00097B935 /* Bridging-Header.h */,
 				14A939AE1C8C91270064A22E /* Main.storyboard */,
 				14A939B41C8C91270064A22E /* Assets.xcassets */,
 				14A939B61C8C91270064A22E /* LaunchScreen.storyboard */,
+				14B839241DA33CE00097B935 /* GoogleService-Info.plist */,
 				14A939B91C8C91270064A22E /* Info.plist */,
 			);
 			path = "Where I Work";
@@ -256,6 +261,7 @@
 			files = (
 				14A939B81C8C91270064A22E /* LaunchScreen.storyboard in Resources */,
 				14A939B51C8C91270064A22E /* Assets.xcassets in Resources */,
+				14B839251DA33CE00097B935 /* GoogleService-Info.plist in Resources */,
 				14DCAC221C928D2800168581 /* Podfile in Resources */,
 				14A939B01C8C91270064A22E /* Main.storyboard in Resources */,
 			);

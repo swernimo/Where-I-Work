@@ -18,6 +18,8 @@ target 'Where I Work' do
   pod 'AzureSDK-iOS'
   pod 'GooglePlaces'
   pod 'GooglePlacePicker'
+  pod 'Google'
+  pod 'Google/SignIn'
 #  pod 'AzureStorageAPIClient'
 #  pod 'WindowsAzureMobileServices'       
 end
