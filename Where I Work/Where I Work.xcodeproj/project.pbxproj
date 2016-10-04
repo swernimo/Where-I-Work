@@ -59,8 +59,6 @@
 		14C6637D1CFCC3F8008AF66B /* BoundingBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoundingBox.swift; sourceTree = "<group>"; };
 		14DCAC211C928D2800168581 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		14DF2B3F1CFA3B5600FE8E26 /* RateLocationViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateLocationViewControllerSpec.swift; sourceTree = "<group>"; };
-		20D0FA36985D0215BD0A5B36 /* Pods-UnitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-UnitTests/Pods-UnitTests.release.xcconfig"; sourceTree = "<group>"; };
-		5FEAA06E30EF44F0805325EC /* Pods-UnitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UnitTests/Pods-UnitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C75339E43250443577256D31 /* Pods_Where_I_Work.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Where_I_Work.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBDA3C82A5B8310D2249B9F4 /* Pods-Where I Work.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Where I Work.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Where I Work/Pods-Where I Work.debug.xcconfig"; sourceTree = "<group>"; };
 		F9EE443448657756009ADFFB /* Pods-Where I Work.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Where I Work.release.xcconfig"; path = "Pods/Target Support Files/Pods-Where I Work/Pods-Where I Work.release.xcconfig"; sourceTree = "<group>"; };
@@ -176,8 +174,6 @@
 			children = (
 				DBDA3C82A5B8310D2249B9F4 /* Pods-Where I Work.debug.xcconfig */,
 				F9EE443448657756009ADFFB /* Pods-Where I Work.release.xcconfig */,
-				5FEAA06E30EF44F0805325EC /* Pods-UnitTests.debug.xcconfig */,
-				20D0FA36985D0215BD0A5B36 /* Pods-UnitTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -455,6 +451,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "JOG.Where-I-Work";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				VALID_ARCHS = arm64;
 			};
 			name = Debug;
 		};
@@ -470,6 +467,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "JOG.Where-I-Work";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				VALID_ARCHS = arm64;
 			};
 			name = Release;
 		};
