@@ -130,14 +130,15 @@ class YelpClient : BDBOAuth1RequestOperationManager {
             
             var locationArray: [Location] = []
             
-            let responseDictionary = response as? [NSDictionary]
-//            responseDictionary?.first?[""]
-//            guard let businesses = response["businesses"] as? [NSDictionary] else{
-//                completionHandler([], self.createNSError("could not find businesses key in return"))
-//                return
-//            }
+            guard let dictionary = response as? [String: AnyObject] else{
+                completionHandler([], self.createNSError("could not convert response to dictionary array"))
+                return
+            }
             
-            let businesses = [NSDictionary]()
+            guard let businesses = dictionary["businesses"] as? [NSDictionary] else{
+                completionHandler([], self.createNSError("could not find businesses key in return"))
+                return
+            }
             
             for(_, bus) in businesses.enumerated(){
                 guard let name = bus["name"] as? String else{
