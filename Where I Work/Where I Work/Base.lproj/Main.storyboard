@@ -1450,7 +1450,7 @@ Any City, State, 12345-6789</string>
         <!--Login-->
         <scene sceneID="EkD-LH-6xH">
             <objects>
-                <viewController title="Login" id="AQB-rd-ftU" sceneMemberID="viewController">
+                <viewController title="Login" id="AQB-rd-ftU" customClass="GoogleSignInViewController" customModule="Where_I_Work" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="243-HX-azd"/>
                         <viewControllerLayoutGuide type="bottom" id="mV6-Rr-8I7"/>
@@ -1458,12 +1458,27 @@ Any City, State, 12345-6789</string>
                     <view key="view" contentMode="scaleToFill" id="cCl-VR-tJK">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JlH-hP-raP" customClass="GIDSignInButton">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="JlH-hP-raP" firstAttribute="centerX" secondItem="cCl-VR-tJK" secondAttribute="centerX" id="2KX-R3-mbb"/>
+                            <constraint firstItem="JlH-hP-raP" firstAttribute="centerY" secondItem="cCl-VR-tJK" secondAttribute="centerY" id="VgI-GO-2qQ"/>
+                            <constraint firstItem="JlH-hP-raP" firstAttribute="leading" secondItem="cCl-VR-tJK" secondAttribute="leading" constant="127" id="gn9-lT-zgR"/>
+                            <constraint firstItem="JlH-hP-raP" firstAttribute="top" secondItem="243-HX-azd" secondAttribute="bottom" constant="289" id="m71-w3-9fa"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="signInButton" destination="JlH-hP-raP" id="OFR-Is-d8F"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="loginSegue" id="shJ-4B-gbj"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w5h-Vx-F0S" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1264" y="622"/>
+            <point key="canvasLocation" x="1263.2" y="621.13943028485767"/>
         </scene>
     </scenes>
     <resources>
@@ -1471,7 +1486,8 @@ Any City, State, 12345-6789</string>
         <image name="Location" width="21" height="21"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="qZ5-zk-SMg"/>
+        <segue reference="shJ-4B-gbj"/>
         <segue reference="gsY-w3-VgJ"/>
+        <segue reference="qZ5-zk-SMg"/>
     </inferredMetricsTieBreakers>
 </document>

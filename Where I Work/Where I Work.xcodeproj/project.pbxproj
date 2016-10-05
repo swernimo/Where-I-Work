@@ -27,6 +27,7 @@
 		14A939E21C925EF50064A22E /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A939E11C925EF50064A22E /* Location.swift */; };
 		14A939E41C92601B0064A22E /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A939E31C92601B0064A22E /* Address.swift */; };
 		14B839251DA33CE00097B935 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 14B839241DA33CE00097B935 /* GoogleService-Info.plist */; };
+		14B839281DA485BF0097B935 /* GoogleSignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B839271DA485BF0097B935 /* GoogleSignInViewController.swift */; };
 		14C6637E1CFCC3F8008AF66B /* BoundingBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C6637D1CFCC3F8008AF66B /* BoundingBox.swift */; };
 		14DCAC221C928D2800168581 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 14DCAC211C928D2800168581 /* Podfile */; };
 		722414DCD563EFE6CFD1A3B0 /* Pods_Where_I_Work.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C75339E43250443577256D31 /* Pods_Where_I_Work.framework */; };
@@ -59,6 +60,7 @@
 		14A939E31C92601B0064A22E /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		14B839241DA33CE00097B935 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		14B839261DA340C00097B935 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
+		14B839271DA485BF0097B935 /* GoogleSignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleSignInViewController.swift; sourceTree = "<group>"; };
 		14C6637D1CFCC3F8008AF66B /* BoundingBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoundingBox.swift; sourceTree = "<group>"; };
 		14DCAC211C928D2800168581 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		14DF2B3F1CFA3B5600FE8E26 /* RateLocationViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateLocationViewControllerSpec.swift; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 				14A939D21C8E96130064A22E /* NewLocationViewController.swift */,
 				14A939D41C8E96200064A22E /* RateLocationViewController.swift */,
 				1494E9BA1C94C37C0089F2F6 /* LocationDisabledViewController.swift */,
+				14B839271DA485BF0097B935 /* GoogleSignInViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -336,6 +339,7 @@
 				14A939DC1C8FDADE0064A22E /* LocationHelper.swift in Sources */,
 				1433B90A1CA38996001FF5A2 /* Rating.swift in Sources */,
 				14A939AB1C8C91270064A22E /* AppDelegate.swift in Sources */,
+				14B839281DA485BF0097B935 /* GoogleSignInViewController.swift in Sources */,
 				14A939DF1C925DB10064A22E /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

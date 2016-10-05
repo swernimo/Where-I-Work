@@ -31,14 +31,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         // Saves changes in the application's managed object context before the application terminates.
     }
     
-    func application(application: UIApplication, openURL url: NSURL, options: [String: AnyObject]) -> Bool {
-        //        
-        //UIApplicationOpenURLOptionsSourceApplicationKey
-        return GIDSignIn.sharedInstance().handle(url as! URL, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication.rawValue
-] as? String, annotation: options[UIApplicationOpenURLOptionsKey.annotation.rawValue])
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        return GIDSignIn.sharedInstance().handle(url as URL!, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
     }
     
-    func signIn(signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!, withError error: NSError!) {
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         if (error == nil) {
             // Perform any operations on signed in user here.
             let userId = user.userID                  // For client-side use only!
@@ -47,19 +44,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             let givenName = user.profile.givenName
             let familyName = user.profile.familyName
             let email = user.profile.email
-            // ...
+            
         } else {
             print("\(error.localizedDescription)")
         }
     }
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        
-    }
     
-    func signIn(signIn: GIDSignIn!, didDisconnectWithUser user:GIDGoogleUser!,withError error: NSError!) {
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user:GIDGoogleUser!,withError error: Error!) {
         // Perform any operations when the user disconnects from app here.
         // ...
     }
-    
 }
-
