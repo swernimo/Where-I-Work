@@ -1,17 +1,5 @@
 use_frameworks!
 
-pod 'AFNetworking', '~> 2.5'
-pod 'BDBOAuth1Manager'
-pod 'Cosmos', '~> 6.0.1'
-
-# def testing_pods
-#    pod 'Quick'
-#    pod 'Nimble'
-# end
-
-# target 'UnitTests' do
-#    testing_pods
-# end
 
 target 'Where I Work' do
   pod 'GoogleMaps'
@@ -20,8 +8,14 @@ target 'Where I Work' do
   pod 'GooglePlacePicker'
   pod 'Google'
   pod 'Google/SignIn'
-#  pod 'AzureStorageAPIClient'
-#  pod 'WindowsAzureMobileServices'       
+  pod 'AFNetworking', '~> 2.5'
+  pod 'BDBOAuth1Manager'
+  pod 'Cosmos', '~> 6.0.1'
+  
+    target 'UnitTests' do
+        inherit! :search_paths
+        pod 'Google'
+    end
 end
 
 post_install do |installer|
