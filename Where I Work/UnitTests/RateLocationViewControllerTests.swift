@@ -12,10 +12,12 @@ import Cosmos
 @testable import Where_I_Work
 
 class RateLocationViewControllerTests: XCTestCase {
+    let viewController = RateLocationViewController()
     
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        viewController.freeWifiSwitch = UISwitch()
+        viewController.workThereAgainSwitch = UISwitch()
     }
     
     override func tearDown() {
@@ -26,12 +28,25 @@ class RateLocationViewControllerTests: XCTestCase {
     func test_FillMode_ShouldSetToHalf() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        let vc = RateLocationViewController()
         let control = CosmosView()
         control.settings.fillMode = .full
         
-        vc.setFillModeForRatingControls([control])
+        viewController.setFillModeForRatingControls([control])
         
         XCTAssert(control.settings.fillMode == .half)
+    }
+    
+    func test_setRatingControl_freeWifiSwitch_ShouldBe_Off(){
+        viewController.freeWifiSwitch.isOn = true;
+        viewController.setRatingControlsToDefaultState()
+        
+        XCTAssert(viewController.freeWifiSwitch.isOn == false)
+    }
+    
+    func test_setRatingControl_workThereAgainSwitch_ShouldBe_Off(){
+        viewController.workThereAgainSwitch.isOn = true;
+        viewController.setRatingControlsToDefaultState()
+        
+        XCTAssert(viewController.workThereAgainSwitch.isOn == false)
     }
 }
