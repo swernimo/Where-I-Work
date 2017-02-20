@@ -51,6 +51,7 @@ class RateLocationViewController : BaseViewController, UIGestureRecognizerDelega
         websiteTapGesture.addTarget(self, action:#selector(RateLocationViewController.websiteLabel_Clicked))
         website.addGestureRecognizer(websiteTapGesture)
         website.isUserInteractionEnabled = true
+        super.viewDidLoad()
     }
     
     func setFillModeForRatingControls(_ ratingControls: [CosmosView]){

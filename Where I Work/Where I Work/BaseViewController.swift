@@ -17,10 +17,10 @@ class BaseViewController : UIViewController, CLLocationManagerDelegate{
     var locationAuthorized: Bool = true
     
     override func viewDidLoad(){
-        super.viewDidLoad()
         if(locationAuthorized == false){
             navigateToLocationDisabled()
         }
+        super.viewDidLoad()
     }
     
     override func viewWillAppear(_ animated: Bool) {

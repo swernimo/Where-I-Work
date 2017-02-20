@@ -13,6 +13,7 @@ class LocationDisabledViewController: BaseViewController{
     
     override func viewDidLoad() {
         setupLocationManager()
+        super.viewDidLoad()
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {

@@ -26,6 +26,7 @@ class MapViewController : BaseViewController, MKMapViewDelegate{
     @IBOutlet weak var mapView: MKMapView!
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         if(locationAuthorized){
             setupMapView()
         }
@@ -33,6 +34,7 @@ class MapViewController : BaseViewController, MKMapViewDelegate{
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         if(locationAuthorized){
             setupMapView()
             getLocations()
@@ -78,7 +80,7 @@ class MapViewController : BaseViewController, MKMapViewDelegate{
     }
     
     func getUserCurrentLocation() -> CLLocationCoordinate2D?{
-        return (locationManager.location?.coordinate)
+        return (locationManager?.location?.coordinate)
     }
     
     func updateMapViewToUserCurrentLocation(_ userLocation: CLLocationCoordinate2D) -> Void{

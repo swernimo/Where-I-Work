@@ -26,6 +26,7 @@ class NewLocationViewController: BaseViewController, UIPickerViewDelegate, UIPic
     
     override func viewDidLoad() {
         loadDefaults()
+        super.viewDidLoad()
     }
     
     func loadDefaults() -> Void{
