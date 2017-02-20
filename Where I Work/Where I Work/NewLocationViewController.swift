@@ -11,7 +11,7 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class NewLocationViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, CLLocationManagerDelegate{
+class NewLocationViewController: BaseViewController, UIPickerViewDelegate, UIPickerViewDataSource{
     
     let categories: [String] = ["Select A Category", "Coffee", "Library"]
     
@@ -51,15 +51,15 @@ class NewLocationViewController: UIViewController, UIPickerViewDelegate, UIPicke
         return categories.count
     }
     
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        switch(status){
-        case .notDetermined, .restricted, .denied:
-            performSegue(withIdentifier: "locationDisabledSegue", sender: nil)
-            break
-        default:
-            break
-        }
-    }
+//    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+//        switch(status){
+//        case .notDetermined, .restricted, .denied:
+//            performSegue(withIdentifier: "locationDisabledSegue", sender: nil)
+//            break
+//        default:
+//            break
+//        }
+//    }
     
     @IBAction func cancelButton_Clicked(_ sender: UIBarButtonItem) {
         loadDefaults()
@@ -125,11 +125,11 @@ class NewLocationViewController: UIViewController, UIPickerViewDelegate, UIPicke
         }
     }
     
-    func showAlert(_ title: String, message: String){
-        let alertview = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alertview.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
-        present(alertview, animated: true, completion: nil)
-    }
+//    func showAlert(_ title: String, message: String){
+//        let alertview = UIAlertController(title: title, message: message, preferredStyle: .alert)
+//        alertview.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+//        present(alertview, animated: true, completion: nil)
+//    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         

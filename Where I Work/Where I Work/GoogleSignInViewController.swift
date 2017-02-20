@@ -11,7 +11,7 @@ import UIKit
 import Google
 import GoogleSignIn
 
-class GoogleSignInViewController : UIViewController, GIDSignInUIDelegate{
+class GoogleSignInViewController : BaseViewController, GIDSignInUIDelegate{
     
     @IBOutlet weak var signInButton : GIDSignInButton!
     

@@ -9,17 +9,10 @@
 import Foundation
 import MapKit
 
-class LocationDisabledViewController: UIViewController, CLLocationManagerDelegate{
-    
-    var locationManager: CLLocationManager!
+class LocationDisabledViewController: BaseViewController{
     
     override func viewDidLoad() {
         setupLocationManager()
-    }
-    
-    func setupLocationManager()->Void{
-        locationManager = CLLocationManager()
-        locationManager.delegate = self
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {

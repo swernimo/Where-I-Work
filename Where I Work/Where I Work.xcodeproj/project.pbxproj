@@ -10,6 +10,7 @@
 		1433B90A1CA38996001FF5A2 /* Rating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1433B9091CA38996001FF5A2 /* Rating.swift */; };
 		1433B90E1CA38F9E001FF5A2 /* RatingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1433B90D1CA38F9E001FF5A2 /* RatingHelper.swift */; };
 		143DA5441DE22BD500D8663A /* RateLocationViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143DA5431DE22BD500D8663A /* RateLocationViewControllerTests.swift */; };
+		14453F8C1E5A77DD0049DF76 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14453F8B1E5A77DD0049DF76 /* BaseViewController.swift */; };
 		145C09651CFCF8D5007612F9 /* GoogleClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145C09641CFCF8D5007612F9 /* GoogleClient.swift */; };
 		1494E9BB1C94C37C0089F2F6 /* LocationDisabledViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1494E9BA1C94C37C0089F2F6 /* LocationDisabledViewController.swift */; };
 		1494E9BF1CA0F63B0089F2F6 /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1494E9BE1CA0F63B0089F2F6 /* NetworkHelper.swift */; };
@@ -51,6 +52,7 @@
 		143DA5391DE22B0E00D8663A /* UnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		143DA53D1DE22B0E00D8663A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		143DA5431DE22BD500D8663A /* RateLocationViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateLocationViewControllerTests.swift; sourceTree = "<group>"; };
+		14453F8B1E5A77DD0049DF76 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		145C09641CFCF8D5007612F9 /* GoogleClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleClient.swift; sourceTree = "<group>"; };
 		1494E9BA1C94C37C0089F2F6 /* LocationDisabledViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationDisabledViewController.swift; sourceTree = "<group>"; };
 		1494E9BE1CA0F63B0089F2F6 /* NetworkHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 				14A939D41C8E96200064A22E /* RateLocationViewController.swift */,
 				1494E9BA1C94C37C0089F2F6 /* LocationDisabledViewController.swift */,
 				14B839271DA485BF0097B935 /* GoogleSignInViewController.swift */,
+				14453F8B1E5A77DD0049DF76 /* BaseViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -444,6 +447,7 @@
 				14A939D31C8E96130064A22E /* NewLocationViewController.swift in Sources */,
 				14A939D51C8E96200064A22E /* RateLocationViewController.swift in Sources */,
 				14A939E41C92601B0064A22E /* Address.swift in Sources */,
+				14453F8C1E5A77DD0049DF76 /* BaseViewController.swift in Sources */,
 				14A939E21C925EF50064A22E /* Location.swift in Sources */,
 				1433B90E1CA38F9E001FF5A2 /* RatingHelper.swift in Sources */,
 				14A939D11C8E95FE0064A22E /* MapViewController.swift in Sources */,

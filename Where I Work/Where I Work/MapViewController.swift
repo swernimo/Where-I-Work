@@ -13,9 +13,8 @@ import CoreLocation
 //import AddressBook
 import Contacts
 
-class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapViewDelegate{
+class MapViewController : BaseViewController, MKMapViewDelegate{
     
-    var locationManager: CLLocationManager!
     let locationHelper = LocationHelper()
     var locationArray: [Location] = []
     var loadDataFromYelp: Bool = true
@@ -27,22 +26,14 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
     @IBOutlet weak var mapView: MKMapView!
     
     override func viewDidLoad() {
-       setupLocationManager()
-        switch(CLLocationManager.authorizationStatus()){
-        case .notDetermined, .restricted, .denied:
-         performSegue(withIdentifier: "locationDisabledSegue", sender: nil)
-            break
-        case .authorizedWhenInUse, .authorizedAlways:
+        if(locationAuthorized){
             setupMapView()
-            break
         }
         searchInAreaButton.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        let status = CLLocationManager.authorizationStatus()
-        
-        if(status == .authorizedWhenInUse){
+        if(locationAuthorized){
             setupMapView()
             getLocations()
         }
@@ -57,15 +48,6 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
         viewController.location = sender as? Location
     }
     
-    func setupLocationManager()->Void{
-        if(CLLocationManager.locationServicesEnabled()){
-            locationManager = CLLocationManager()
-            locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            locationManager.requestWhenInUseAuthorization()
-            locationManager.startUpdatingLocation()
-        }
-    }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if((status == .authorizedAlways) || (status == .authorizedWhenInUse)){
@@ -122,19 +104,13 @@ class MapViewController : UIViewController, CLLocationManagerDelegate, MKMapView
             let long = location!.longitude
             UIApplication.shared.isNetworkActivityIndicatorVisible = true;
             
-            if(NetworkHelper.isConnectedToNetwork() == false){
+            if(hasNetworkConnection == false){
                 loadDataFromYelp = false
                 showAlert("Network Error", message: "You must have network access to use this app")
+            }else{
+                locationHelper.getLocations(lat, longitude: long, callYelp: loadDataFromYelp, completionHandler:processLocationSearchResults)
             }
-            
-            locationHelper.getLocations(lat, longitude: long, callYelp: loadDataFromYelp, completionHandler:processLocationSearchResults)
         }
-    }
-    
-    func showAlert(_ title: String, message: String){
-        let alertview = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alertview.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
-        present(alertview, animated: true, completion: nil)
     }
     
     func createMKPointAnnotationFromLocation(_ location: Location) -> MKPointAnnotation{

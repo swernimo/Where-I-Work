@@ -13,7 +13,7 @@ import UIKit
 import MapKit
 import Cosmos
 
-class RateLocationViewController : UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDelegate{
+class RateLocationViewController : BaseViewController, UIGestureRecognizerDelegate{
     var location: Location?
     
     @IBOutlet weak var businessName: UILabel!
